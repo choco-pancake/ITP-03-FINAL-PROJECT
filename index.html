@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noerly Idos - Portfolio</title>
+  <style>
+    @font-face {
+      font-family: 'Montserrat';
+      src: url(fonts/Montserrat-VariableFont_wght.ttf);
+    }
+
+    @font-face {
+      font-family: 'Bebas';
+      src: url(fonts/BebasNeue-Regular.ttf);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box; margin: 0; padding: 0;
+    }
+    
+    html { scroll-behavior: smooth; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 30%, #ced4da 70%, #6c757d 100%);
+      color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;opacity: 0;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.loaded {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    body.fade-out {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .hero {
+      flex: 1;
+      min-height: 80vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 30px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
+
+    .text {
+      font-family: 'Montserrat';
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 100px;
+      align-items: center;
+      position: relative;
+    }
+
+    nav a {
+      color: #000000;
+      text-decoration: none;
+      font-size: 20px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      font-weight: 700;
+      color: #003366;
+    }
+
+    .menu-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu-item:hover {
+      cursor: pointer;
+    }
+
+    .menu-item:hover > span:first-child, .menu-item.dropdown-open > span:first-child {
+      font-weight: 700 !important;
+      color: #003366 !important;
+    }
+
+    .menu-item:hover .dropdown-toggle, .menu-item.dropdown-open .dropdown-toggle {
+      font-weight: 800 !important;
+      color: #003366 !important;
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+      font-size: 20px;
+      padding: 4px;
+      transition: transform 0.3s ease, color 0.3s, font-weight 0.3s;
+      color: #003366;
+    }
+
+    .dropdown-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      min-width: 200px;
+      max-height: 280px;
+      overflow-y: auto;
+      border-radius: 14px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      padding: 12px 0;
+      margin-top: 8px;
+      margin-left: 105px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-track {
+      background: #f8fafc;
+      border-radius: 12px;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 12px;
+      border: 2px solid #f8fafc;
+    }
+
+    .dropdown-menu::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #475569;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 15px;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f1f5f9;
+      color: #003366;
+      padding-left: 28px;
+    }
+
+    #my-story-menu, #portfolio-menu {
+      min-width: 220px;
+    }
+
+    #my-story-menu { left: auto !important; }
+    #portfolio-menu { left: auto !important; }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "welcome welcome"
+        "left    right";
+      gap: 80px 40px;
+      align-items: start;
+    }
+
+    .left {
+      grid-area: welcome;
+      display: flex;
+      justify-content: center;
+    }
+
+    .left h1 {
+      grid-area: welcome;
+      font-family: 'Bebas';
+      font-size: 27vw;
+      font-weight: 100;
+      color: transparent;
+      -webkit-text-stroke: 3px #000000;
+      line-height: 0.85;
+      letter-spacing: 25px;
+      margin-top: 100px;
+      text-align: center;
+    }
+
+    .left-section {
+      grid-area: left;
+      align-self: start;
+      margin-top: -100px;
+    }
+
+    .underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0px;
+      width: 100%;
+      height: 2px;
+      background-color: #003366;
+    }
+
+    .left-section h2, .right h2 {
+      font-family: 'Bebas';
+      font-size: 90px;
+      font-weight: 500;
+      background: url('images/background.png') center/cover no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 7px;
+      margin-top: -15px;
+    }
+
+    .left-section p, .right p {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .right {
+      margin-top: -106px;
+      grid-area: right;
+      text-align: right;
+      align-self: start;
+    }
+
+    #cut-part {
+      margin-top: -40px;
+      margin-bottom: -20px;
+      grid-area: right;
+      text-align: right;
+      align-self: start;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 14px 20px;
+      font-family: 'Montserrat';
+      font-size: 1.1rem;
+      font-weight: 400;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s;
+      background: linear-gradient(to right, #00C6FF, #0F70DA);
+      color: white;
+      box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+    }
+
+    .btn:hover {
+      background: #0077cc;
+      transform: translateY(-3px);
+    }
+
+    #right-btn {
+      margin-top: 30px;
+    }
+
+    .crown {
+      position: absolute;
+      top: 73px;
+      left: 50%;
+      transform: translateX(-54%);
+      width: 650px;
+      z-index: 3;
+    }
+
+    footer {
+      font-family: 'Montserrat';
+      font-weight: 500;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ffffff;
+      z-index: 10;
+    }
+
+    .contact-link {
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .contact-link:hover,
+    .contact-link:active {
+      color: #c9c8c8;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .left h1 { font-size: 15vw; }
+      .right { text-align: center; }
+      .crown { top: -60px; width: 140px; }
+    }
+    @media (max-width: 768px) {
+      header { padding: 20px; flex-direction: column; gap: 15px; }
+      nav a { margin: 0 12px; font-size: 1rem; }
+      .left h2, .right h2 { font-size: 3.5rem; }
+      .right h2 { font-size: 3.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="text">
+      <a href="index.html" class="active">HOME</a>
+      
+      <div class="menu-item">
+        <a href="story.html" class="menu-link">MY STORY</a>
+        <span class="dropdown-toggle" onclick="toggleDropdown('my-story-menu')">▴</span>
+        <div class="dropdown-menu" id="my-story-menu">
+          <a href="story.html">Family</a>
+          <a href="#">Elementary</a>
+          <a href="#">Hobbies</a>
+          <a href="#">Highschool</a>
+          <a href="#">College</a>
+          <a href="#">New Events</a>
+        </div>
+      </div>
+
+      <div class="menu-item">
+        <a href="#" class="menu-link">PORTFOLIO</a>
+        <span class="dropdown-toggle" onclick="toggleDropdown('portfolio-menu')">▴</span>
+        <div class="dropdown-menu" id="portfolio-menu">
+          <a href="#">Be my Æ</a>
+          <a href="#">Memory Game</a>
+          <a href="#">Æ and AI</a>
+          <a href="#">Cat Breeds</a>
+          <a href="#">Super Snakes</a>
+          <a href="#">My Portfolio</a>
+          <a href="#">StyleCart</a>
+        </div>
+      </div>
+
+      <a href="#">CONTACT</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img src="images/main-photo.jpg" alt="Crown" class="crown">
+
+    <div class="hero-content">
+      <div class="left">
+        <h1>WELCOME</h1>
+      </div>
+
+      <div class="left-section">
+        <h2 class="underline">I'M NOERLY</h2>
+        <p class="text">an aspiring web developer who<br>carefully contrives, creates and<br>conquers.</p>
+        <div>
+          <a href="story.html" class="btn">Proceed</a>
+        </div>
+      </div>
+
+      <div class="right">
+        <h2>WANT TO SEE</h2>
+        <h2 class="underline" id="cut-part">MORE?</h2>
+        <p class="text"></p>
+        <a href="#" class="btn" id="right-btn">View Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
+  </footer>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+
+      if (href && (href.endsWith('.html') || href.includes('index.html') || href.includes('story.html') || href.startsWith('/'))) {
+        if (!href.startsWith('http') && !href.startsWith('mailto:') && href !== '#') {
+        
+          link.addEventListener('click', function(e) {
+            const target = this.getAttribute('href');
+            if (target === '#') return;
+
+            e.preventDefault();
+
+            document.body.classList.remove('loaded');
+            document.body.classList.add('fade-out');
+
+            setTimeout(() => {
+              window.location.href = target;
+            }, 500);
+          });
+        }
+      }
+    });
+
+    function toggleDropdown(menuId) {
+      const menu = document.getElementById(menuId);
+      const toggle = event.currentTarget;
+      menu.classList.toggle('show');
+      toggle.classList.toggle('open');
+
+      document.querySelectorAll('.dropdown-menu').forEach(m => {
+        if (m.id !== menuId && m.classList.contains('show')) {
+          m.classList.remove('show');
+          m.previousElementSibling.querySelector('.dropdown-toggle')?.classList.remove('open');
+        }
+      });
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.menu-item')) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
+      }
+    });
+  </script>
+</body>
+</html>

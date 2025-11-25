@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Family - My Story</title>
+
+  <style>
+    @font-face {
+      font-family: 'Montserrat';
+      src: url(fonts/Montserrat-VariableFont_wght.ttf);
+    }
+
+    @font-face {
+      font-family: 'Bebas';
+      src: url(fonts/BebasNeue-Regular.ttf);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #a0d8ef);
+      color: #003366;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.loaded {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    body.fade-out {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.98);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100px;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .logo-box {
+      position: fixed;
+      left: 90px;
+      top: 50%;
+      transform: translateY(-40%);
+      background: white;
+      border: 2.5px solid #003366;
+      margin-top: -8px;
+      padding: 0 15px;
+      padding-top: 5px;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0,51,102,0.12);
+      z-index: 1001;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .logo-my {
+      font-family: 'Bebas';
+      font-size: 35px;
+      color: #003366;
+    }
+
+    .navbar-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      pointer-events: none;
+    }
+
+    .navbar-container nav {
+      pointer-events: all;
+      display: flex;
+      align-items: center;
+      gap: 90px;
+      font-size: 21px;
+      flex-wrap: nowrap;
+    }
+
+    .text {
+      font-family: 'Montserrat';
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    .text a {
+      text-decoration: none;
+      color: #003366;
+      transition: all 0.3s;
+    }
+
+    .text a:hover { font-weight: 700; }
+
+    nav a:hover, nav a.active {
+      font-weight: 700;
+      color: #003366;
+    }
+
+    .menu-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .menu-link {
+      text-decoration: none;
+      color: #003366;
+      cursor: pointer;
+    }
+
+    .menu-item {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-item:hover > span:first-child, .menu-item.dropdown-open > span:first-child {
+      font-weight: 700 !important;
+      color: #003366 !important;
+    }
+
+    .dropdown-toggle {
+      font-size: 22px;
+      padding: 2px 4px;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-toggle.open, .menu-item:hover .dropdown-toggle {
+      opacity: 1;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      min-width: 200px;
+      max-height: 280px;
+      overflow-y: auto;
+      border-radius: 14px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      padding: 12px 0;
+      margin-top: 8px;
+    }
+
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: #475569;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f1f5f9;
+      color: #003366;
+      padding-left: 28px;
+    }
+
+    #my-story-menu, #portfolio-menu { min-width: 220px; }
+    #my-story-menu { left: 100px !important; }
+    #portfolio-menu { left: 100px !important; }
+
+    .nav-underline {
+      position: absolute;
+      bottom: 0;
+      left: 60px;
+      right: 60px;
+      height: 2.5px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(93, 105, 118, 0.4) 8%,
+        #5d6976 25%,
+        #003366 50%,
+        #5d6976 75%,
+        rgba(93, 105, 118, 0.4) 92%,
+        transparent 100%
+      );
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .sidebar-banner {
+      position: fixed;
+      left: 50px;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      z-index: 9;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 0;
+    }
+
+    .sidebar-title {
+      display: block;
+      text-decoration: none;
+      cursor: pointer;  
+      font-family: 'Bebas', sans-serif;
+      font-size: 80px;
+      letter-spacing: 4px;
+      margin: 45px 0 0 0;
+      padding: 0 40px;
+      background: url(images/background.png) center/cover no-repeat;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 0 40px;
+      flex: 1;
+    }
+
+    .sidebar-menu a {
+      font-family: 'Bebas';
+      font-size: 30px;
+      font-weight: 500;
+      color: #003366;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+      padding-left: 0;
+    }
+
+    .sidebar-menu a:hover, .sidebar-menu a.active {
+      opacity: 1;
+      font-weight: 400;
+      padding-left: 8px;
+    }
+
+    .progress-container {
+      position: absolute;
+      bottom: 20px;
+      left: 38%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 800px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 5.263%; /* 1/19 = ~5.263% */
+      background: linear-gradient(to right, #00C6FF, #0077B6);
+      border-radius: 3px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    a, button, .add-to-story-btn {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+
+    .add-to-story-btn, .hero-section .overlay-card .btn-group button {
+      border: none;
+      cursor: pointer;
+      z-index: 99;
+      margin-top: -5px;
+      padding: 14px 20px;
+      font-family: 'Montserrat';
+      font-size: 1.1rem;
+      font-weight: 400;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      background: linear-gradient(to right, #00C6FF, #0F70DA);
+      color: white;
+      box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+    }
+
+    .hero-section .overlay-card .btn-group button {
+      font-size: 1rem;
+      padding: 10px 16px;
+    }
+
+    .add-to-story-btn:hover, .hero-section .overlay-card .btn-group button:hover {
+      background: linear-gradient(to right, #0087dd, #005bb5);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0,153,255,0.45);
+    }
+
+    .top-right-cta {
+      position: fixed;
+      top: 130px;
+      right: 80px;
+      z-index: 100;
+    }
+
+    main {
+      margin-left: 280px;
+      padding: 140px 80px 80px;
+      position: relative;
+    }
+
+    .hero-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      position: relative;
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 580px;
+      margin-left: 225px;
+      overflow: hidden;
+      box-shadow: 0 10px 60px rgba(0,0,0,0.22);
+      flex-shrink: 0;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .overlay-card {
+      position: absolute;
+      left: 5px;
+      bottom: 140px;  
+      background: linear-gradient(to bottom, #003366 0%, #0077B6 100%);  
+      color: white;
+      padding: 30px 30px;
+      max-width: 350px;
+      border-radius: 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .overlay-card h2 {
+      font-family: 'Bebas', sans-serif;
+      font-size: 48px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      line-height: 1;
+      color: white;
+      position: relative;
+    }
+
+    .overlay-card h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: white;
+      margin-top: 14px;
+      border-radius: 2px;
+      opacity: 0.9;
+    }
+
+    .overlay-card p {
+      font-size: 14px;
+      line-height: 1.65;
+      opacity: 0.95;
+      margin-top: 10px;
+    }
+
+    .overlay-card .btn-group {
+      display: flex;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .overlay-card .btn-group button {
+      background: rgba(255,255,255,0.22);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .overlay-card button:hover:not(:disabled) {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    .overlay-card button:disabled {
+      background: rgba(255, 255, 255, 0.12) !important;
+      color: rgba(255, 255, 255, 0.5) !important;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none;
+    }
+
+    .overlay-card button:disabled:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+      transform: none !important;
+    }
+
+    footer {
+      margin-top: -80px;
+      margin-bottom: -20px;
+      text-align: center;
+      color: #003366;
+      font-weight: 500;
+      z-index: 100;
+    }
+
+    footer span {
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.25s, font-weight 0.25s;
+    }
+
+    footer span:hover { 
+      color: #00264c;
+      font-weight: 700;
+    }
+
+    .sidebar-banner .add-to-story-btn {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      header { height: 110px; }
+      .nav-underline { left: 40px; right: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      header { height: 100px; }
+      .nav-underline { left: 20px; right: 20px; height: 2px; }
+    }
+
+    @media (max-width: 1024px) {
+      .sidebar-banner { width: 220px; }
+      main, footer { margin-left: 220px; }
+      .sidebar-title { font-size: 60px; }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-banner {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 20px;
+      }
+      .sidebar-title {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 40px;
+        margin: 0 30px 0 0;
+      }
+      .sidebar-menu {
+        flex-direction: row;
+        gap: 20px;
+        padding: 0;
+        overflow-x: auto;
+      }
+      .add-to-story-btn {
+        margin: 0 0 0 auto;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      main, footer {
+        margin-left: 0;
+        padding-top: 120px;
+      }
+      .top-right-cta { display: none; }
+      .sidebar-banner .add-to-story-btn { display: block; }
+    }
+
+    @media (max-width: 1024px) {
+      .top-right-cta {
+        top: 110px;
+        right: 60px;
+      }
+      .add-to-story-btn {
+        padding: 14px 28px;
+        font-size: 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-right-cta {
+        top: 100px;
+        right: 20px;
+      }
+      .add-to-story-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .top-right-cta { top: 110px; right: 60px; }
+    }
+    @media (max-width: 768px) {
+      .top-right-cta { display: none; }
+    }
+
+    @media (max-width: 1200px) {
+      .navbar-container nav {
+        gap: 70px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .navbar-container nav {
+        gap: 50px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-container nav {
+        gap: 30px;
+        font-size: 18px;
+      }
+      .dropdown-toggle { font-size: 20px; }
+    }
+
+    @media (max-width: 1200px) {
+      .hero-image { max-width: 600px; }
+      .overlay-card { max-width: 340px; padding: 32px 38px; }
+      .overlay-card h2 { font-size: 60px; }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-section { padding-top: 40px; gap: 30px; }
+      .hero-image { max-width: 550px; }
+      .top-right-cta { top: 120px; right: 60px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+      }
+      .hero-image {
+        max-width: 90%;
+        order: 1;
+      }
+      .overlay-card h2::after {
+        width: 60px;
+        height: 2.5px;
+        margin-top: 12px;
+      }
+      .top-right-cta { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .progress-container { width: 95%; bottom: 15px; }
+      .overlay-card { 
+        position: static; 
+        max-width: 90%; 
+        margin: 40px auto 80px;
+        text-align: center;
+      }
+      .hero-section { flex-direction: column; align-items: center; padding-bottom: 120px; }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-box">
+      <span class="logo-my">MY STORY</span>
+    </div>
+
+    <div class="navbar-container">
+      <nav class="text">
+        <a href="index.html">HOME</a>
+
+        <div class="menu-item">
+          <a href="story.html" class="menu-link active">MY STORY</a>
+          <span class="dropdown-toggle" onclick="toggleDropdown('my-story-menu')">▴</span>
+          <div class="dropdown-menu" id="my-story-menu">
+            <a href="story.html">Family</a>
+            <a href="#">Elementary</a>
+            <a href="#">Hobbies</a>
+            <a href="#">Highschool</a>
+            <a href="#">College</a>
+            <a href="#">New Events</a>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <a href="#" class="menu-link">PORTFOLIO</a>
+          <span class="dropdown-toggle" onclick="toggleDropdown('portfolio-menu')">▴</span>
+          <div class="dropdown-menu" id="portfolio-menu">
+            <a href="#">Be my Æ</a>
+            <a href="#">Memory Game</a>
+            <a href="#">Æ and AI</a>
+            <a href="#">Cat Breeds</a>
+            <a href="#">Super Snakes</a>
+            <a href="#">My Portfolio</a>
+            <a href="#">StyleCart</a>
+          </div>
+        </div>
+
+        <a href="#">CONTACT</a>
+      </nav>
+    </div>
+    <div class="nav-underline"></div>
+  </header>
+
+  <div class="sidebar-banner">
+    <a href="story.html" class="sidebar-title">FAMILY</a>
+    <nav class="sidebar-menu">
+      <a href="#elementary">Elementary</a>
+      <a href="#hobbies">Hobbies</a>
+      <a href="#highschool">Highschool</a>
+      <a href="#college">College</a>
+      <a href="#new-events">New Events</a>
+    </nav>
+    <button class="add-to-story-btn">Add to Story</button>
+  </div>
+
+  <main>
+    <div class="top-right-cta">
+      <button class="add-to-story-btn">Add to Story</button>
+    </div>
+
+    <section class="hero-section">
+      <div class="hero-image">
+        <img src="images/idos-garcia.jpg" alt="My Family">
+      </div>
+      <div class="overlay-card">
+        <h2>MY FAMILY</h2>
+        <p>I am Noerly Yvonne Mae G. Idos, born into a family of four by Noel and Merly G. Idos.</p>
+        <div class="btn-group">
+          <button class="prev-btn" disabled>Previous</button>
+          <button class="next-btn">Next</button>
+        </div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Noerly Idos · <span>Get in touch</span>
+  </footer>
+
+  <script>
+    const totalSections = 19;
+    let currentSection = 1;
+
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    function updateProgress() {
+      const percentage = (currentSection / totalSections) * 100;
+      progressBar.style.width = percentage + '%';
+      prevBtn.disabled = currentSection === 1;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentSection < totalSections) {
+        currentSection++;
+        updateProgress();
+        // Later: load next content here
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentSection > 1) {
+        currentSection--;
+        updateProgress();
+        // Later: load previous content
+      }
+    });
+
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+      updateProgress();
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+
+      if (href && (
+        href.endsWith('.html') || 
+        href.includes('index.html') || 
+        href.includes('story.html') || 
+        href.startsWith('/') || 
+        href.startsWith('#') === false
+      )) {
+        if (!href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('javascript:')) {
+          link.addEventListener('click', function(e) {
+            const target = this.getAttribute('href');
+            if (target === '#' || target.startsWith('#')) return;
+
+            e.preventDefault();
+            document.body.classList.remove('loaded');
+            document.body.classList.add('fade-out');
+
+            setTimeout(() => {
+              window.location.href = target;
+            }, 700);
+          });
+        }
+      }
+    });
+
+    function toggleDropdown(menuId) {
+      const menu = document.getElementById(menuId);
+      const toggle = event.target;
+      const menuItem = toggle.closest('.menu-item');
+
+      document.querySelectorAll('.dropdown-menu').forEach(m => {
+        if (m.id !== menuId) m.classList.remove('show');
+      });
+      document.querySelectorAll('.dropdown-toggle').forEach(t => {
+        if (t !== toggle) t.classList.remove('open');
+      });
+      document.querySelectorAll('.menu-item').forEach(mi => {
+        if (mi !== menuItem) mi.classList.remove('dropdown-open');
+      });
+
+      menu.classList.toggle('show');
+      toggle.classList.toggle('open');
+      menuItem.classList.toggle('dropdown-open');
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.menu-item')) {
+        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
+        document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('dropdown-open'));
+      }
+    });
+  </script>
+</body>
+</html>
