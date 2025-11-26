@@ -413,6 +413,32 @@
 
     .form-group textarea { height: 120px; resize: none; }
 
+    .photo-preview {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.photo-preview img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+}
+
+.photo-preview .change-photo {
+  margin-top: 12px;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
     .upload-area-wrapper {
       margin-bottom: 24px;
       margin-top: 20px;
@@ -476,6 +502,14 @@
       margin: 0;
       opacity: 0.95;
     }
+
+    .upload-area:hover .photo-preview .change-photo {
+  opacity: 1;
+}
+
+.upload-area:hover .photo-preview img {
+  transform: scale(1.02);
+}
 
     .panel-btn-group {
       display: flex;
@@ -943,7 +977,8 @@
 
     <div class="form-group upload-area-wrapper">
       <label>Photo (Optional)</label>
-      <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+      <!--<div class="upload-area" onclick="document.getElementById('photoInput').click()">-->
+      <div class="upload-area">  
         <div class="upload-icon">
           <img src="images/upload.png" alt="Upload Photo">
         </div>
@@ -963,120 +998,211 @@
   </footer>
 
   <script>
-    const totalSections = 19;
-    let currentSection = 1;
+  const totalSections = 19;
+  let currentSection = 1;
 
-    const progressBar = document.getElementById('progressBar');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
+  const progressBar = document.getElementById('progressBar');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
 
-    function updateProgress() {
-      const percentage = (currentSection / totalSections) * 100;
-      progressBar.style.width = percentage + '%';
-      prevBtn.disabled = currentSection === 1;
-    }
+  function updateProgress() {
+    const percentage = (currentSection / totalSections) * 100;
+    progressBar.style.width = percentage + '%';
+    prevBtn.disabled = currentSection === 1;
+  }
 
-    nextBtn.addEventListener('click', () => {
-      if (currentSection < totalSections) {
-        currentSection++;
-        updateProgress();
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentSection > 1) {
-        currentSection--;
-        updateProgress();
-      }
-    });
-
-    window.addEventListener('load', () => {
-      document.body.classList.add('loaded');
+  nextBtn.addEventListener('click', () => {
+    if (currentSection < totalSections) {
+      currentSection++;
       updateProgress();
-    });
-
-    document.querySelectorAll('a[href]').forEach(link => {
-      const href = link.getAttribute('href');
-
-      if (href && (
-        href.endsWith('.html') || 
-        href.includes('index.html') || 
-        href.includes('story.html') || 
-        href.startsWith('/') || 
-        href.startsWith('#') === false
-      )) {
-        if (!href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('javascript:')) {
-          link.addEventListener('click', function(e) {
-            const target = this.getAttribute('href');
-            if (target === '#' || target.startsWith('#')) return;
-
-            e.preventDefault();
-            document.body.classList.remove('loaded');
-            document.body.classList.add('fade-out');
-
-            setTimeout(() => {
-              window.location.href = target;
-            }, 700);
-          });
-        }
-      }
-    });
-
-    function toggleDropdown(menuId) {
-      const menu = document.getElementById(menuId);
-      const toggle = event.target;
-      const menuItem = toggle.closest('.menu-item');
-
-      document.querySelectorAll('.dropdown-menu').forEach(m => {
-        if (m.id !== menuId) m.classList.remove('show');
-      });
-      document.querySelectorAll('.dropdown-toggle').forEach(t => {
-        if (t !== toggle) t.classList.remove('open');
-      });
-      document.querySelectorAll('.menu-item').forEach(mi => {
-        if (mi !== menuItem) mi.classList.remove('dropdown-open');
-      });
-
-      menu.classList.toggle('show');
-      toggle.classList.toggle('open');
-      menuItem.classList.toggle('dropdown-open');
     }
+  });
 
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.menu-item')) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
-        document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
-        document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('dropdown-open'));
+  prevBtn.addEventListener('click', () => {
+    if (currentSection > 1) {
+      currentSection--;
+      updateProgress();
+    }
+  });
+
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    updateProgress();
+  });
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && (href.endsWith('.html') || href.includes('index.html') || href.includes('story.html') || href.startsWith('/') || href.startsWith('#') === false)) {
+      if (!href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('javascript:')) {
+        link.addEventListener('click', function(e) {
+          const target = this.getAttribute('href');
+          if (target === '#' || target.startsWith('#')) return;
+          e.preventDefault();
+          document.body.classList.remove('loaded');
+          document.body.classList.add('fade-out');
+          setTimeout(() => { window.location.href = target; }, 700);
+        });
       }
+    }
+  });
+
+  function toggleDropdown(menuId) {
+    const menu = document.getElementById(menuId);
+    const toggle = event.target;
+    const menuItem = toggle.closest('.menu-item');
+    document.querySelectorAll('.dropdown-menu').forEach(m => { if (m.id !== menuId) m.classList.remove('show'); });
+    document.querySelectorAll('.dropdown-toggle').forEach(t => { if (t !== toggle) t.classList.remove('open'); });
+    document.querySelectorAll('.menu-item').forEach(mi => { if (mi !== menuItem) mi.classList.remove('dropdown-open'); });
+    menu.classList.toggle('show');
+    toggle.classList.toggle('open');
+    menuItem.classList.toggle('dropdown-open');
+  }
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.menu-item')) {
+      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
+      document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
+      document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('dropdown-open'));
+    }
+  });
+
+  const overlay = document.getElementById('addStoryOverlay');
+  const panel = document.getElementById('addStoryPanel');
+  const buttons = document.querySelectorAll('.add-to-story-btn');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      overlay.classList.toggle('active');
+      panel.classList.toggle('active');
     });
+  });
 
-    const overlay = document.getElementById('addStoryOverlay');
-    const panel   = document.getElementById('addStoryPanel');
-    const buttons = document.querySelectorAll('.add-to-story-btn');
+  overlay.addEventListener('click', () => {
+    overlay.classList.remove('active');
+    panel.classList.remove('active');
+  });
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        overlay.classList.toggle('active');
-        panel.classList.toggle('active');
-      });
-    });
+  document.getElementById('closePanelBtn').addEventListener('click', () => {
+    overlay.classList.remove('active');
+    panel.classList.remove('active');
+  });
 
-    overlay.addEventListener('click', () => {
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel.classList.contains('active')) {
       overlay.classList.remove('active');
       panel.classList.remove('active');
-    });
+    }
+  });
 
-    document.getElementById('closePanelBtn').addEventListener('click', () => {
-  overlay.classList.remove('active');
-  panel.classList.remove('active');
-});
+  // ========== PHOTO UPLOAD & PREVIEW (FIXED - NO DOUBLE DIALOG) ==========
+  const photoInput = document.getElementById('photoInput');
+  const uploadArea = document.querySelector('.upload-area');
+  const uploadIcon = uploadArea.querySelector('.upload-icon');
+  const uploadText = uploadArea.querySelector('p');
+  let currentPhotoFile = null;
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && panel.classList.contains('active')) {
-        overlay.classList.remove('active');
-        panel.classList.remove('active');
+  // When a file is selected
+  photoInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) {
+      removePreview();
+      return;
+    }
+
+    currentPhotoFile = file;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      uploadIcon.style.display = 'none';
+      uploadText.style.display = 'none';
+
+      let preview = uploadArea.querySelector('.photo-preview');
+      if (!preview) {
+        preview = document.createElement('div');
+        preview.className = 'photo-preview';
+        uploadArea.prepend(preview);
       }
-    });
-  </script>
+
+      preview.innerHTML = `
+        <img src="${event.target.result}" alt="Selected photo">
+        <div class="change-photo">Change Photo</div>
+      `;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Click handling - prevents double trigger
+  uploadArea.addEventListener('click', function(e) {
+    // If clicking "Change Photo"
+    if (e.target.closest('.change-photo')) {
+      e.stopPropagation();  // This stops the double trigger!
+      photoInput.click();
+      return;
+    }
+
+    // If no photo yet - open file picker
+    if (!uploadArea.querySelector('.photo-preview')) {
+      photoInput.click();
+    }
+  });
+
+  function removePreview() {
+    const preview = uploadArea.querySelector('.photo-preview');
+    if (preview) preview.remove();
+    uploadIcon.style.display = 'grid';
+    uploadText.style.display = 'block';
+    currentPhotoFile = null;
+  }
+
+  window.closePanel = function() {
+    overlay.classList.remove('active');
+    panel.classList.remove('active');
+  };
+
+  // ========== SUBMIT BUTTON - FIXED TO USE currentPhotoFile ==========
+  document.querySelector('.panel-btn.submit').addEventListener('click', function() {
+    const title = document.querySelector('#title-group input').value.trim();
+    const description = document.querySelector('#desc-group textarea').value.trim();
+
+    if (!title || !description) {
+      alert('Please fill in Title and Description!');
+      return;
+    }
+
+    const file = currentPhotoFile;
+
+    if (file) {
+      const txtContent = `=== NEW STORY ===\nDate: ${new Date().toLocaleString()}\nTitle: ${title}\nDescription: ${description}\nPhoto: Yes (saved as ${file.name})\n\n`;
+      
+      const aTxt = document.createElement('a');
+      aTxt.href = URL.createObjectURL(new Blob([txtContent], {type: 'text/plain'}));
+      aTxt.download = `story-${new Date().toISOString().slice(0,10)}.txt`;
+      aTxt.click();
+
+      const aImg = document.createElement('a');
+      aImg.href = URL.createObjectURL(file);
+      aImg.download = file.name;
+      aImg.click();
+
+      alert('Story + Photo saved perfectly!');
+    } else {
+      const txtContent = `=== NEW STORY ===\nDate: ${new Date().toLocaleString()}\nTitle: ${title}\nDescription: ${description}\nPhoto: No\n\n`;
+      const blob = new Blob([txtContent], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `story-${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      alert('Story saved! (No photo)');
+    }
+
+    // Reset form
+    document.querySelector('#title-group input').value = '';
+    document.querySelector('#desc-group textarea').value = '';
+    photoInput.value = '';
+    removePreview();
+    closePanel();
+  });
+</script>
 </body>
 </html>
