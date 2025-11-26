@@ -210,16 +210,7 @@
       left: 60px;
       right: 60px;
       height: 2.5px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        rgba(93, 105, 118, 0.4) 8%,
-        #5d6976 25%,
-        #003366 50%,
-        #5d6976 75%,
-        rgba(93, 105, 118, 0.4) 92%,
-        transparent 100%
-      );
+      background: linear-gradient(to right, transparent 0%, rgba(93, 105, 118, 0.4) 8%, #5d6976 25%, #003366 50%, #5d6976 75%, rgba(93, 105, 118, 0.4) 92%, transparent 100%);
       border-radius: 2px;
       pointer-events: none;
     }
@@ -295,7 +286,7 @@
 
     .progress-bar {
       height: 100%;
-      width: 5.263%; /* 1/19 = ~5.263% */
+      width: 5.263%;
       background: linear-gradient(to right, #00C6FF, #0077B6);
       border-radius: 3px;
       transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -338,7 +329,7 @@
       padding: 10px 16px;
     }
 
-    .add-to-story-btn:hover, .hero-section .overlay-card .btn-group button:hover {
+    .add-to-story-btn:hover, .hero-section .overlay-card .btn-group button:hover, .close-panel-btn:hover {
       background: linear-gradient(to right, #0087dd, #005bb5);
       transform: translateY(-4px);
       box-shadow: 0 15px 35px rgba(0,153,255,0.45);
@@ -349,6 +340,168 @@
       top: 130px;
       right: 80px;
       z-index: 100;
+    }
+
+    .add-story-overlay {
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 1999;
+    }
+
+    .add-story-overlay.active { opacity: 1; visibility: visible; }
+
+    .add-story-panel {
+      position: fixed;
+      top: 0;
+      right: -520px;
+      width: 480px;
+      height: 100%;
+      background: linear-gradient(135deg, #00C6FF, #0077B6);
+      opacity: 80%;
+      box-shadow: -10px 0 40px rgba(0,0,0,0.4);
+      z-index: 2000;
+      padding: 50px 40px;
+      color: white;
+      transition: right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow-y: auto;
+    }
+
+    .add-story-panel.active { right: 0; }
+
+    .add-story-panel h2 {
+      font-family: 'Bebas', sans-serif;
+      font-size: 46px;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+    }
+
+    .form-group { margin-bottom: 24px; }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.22);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+    }
+
+    .form-group input::placeholder, .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .form-group textarea { height: 120px; resize: none; }
+
+    .upload-area {
+      border: 3px dashed rgba(255,255,255,0.5);
+      border-radius: 16px;
+      padding: 50px 20px;
+      text-align: center;
+      margin: 30px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .upload-area:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
+    }
+
+    .upload-area .icon {
+      font-size: 56px;
+      margin-bottom: 12px;
+    }
+
+    .panel-btn-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .panel-btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .panel-btn.redo {
+      background: rgba(255,255,255,0.25);
+      color: white;
+    }
+
+    .panel-btn.submit {
+      background: white;
+      color: #0077B6;
+    }
+
+    .panel-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .close-panel-btn {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(#E5F6FF, #A1D8FF);
+      border: none;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .close-panel-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .close-panel-btn:hover img, .close-panel-btn:active img {
+      content: url("images/back-white.png");
+    }
+
+    .close-panel-btn img {
+      width: 28px;
+      height: 28px;
+      transform: scaleX(-1);
+      transition: transform 0.3s ease;
+      margin-right: 4px;
+    }
+
+    .panel-header h2 {
+      font-family: 'Bebas';
+      font-size: 60px;
+      font-weight: 400;
+      margin: 0;
+      flex: 1;
     }
 
     main {
@@ -488,9 +641,7 @@
     @media (max-width: 1024px) {
       header { height: 110px; }
       .nav-underline { left: 40px; right: 40px; }
-    }
-
-    @media (max-width: 768px) {
+    } @media (max-width: 768px) {
       header { height: 100px; }
       .nav-underline { left: 20px; right: 20px; height: 2px; }
     }
@@ -499,9 +650,7 @@
       .sidebar-banner { width: 220px; }
       main, footer { margin-left: 220px; }
       .sidebar-title { font-size: 60px; }
-    }
-
-    @media (max-width: 768px) {
+    } @media (max-width: 768px) {
       .sidebar-banner {
         width: 100%;
         height: auto;
@@ -566,16 +715,12 @@
       .navbar-container nav {
         gap: 70px;
       }
-    }
-
-    @media (max-width: 1024px) {
+    } @media (max-width: 1024px) {
       .navbar-container nav {
         gap: 50px;
         font-size: 20px;
       }
-    }
-
-    @media (max-width: 768px) {
+    } @media (max-width: 768px) {
       .navbar-container nav {
         gap: 30px;
         font-size: 18px;
@@ -624,6 +769,11 @@
       .hero-section { flex-direction: column; align-items: center; padding-bottom: 120px; }
     }
 
+    @media (max-width: 768px) {
+      .add-story-panel { width: 100%; right: -100%; padding: 40px 20px; }
+      .add-story-panel h2 { font-size: 38px; }
+    }
+
     @keyframes shimmer {
       0% { transform: translateX(-100%); }
       100% { transform: translateX(100%); }
@@ -631,7 +781,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo-box">
       <span class="logo-my">MY STORY</span>
@@ -710,6 +859,38 @@
     </section>
   </main>
 
+  <div class="add-story-overlay" id="addStoryOverlay"></div>
+
+  <div class="add-story-panel" id="addStoryPanel">
+  <div class="panel-header">
+    <button class="close-panel-btn" id="closePanelBtn">
+      <img src="images/back.png" alt="Close">
+    </button>
+    <h2>ADD TO STORY</h2>
+  </div>
+
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" placeholder="Enter title">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea placeholder="Write your story..."></textarea>
+    </div>
+
+    <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+      <div class="icon">Photo Upload</div>
+      <p>Click here to upload your photo.</p>
+      <input type="file" id="photoInput" accept="image/*" style="display:none;">
+    </div>
+
+    <div class="panel-btn-group">
+      <button class="panel-btn redo">Redo</button>
+      <button class="panel-btn submit">Submit</button>
+    </div>
+  </div>
+
   <footer>
     © 2025 Noerly Idos · <span>Get in touch</span>
   </footer>
@@ -732,7 +913,6 @@
       if (currentSection < totalSections) {
         currentSection++;
         updateProgress();
-        // Later: load next content here
       }
     });
 
@@ -740,7 +920,6 @@
       if (currentSection > 1) {
         currentSection--;
         updateProgress();
-        // Later: load previous content
       }
     });
 
@@ -801,6 +980,34 @@
         document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
         document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
         document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('dropdown-open'));
+      }
+    });
+
+    const overlay = document.getElementById('addStoryOverlay');
+    const panel   = document.getElementById('addStoryPanel');
+    const buttons = document.querySelectorAll('.add-to-story-btn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        overlay.classList.toggle('active');
+        panel.classList.toggle('active');
+      });
+    });
+
+    overlay.addEventListener('click', () => {
+      overlay.classList.remove('active');
+      panel.classList.remove('active');
+    });
+
+    document.getElementById('closePanelBtn').addEventListener('click', () => {
+  overlay.classList.remove('active');
+  panel.classList.remove('active');
+});
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && panel.classList.contains('active')) {
+        overlay.classList.remove('active');
+        panel.classList.remove('active');
       }
     });
   </script>
