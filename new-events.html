@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Events | My Story</title>
+  <link rel="stylesheet" href="story-style.css"> <!-- Reuse your existing CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+  <!-- SAME HEADER AS story.html -->
+  <header>
+    <div class="logo-box">
+      <span class="logo-my">MY STORY</span>
+    </div>
+
+    <div class="navbar-container">
+      <nav class="text">
+        <a href="index.html">HOME</a>
+
+        <div class="menu-item">
+          <a href="story.html" class="menu-link active">MY STORY</a>
+          <span class="dropdown-toggle" onclick="toggleDropdown('my-story-menu')">Down Arrow</span>
+          <div class="dropdown-menu" id="my-story-menu">
+            <a href="story.html">Family</a>
+            <a href="story.html#elementary">Elementary</a>
+            <a href="story.html#hobbies">Hobbies</a>
+            <a href="story.html#highschool">Highschool</a>
+            <a href="story.html#college">College</a>
+            <a href="new-events.html">New Events</a>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <a href="#" class="menu-link">PORTFOLIO</a>
+          <span class="dropdown-toggle" onclick="toggleDropdown('portfolio-menu')">Down Arrow</span>
+          <div class="dropdown-menu" id="portfolio-menu">
+            <a href="#">Be my Æ</a>
+            <a href="#">Memory Game</a>
+            <a href="#">Æ and AI</a>
+            <a href="#">Cat Breeds</a>
+            <a href="#">Super Snakes</a>
+            <a href="#">My Portfolio</a>
+            <a href="#">StyleCart</a>
+          </div>
+        </div>
+
+        <a href="#">CONTACT</a>
+      </nav>
+    </div>
+    <div class="nav-underline"></div>
+  </header>
+
+  <!-- SIDEBAR: Title = "NEW EVENTS", Active link = New Events -->
+  <div class="sidebar-banner">
+    <a href="new-events.html" class="sidebar-title">NEW EVENTS</a>
+    <nav class="sidebar-menu">
+      <a href="story.html#family">Family</a>
+      <a href="story.html#elementary">Elementary</a>
+      <a href="story.html#hobbies">Hobbies</a>
+      <a href="story.html#highschool">Highschool</a>
+      <a href="story.html#college">College</a>
+      <a href="new-events.html" class="active">New Events</a>
+    </nav>
+    <button class="add-to-story-btn">Add to Story</button>
+  </div>
+
+  <!-- MAIN CONTENT: Exactly like story.html but NO .hero-section -->
+  <main>
+    <div class="top-right-cta">
+      <button class="add-to-story-btn">Add to Story</button>
+    </div>
+
+    <!-- Empty clean space — ready for future events -->
+    <div style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #003366; text-align: center; padding: 0 100px;">
+      <h1 style="font-family: 'Bebas', sans-serif; font-size: 120px; letter-spacing: 6px; opacity: 0.9; margin-bottom: 20px;">
+        NEW EVENTS
+      </h1>
+      <p style="font-size: 28px; opacity: 0.8; margin-bottom: 20px;">
+        No new events added yet.
+      </p>
+      <p style="font-size: 18px; opacity: 0.6; max-width: 600px;">
+        Click “Add to Story” to share your latest life moments.
+      </p>
+    </div>
+
+    <!-- Progress bar (keeps consistency) -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </main>
+
+  <!-- SAME ADD STORY PANEL -->
+  <div class="add-story-overlay" id="addStoryOverlay"></div>
+
+  <div class="add-story-panel" id="addStoryPanel">
+    <div class="panel-header">
+      <button class="close-panel-btn" id="closePanelBtn">
+        <img src="images/back.png" alt="Close">
+      </button>
+      <h2>ADD TO STORY</h2>
+    </div>
+
+    <div class="form-group" id="title-group">
+      <label>Title</label>
+      <input type="text" placeholder="Enter title">
+    </div>
+
+    <div class="form-group" id="desc-group">
+      <label>Description</label>
+      <textarea placeholder="Write your story..."></textarea>
+    </div>
+
+    <div class="form-group upload-area-wrapper">
+      <label>Photo (Optional)</label>
+      <div class="upload-area">  
+        <div class="upload-icon">
+          <img src="images/upload.png" alt="Upload Photo">
+        </div>
+        <p>Click here to upload your photo.</p>
+        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+      </div>
+    </div>
+
+    <div class="panel-btn-group">
+      <button class="panel-btn redo">Redo</button>
+      <button class="panel-btn submit">Submit</button>
+    </div>
+  </div>
+
+  <!-- SAME FOOTER -->
+  <footer>
+    © 2025 Noerly Idos · <span>Get in touch</span>
+  </footer>
+
+  <!-- Reuse your existing script -->
+  <script src="story-script.js"></script>
+
+  <!-- Fade-in effect -->
+  <script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+    });
+  </script>
+</body>
+</html>
