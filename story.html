@@ -72,7 +72,7 @@
       </div>
       <div class="overlay-card">
         <h2>MY FAMILY</h2>
-        <p>I am Noerly Yvonne Mae G. Idos, born into a family of four by Noel and Merly G. Idos.</p>
+        <p>I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan by Noel and Merly G. Idos.</p>
         <div class="btn-group">
           <button class="prev-btn" disabled>Previous</button>
           <button class="next-btn">Next</button>
@@ -88,21 +88,27 @@
   <div class="add-story-overlay" id="addStoryOverlay"></div>
 
   <div class="add-story-panel" id="addStoryPanel">
-  <div class="panel-header">
-    <button class="close-panel-btn" id="closePanelBtn">
-      <img src="images/back.png" alt="Close">
-    </button>
-    <h2>ADD TO STORY</h2>
-  </div>
+    <div class="panel-header">
+      <button class="close-panel-btn" id="closePanelBtn">
+        <img src="images/back.png" alt="Close">
+      </button>
+      <h2>ADD TO STORY</h2>
+    </div>
 
     <div class="form-group" id="title-group">
-      <label>Title</label>
-      <input type="text" placeholder="Enter title">
+      <div class="label-with-counter">
+        <label>Title</label>
+        <span class="char-counter" id="titleCounter">0 / 14</span>
+      </div>
+      <input type="text" id="titleInput" maxlength="14" placeholder="Enter title">
     </div>
 
     <div class="form-group" id="desc-group">
-      <label>Description</label>
-      <textarea placeholder="Write your story..."></textarea>
+      <div class="label-with-counter">
+        <label>Description</label>
+        <span class="char-counter" id="descCounter">0 / 267</span>
+      </div>
+      <textarea id="descInput" maxlength="267" placeholder="Write your story..."></textarea>
     </div>
 
     <div class="form-group upload-area-wrapper">

@@ -4,12 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>New Events | My Story</title>
-  <link rel="stylesheet" href="story-style.css"> <!-- Reuse your existing CSS -->
+  <link rel="stylesheet" href="story-style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
-
-  <!-- SAME HEADER AS story.html -->
   <header>
     <div class="logo-box">
       <span class="logo-my">MY STORY</span>
@@ -52,7 +50,6 @@
     <div class="nav-underline"></div>
   </header>
 
-  <!-- SIDEBAR: Title = "NEW EVENTS", Active link = New Events -->
   <div class="sidebar-banner">
     <a href="new-events.html" class="sidebar-title">NEW EVENTS</a>
     <nav class="sidebar-menu">
@@ -66,13 +63,11 @@
     <button class="add-to-story-btn">Add to Story</button>
   </div>
 
-  <!-- MAIN CONTENT: Exactly like story.html but NO .hero-section -->
   <main>
     <div class="top-right-cta">
       <button class="add-to-story-btn">Add to Story</button>
     </div>
 
-    <!-- Empty clean space — ready for future events -->
     <div style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #003366; text-align: center; padding: 0 100px;">
       <h1 style="font-family: 'Bebas', sans-serif; font-size: 120px; letter-spacing: 6px; opacity: 0.9; margin-bottom: 20px;">
         NEW EVENTS
@@ -85,13 +80,11 @@
       </p>
     </div>
 
-    <!-- Progress bar (keeps consistency) -->
     <div class="progress-container">
       <div class="progress-bar" id="progressBar"></div>
     </div>
   </main>
 
-  <!-- SAME ADD STORY PANEL -->
   <div class="add-story-overlay" id="addStoryOverlay"></div>
 
   <div class="add-story-panel" id="addStoryPanel">
@@ -129,15 +122,12 @@
     </div>
   </div>
 
-  <!-- SAME FOOTER -->
   <footer>
     © 2025 Noerly Idos · <span>Get in touch</span>
   </footer>
 
-  <!-- Reuse your existing script -->
   <script src="story-script.js"></script>
 
-  <!-- Fade-in effect -->
   <script>
     window.addEventListener('load', () => {
       document.body.classList.add('loaded');
