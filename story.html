@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Story</title>
-  <link rel="stylesheet" href="story-style.css">
+  <title>Family | My Story</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
-<body>
-  <header>
+<body id="story-body">
+  <header id="story-header">
     <div class="logo-box">
       <span class="logo-my">MY STORY</span>
     </div>
@@ -17,10 +17,10 @@
       <nav class="text">
         <a href="index.html">HOME</a>
 
-        <div class="menu-item">
+        <div class="menu-item-story">
           <a href="story.html" class="menu-link active">MY STORY</a>
-          <span class="dropdown-toggle" onclick="toggleDropdown('my-story-menu')">▴</span>
-          <div class="dropdown-menu" id="my-story-menu">
+          <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
+          <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.html">Family</a>
             <a href="#">Elementary</a>
             <a href="#">Hobbies</a>
@@ -30,10 +30,10 @@
           </div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item-story">
           <a href="#" class="menu-link">PORTFOLIO</a>
-          <span class="dropdown-toggle" onclick="toggleDropdown('portfolio-menu')">▴</span>
-          <div class="dropdown-menu" id="portfolio-menu">
+          <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
+          <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="#">Be my Æ</a>
             <a href="#">Memory Game</a>
             <a href="#">Æ and AI</a>
@@ -50,40 +50,48 @@
     <div class="nav-underline"></div>
   </header>
 
-  <div class="sidebar-banner">
-    <a href="story.html" class="sidebar-title" id="dynamic-sidebar-title">FAMILY</a>
-    <nav class="sidebar-menu">
-      <a href="#">Elementary</a>
-      <a href="#">Hobbies</a>
-      <a href="#">Highschool</a>
-      <a href="#">College</a>
-      <a href="new-events.html">New Events</a>
-    </nav>
-  </div>
-
-  <main>
-    <div class="top-right-cta">
-      <button class="add-to-story-btn">Add to Story</button>
+  <div class="page-wrapper">
+    <div class="sidebar-banner">
+        <a href="story.html" class="sidebar-title" id="dynamic-sidebar-title">FAMILY</a>
+        <nav class="sidebar-menu">
+            <a href="#elementary">Elementary</a>
+            <a href="#hobbies">Hobbies</a>
+            <a href="#highschool">Highschool</a>
+            <a href="#college">College</a>
+            <a href="new-events.html">New Events</a>
+        </nav>
     </div>
 
-    <section class="hero-section">
-      <div class="hero-image">
-        <img src="images/idos-garcia.jpg" alt="My Family">
-      </div>
-      <div class="overlay-card">
-        <h2>MY FAMILY</h2>
-        <p>I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan by Noel and Merly G. Idos.</p>
-        <div class="btn-group">
-          <button class="prev-btn" disabled>Previous</button>
-          <button class="next-btn">Next</button>
-        </div>
+    <main>
+      <div class="top-right-cta">
+        <button class="add-to-story-btn">Add to Story</button>
       </div>
 
-      <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+      <section class="hero-section">
+        <div class="hero-image">
+          <img src="images/idos-garcia.jpg" alt="My Family">
+        </div>
+
+        <div class="overlay-card">
+          <h2>MY FAMILY</h2>
+          <p>I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.</p>
+          <div class="btn-group">
+            <button class="prev-btn" disabled>Previous</button>
+            <button class="next-btn">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="story-bottom-section">
+        <div class="progress-container" id="container-story">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="footer-text">
+          © 2025 Noerly Idos · <span>Get in touch</span>
+        </div>
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
 
   <div class="add-story-overlay" id="addStoryOverlay"></div>
 
@@ -98,17 +106,17 @@
     <div class="form-group" id="title-group">
       <div class="label-with-counter">
         <label>Title</label>
-        <span class="char-counter" id="titleCounter">0 / 14</span>
+        <span class="char-counter" id="titleCounter">0 / 27</span>
       </div>
-      <input type="text" id="titleInput" maxlength="14" placeholder="Enter title">
+      <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
     </div>
 
     <div class="form-group" id="desc-group">
       <div class="label-with-counter">
         <label>Description</label>
-        <span class="char-counter" id="descCounter">0 / 267</span>
+        <span class="char-counter" id="descCounter">0 / 191</span>
       </div>
-      <textarea id="descInput" maxlength="267" placeholder="Write your story..."></textarea>
+      <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
     </div>
 
     <div class="form-group upload-area-wrapper">
@@ -128,10 +136,6 @@
     </div>
   </div>
 
-  <footer>
-    © 2025 Noerly Idos · <span>Get in touch</span>
-  </footer>
-
   <div class="custom-alert-overlay" id="customAlertOverlay">
     <div class="custom-alert-box" id="customAlertBox">
       <div class="alert-icon" id="alertIcon">
@@ -144,6 +148,6 @@
     </div>
   </div>
 
-  <script src="story-script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

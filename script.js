@@ -1,90 +1,5 @@
-function showCustomAlert(message, type = 'success') {
-    const overlay     = document.getElementById('customAlertOverlay');
-    const box         = document.getElementById('customAlertBox');
-    const messageEl   = document.getElementById('alertMessage');
-    const iconEl      = document.getElementById('alertIcon');
-    const btn         = document.getElementById('alertBtn');
-
-    messageEl.textContent = message;
-    box.classList.remove('success', 'error');
-    box.classList.add(type);
-
-    if (type === 'success') {
-        iconEl.innerHTML = `
-            <svg viewBox="0 0 100 100" width="90" height="90">
-                <path d="M28 50 L42 64 L72 36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>`;
-    } else {
-        iconEl.innerHTML = `
-            <svg viewBox="0 0 100 100" width="90" height="90">
-                <line x1="32" y1="32" x2="68" y2="68" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-                <line x1="68" y1="32" x2="32" y2="68" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-            </svg>`;
-    }
-
-    overlay.style.visibility = 'visible';
-    overlay.classList.add('show');
-
-    const closeAlert = () => {
-        overlay.classList.remove('show');
-        setTimeout(() => {
-            overlay.style.visibility = 'hidden';
-            document.removeEventListener('keydown', keyHandler);
-        }, 400);
-    };
-
-    btn.onclick = (e) => {
-        e.stopPropagation();
-        closeAlert();
-    };
-
-    overlay.onclick = (e) => {
-        if (e.target === overlay) closeAlert();
-    };
-
-    const keyHandler = (e) => {
-        if (e.key === 'Enter' || e.key === 'Escape') {
-            e.preventDefault();
-            closeAlert();
-        }
-    };
-    document.addEventListener('keydown', keyHandler);
-}
-
-window.alert = function (msg) {
-    showCustomAlert(msg, 'success');
-};
-
-const totalSections = 19;
-let currentSection = 1;
-
-const progressBar = document.getElementById('progressBar');
-const prevBtn     = document.querySelector('.prev-btn');
-const nextBtn     = document.querySelector('.next-btn');
-
-function updateProgress() {
-    const percentage = (currentSection / totalSections) * 100;
-    progressBar.style.width = percentage + '%';
-    prevBtn.disabled = currentSection === 1;
-}
-
-nextBtn.addEventListener('click', () => {
-    if (currentSection < totalSections) {
-        currentSection++;
-        updateProgress();
-    }
-});
-
-prevBtn.addEventListener('click', () => {
-    if (currentSection > 1) {
-        currentSection--;
-        updateProgress();
-    }
-});
-
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
-    updateProgress();
 });
 
 document.querySelectorAll('a[href]').forEach(link => {
@@ -119,29 +34,62 @@ document.querySelectorAll('a[href]').forEach(link => {
 
 function toggleDropdown(menuId) {
     const menu      = document.getElementById(menuId);
-    const toggle    = event.target;
-    const menuItem  = toggle.closest('.menu-item');
+    const toggle    = event.currentTarget;
+    const menuItem  = toggle.closest('.menu-item-story');
 
-    document.querySelectorAll('.dropdown-menu').forEach(m => {
-        if (m.id !== menuId) m.classList.remove('show');
-    });
-    document.querySelectorAll('.dropdown-toggle').forEach(t => {
-        if (t !== toggle) t.classList.remove('open');
-    });
-    document.querySelectorAll('.menu-item').forEach(mi => {
-        if (mi !== menuItem) mi.classList.remove('dropdown-open');
+    const isOpening = !menu.classList.contains('show');
+
+    menu.classList.toggle('show', isOpening);
+    toggle.classList.toggle('open', isOpening);
+    menuItem.classList.toggle('dropdown-open', isOpening);
+
+    document.querySelectorAll('.dropdown-menu-story, .dropdown-menu-home').forEach(m => {
+        if (m.id !== menuId && m.classList.contains('show')) {
+            m.classList.remove('show');
+        }
     });
 
-    menu.classList.toggle('show');
-    toggle.classList.toggle('open');
-    menuItem.classList.toggle('dropdown-open');
+    document.querySelectorAll('.dropdown-toggle-story, .dropdown-toggle-home').forEach(t => {
+        if (t !== toggle) {
+            t.classList.remove('open');
+        }
+    });
+
+    document.querySelectorAll('.menu-item-story, .menu-item-home').forEach(mi => {
+        if (mi !== menuItem) {
+            mi.classList.remove('dropdown-open');
+        }
+    });
 }
 
 document.addEventListener('click', e => {
-    if (!e.target.closest('.menu-item')) {
-        document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('show'));
-        document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
-        document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('dropdown-open'));
+    const clickedInsideAnyMenu = e.target.closest('.menu-item-home');
+    const clickedInsideMenu = e.target.closest('.menu-item-story');
+
+    if (!clickedInsideAnyMenu) {
+        document.querySelectorAll('.dropdown-menu-home').forEach(menu => {
+            menu.classList.remove('show');
+        });
+        
+        document.querySelectorAll('.dropdown-toggle-home').forEach(toggle => {
+            toggle.classList.remove('open');
+        });
+        
+        document.querySelectorAll('.menu-item-home').forEach(item => {
+            item.classList.remove('dropdown-open');
+        });
+    }
+
+    if (!clickedInsideMenu) {
+        document.querySelectorAll('.dropdown-menu-story').forEach(menu => {
+            menu.classList.remove('show');
+        });
+        document.querySelectorAll('.dropdown-toggle-story').forEach(toggle => {
+            toggle.classList.remove('open');
+        });
+        document.querySelectorAll('.menu-item-story').forEach(item => {
+            item.classList.remove('dropdown-open');
+        });
     }
 });
 
@@ -271,11 +219,11 @@ document.querySelector('.panel-btn.submit').addEventListener('click', function (
     }
 
     if (!title || title.length > TITLE_LIMIT) {
-        showCustomAlert('Title must be 1–14 characters!', 'error');
+        showCustomAlert('Title must be 1–27 characters!', 'error');
         return;
     }
     if (!description || description.length > DESC_LIMIT) {
-        showCustomAlert('Description must be 1–267 characters!', 'error');
+        showCustomAlert('Description must be 1–191 characters!', 'error');
         return;
     }
 
@@ -333,8 +281,8 @@ const descInput  = document.getElementById('descInput');
 const titleCounter = document.getElementById('titleCounter');
 const descCounter  = document.getElementById('descCounter');
 
-const TITLE_LIMIT = 14;
-const DESC_LIMIT  = 267;
+const TITLE_LIMIT = 27;
+const DESC_LIMIT  = 191;
 
 titleInput.addEventListener('input', function () {
     const length = this.value.length;
@@ -383,3 +331,87 @@ function resetFormAndCounters() {
     titleCounter.classList.remove('warning', 'good');
     descCounter.classList.remove('warning', 'good');
 }
+
+function showCustomAlert(message, type = 'success') {
+    const overlay     = document.getElementById('customAlertOverlay');
+    const box         = document.getElementById('customAlertBox');
+    const messageEl   = document.getElementById('alertMessage');
+    const iconEl      = document.getElementById('alertIcon');
+    const btn         = document.getElementById('alertBtn');
+
+    messageEl.textContent = message;
+    box.classList.remove('success', 'error');
+    box.classList.add(type);
+
+    if (type === 'success') {
+        iconEl.innerHTML = `
+            <svg viewBox="0 0 100 100" width="90" height="90">
+                <path d="M28 50 L42 64 L72 36" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>`;
+    } else {
+        iconEl.innerHTML = `
+            <svg viewBox="0 0 100 100" width="90" height="90">
+                <line x1="32" y1="32" x2="68" y2="68" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+                <line x1="68" y1="32" x2="32" y2="68" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
+            </svg>`;
+    }
+
+    overlay.style.visibility = 'visible';
+    overlay.classList.add('show');
+
+    const closeAlert = () => {
+        overlay.classList.remove('show');
+        setTimeout(() => {
+            overlay.style.visibility = 'hidden';
+            document.removeEventListener('keydown', keyHandler);
+        }, 400);
+    };
+
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        closeAlert();
+    };
+
+    overlay.onclick = (e) => {
+        if (e.target === overlay) closeAlert();
+    };
+
+    const keyHandler = (e) => {
+        if (e.key === 'Enter' || e.key === 'Escape') {
+            e.preventDefault();
+            closeAlert();
+        }
+    };
+    document.addEventListener('keydown', keyHandler);
+}
+
+window.alert = function (msg) {
+    showCustomAlert(msg, 'success');
+};
+
+const totalSections = 19;
+let currentSection = 1;
+
+const progressBar = document.getElementById('progressBar');
+const prevBtn     = document.querySelector('.prev-btn');
+const nextBtn     = document.querySelector('.next-btn');
+
+function updateProgress() {
+    const percentage = (currentSection / totalSections) * 100;
+    progressBar.style.width = percentage + '%';
+    prevBtn.disabled = currentSection === 1;
+}
+
+nextBtn.addEventListener('click', () => {
+    if (currentSection < totalSections) {
+        currentSection++;
+        updateProgress();
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    if (currentSection > 1) {
+        currentSection--;
+        updateProgress();
+    }
+});

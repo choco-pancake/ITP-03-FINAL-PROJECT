@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="index-style.css">
+  <link rel="stylesheet" href="style.css">
   <title>Noerly Idos - Portfolio</title>
 </head>
-<body>
-  <header>
+<body id="home-body">
+  <header id="home-header">
     <nav class="text">
       <a href="index.html" class="active">HOME</a>
       
-      <div class="menu-item">
+      <div class="menu-item-home">
         <a href="story.html" class="menu-link">MY STORY</a>
-        <span class="dropdown-toggle" onclick="toggleDropdown('my-story-menu')">▴</span>
-        <div class="dropdown-menu" id="my-story-menu">
+        <span class="dropdown-toggle-home" onclick="toggleDropdown('my-story-menu')">▴</span>
+        <div class="dropdown-menu-home" id="my-story-menu">
           <a href="story.html">Family</a>
           <a href="#">Elementary</a>
           <a href="#">Hobbies</a>
@@ -24,10 +24,10 @@
         </div>
       </div>
 
-      <div class="menu-item">
+      <div class="menu-item-home">
         <a href="#" class="menu-link">PORTFOLIO</a>
-        <span class="dropdown-toggle" onclick="toggleDropdown('portfolio-menu')">▴</span>
-        <div class="dropdown-menu" id="portfolio-menu">
+        <span class="dropdown-toggle-home" onclick="toggleDropdown('portfolio-menu')">▴</span>
+        <div class="dropdown-menu-home" id="portfolio-menu">
           <a href="#">Be my Æ</a>
           <a href="#">Memory Game</a>
           <a href="#">Æ and AI</a>
@@ -67,10 +67,10 @@
     </div>
   </section>
 
-  <footer>
+  <footer id="footer-home">
     © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
   </footer>
 
-  <script src="index-script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
