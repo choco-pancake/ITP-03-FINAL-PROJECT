@@ -144,7 +144,7 @@ header {
 .text {
     font-family: 'Montserrat';
     font-weight: 500;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .text a {
@@ -392,7 +392,7 @@ nav a.active {
     -webkit-text-stroke: 3px #000000;
     line-height: 0.85;
     letter-spacing: 25px;
-    margin-top: 80px;
+    margin-top: 40px;
     text-align: center;
 }
 
@@ -1307,7 +1307,7 @@ a, button, .add-to-story-btn {
 }
 
 .footer-text {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat';
     font-weight: 500;
     font-size: 14px;
     color: #003366;
@@ -1327,13 +1327,28 @@ a, button, .add-to-story-btn {
 }
 
 #footer-home {
-    font-family: 'Montserrat';
-    font-weight: 500;
-    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
     font-size: 0.9rem;
     color: #ffffff;
+    padding: 20px 15px;
     z-index: 10;
-    margin: 0 auto;
+    pointer-events: none;
+}
+
+#footer-home .contact-link {
+    pointer-events: auto;
+    font-weight: 600;
+}
+
+#footer-home .contact-link:hover {
+    font-weight: 800;
+    cursor: pointer;
+    color: #cacaca;
 }
 
 @keyframes shimmer {

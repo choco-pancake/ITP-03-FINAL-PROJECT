@@ -18,15 +18,15 @@
         <a href="index.html">HOME</a>
 
         <div class="menu-item-story">
-          <a href="story.html" class="menu-link active">MY STORY</a>
+          <a href="story.php" class="menu-link active">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
           <div class="dropdown-menu-story" id="my-story-menu">
-            <a href="story.html">Family</a>
+            <a href="story.php">Family</a>
             <a href="#">Elementary</a>
             <a href="#">Hobbies</a>
             <a href="#">Highschool</a>
             <a href="#">College</a>
-            <a href="new-events.html">New Events</a>
+            <a href="new-events.php">New Events</a>
           </div>
         </div>
 
@@ -52,13 +52,13 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-        <a href="story.html" class="sidebar-title" id="dynamic-sidebar-title">FAMILY</a>
+        <a href="story.php" class="sidebar-title" id="dynamic-sidebar-title">FAMILY</a>
         <nav class="sidebar-menu">
             <a href="#elementary">Elementary</a>
             <a href="#hobbies">Hobbies</a>
             <a href="#highschool">Highschool</a>
             <a href="#college">College</a>
-            <a href="new-events.html">New Events</a>
+            <a href="new-events.php">New Events</a>
         </nav>
     </div>
 
@@ -87,7 +87,7 @@
           <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="footer-text">
-          © 2025 Noerly Idos · <span>Get in touch</span>
+          © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
         </div>
       </div>
     </main>
