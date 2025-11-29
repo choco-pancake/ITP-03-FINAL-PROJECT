@@ -52,8 +52,8 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-      <a href="story.php" class="sidebar-small-title">FAMILY</a>
-      <a href="elementary.php" class="title-elementary">ELEMENTARY</a>
+      <a href="story.php" class="sidebar-small-title">Family</a>
+      <a href="elementary.php" class="title">Elementary</a>
       <nav class="sidebar-menu">
           <a href="hobbies.php">Hobbies</a>
           <a href="highschool.php">Highschool</a>

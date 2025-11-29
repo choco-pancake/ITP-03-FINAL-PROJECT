@@ -1,69 +1,61 @@
 <?php
-header('Content-Type: application/json');
+    header('Content-Type: application/json');
+    $eventsFile = __DIR__ . '/uploads/new-events.txt';
+    $uploadsDir = __DIR__ . '/uploads/';
 
-$eventsFile = __DIR__ . '/uploads/new-events.txt';
-$uploadsDir = __DIR__ . '/uploads/';
+    if (!file_exists($uploadsDir)) {
+        mkdir($uploadsDir, 0755, true);
+    }
 
-// Ensure uploads directory exists
-if (!file_exists($uploadsDir)) {
-    mkdir($uploadsDir, 0755, true);
-}
+    $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+    $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
-// Get form data
-$title = isset($_POST['title']) ? trim($_POST['title']) : '';
-$description = isset($_POST['description']) ? trim($_POST['description']) : '';
+    if (empty($title)) {
+        echo json_encode(['success' => false, 'message' => 'Title is required']);
+        exit;
+    }
 
-if (empty($title)) {
-    echo json_encode(['success' => false, 'message' => 'Title is required']);
-    exit;
-}
+    $photoPath = null;
+    $photoFilename = null;
 
-// Handle photo upload
-$photoPath = null;
-$photoFilename = null;
-
-if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
-    $fileExtension = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
+        $fileExtension = strtolower(pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
     
-    if (in_array($fileExtension, $allowedExtensions)) {
-        $photoFilename = 'event_' . time() . '_' . uniqid() . '.' . $fileExtension;
-        $photoPath = $uploadsDir . $photoFilename;
+        if (in_array($fileExtension, $allowedExtensions)) {
+            $photoFilename = 'event_' . time() . '_' . uniqid() . '.' . $fileExtension;
+            $photoPath = $uploadsDir . $photoFilename;
         
-        if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoPath)) {
-            echo json_encode(['success' => false, 'message' => 'Failed to upload photo']);
-            exit;
+            if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photoPath)) {
+                echo json_encode(['success' => false, 'message' => 'Failed to upload photo']);
+                exit;
+            }
         }
     }
-}
 
-// Format date
-$dateAdded = date('F j, Y, g:i a');
+    $dateAdded = date('F j, Y, g:i a');
+    $content = "\n==================================================\n";
+    $content .= "=== NEW STORY ===\n";
+    $content .= "Date Added: " . $dateAdded . "\n";
+    $content .= "Title: " . $title . "\n";
+    $content .= "Description: " . $description . "\n";
 
-// Prepare content to append
-$content = "\n==================================================\n";
-$content .= "=== NEW STORY ===\n";
-$content .= "Date Added: " . $dateAdded . "\n";
-$content .= "Title: " . $title . "\n";
-$content .= "Description: " . $description . "\n";
+    if ($photoFilename) {
+        $content .= "Photo: (saved as " . $photoFilename . ")\n";
+    } else {
+        $content .= "Photo: (none)\n";
+    }
 
-if ($photoFilename) {
-    $content .= "Photo: (saved as " . $photoFilename . ")\n";
-} else {
-    $content .= "Photo: (none)\n";
-}
+    $content .= "==================================================\n";
 
-$content .= "==================================================\n";
-
-// Append to file
-if (file_put_contents($eventsFile, $content, FILE_APPEND | LOCK_EX) !== false) {
-    echo json_encode([
-        'success' => true,
-        'message' => 'Event added successfully',
-        'photoPath' => $photoFilename ? 'uploads/' . $photoFilename : null,
-        'date' => $dateAdded
-    ]);
-} else {
-    echo json_encode(['success' => false, 'message' => 'Failed to save event']);
-}
+    if (file_put_contents($eventsFile, $content, FILE_APPEND | LOCK_EX) !== false) {
+        echo json_encode([
+            'success' => true,
+            'message' => 'Event added successfully',
+            'photoPath' => $photoFilename ? 'uploads/' . $photoFilename : null,
+            'date' => $dateAdded
+        ]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to save event']);
+    }
 ?>

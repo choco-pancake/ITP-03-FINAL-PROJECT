@@ -52,15 +52,12 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-      <nav class="sidebar-menu">
-        <a href="story.php">Family</a>
-        <a href="elementary.php">Elementary</a>
-        <a href="hobbies.php">Hobbies</a>
-        <a href="highschool.php">Highschool</a>
-        <a href="college.php">College</a>
-      </nav>
-
-      <a href="new-events.php" class="sidebar-title active" id="new-title">NEW EVENTS</a>
+      <a href="story.php" class="sidebar-small-title">Family</a>
+      <a href="elementary.php" class="sidebar-small-title">Elementary</a>
+      <a href="hobbies.php" class="sidebar-small-title">Hobbies</a>
+      <a href="highschool.php" class="sidebar-small-title">Highschool</a>
+      <a href="college.php" class="sidebar-small-title">College</a>
+      <a href="new-events.php" class="title">New Events</a>
     </div>
 
     <main>

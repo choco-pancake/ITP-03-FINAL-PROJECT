@@ -240,16 +240,13 @@ document.querySelector('.panel-btn.submit').addEventListener('click', function (
     })
     .then(res => res.text())
     .then(response => {
-        console.log('Response:', response); // Debug log
+        console.log('Response:', response);
         
-        // Check if the submission was successful
         if (response.includes('SUCCESS')) {
             showCustomAlert('Story added successfully!', 'success', function() {
-                // This callback runs when OK button is pressed
                 resetFormAndCounters();
                 closePanel();
                 
-                // Reload the page to show the new event with correct photo
                 setTimeout(() => {
                     location.reload();
                 }, 300);
@@ -290,7 +287,6 @@ const titleInput = document.getElementById('titleInput');
 const descInput  = document.getElementById('descInput');
 const titleCounter = document.getElementById('titleCounter');
 const descCounter  = document.getElementById('descCounter');
-
 const TITLE_LIMIT = 27;
 const DESC_LIMIT  = 191;
 
@@ -375,7 +371,6 @@ function showCustomAlert(message, type = 'success', callback = null) {
             overlay.style.visibility = 'hidden';
             document.removeEventListener('keydown', keyHandler);
             
-            // Execute callback if provided
             if (callback && typeof callback === 'function') {
                 callback();
             }
@@ -404,29 +399,299 @@ window.alert = function (msg) {
     showCustomAlert(msg, 'success');
 };
 
-const totalSections = 19;
-let currentSection = 1;
+// ============================================
+// FAMILY EVENTS CAROUSEL (Positions 1-4 of 19)
+// ============================================
+const familyEvents = [
+  {
+    index: 0, // Event 1
+    title: "MY FAMILY",
+    description: "I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.",
+    image: "images/idos-garcia.jpg"
+  },
+  {
+    index: 1, // Event 2
+    title: "IDOS FAMILY",
+    description: "This is my father's side's family. We all live in the same neighborhood, at Mancup, Calasiao, our current address.",
+    image: "images/idos-family.jpg"
+  },
+  {
+    index: 2, // Event 3
+    title: "GARCIA FAMILY",
+    description: "This is my mother's side's family. They live in a single neighborhood, at Lasip, Calasiao – where we will be moving soon.",
+    image: "images/garcia-family.jpg"
+  },
+  {
+    index: 3, // Event 4
+    title: "SISTERS 4 LAYFERS!",
+    description: "4 years apart, but we've always stuck together. This is me and my sister with the same first name as me – Yvette.",
+    image: "images/yvette.jpg"
+  }
+];
 
-const progressBar = document.getElementById('progressBar');
-const prevBtn     = document.querySelector('.prev-btn');
-const nextBtn     = document.querySelector('.next-btn');
+// Check if we're on the family page
+if (document.getElementById('familyImage')) {
+  // Check URL parameter to set starting event
+  const urlParams = new URLSearchParams(window.location.search);
+  const startEvent = urlParams.get('event');
+  
+  let currentFamilySection = startEvent ? parseInt(startEvent) : 0;
+  const totalFamilySections = familyEvents.length;
+  const totalLifeSections = 19;
+  const familyStartPosition = 0;
 
-function updateProgress() {
-    const percentage = (currentSection / totalSections) * 100;
+  const familyImage = document.getElementById('familyImage');
+  const familyTitle = document.getElementById('familyTitle');
+  const familyDescription = document.getElementById('familyDescription');
+  const prevFamilyBtn = document.getElementById('prevFamilyBtn');
+  const nextFamilyBtn = document.getElementById('nextFamilyBtn');
+  const progressBar = document.getElementById('progressBar');
+
+  function updateFamilyEvent() {
+    const event = familyEvents[currentFamilySection];
+    
+    const overlayCard = document.querySelector('.overlay-card');
+    overlayCard.style.opacity = '0.7';
+    
+    setTimeout(() => {
+      familyTitle.textContent = event.title;
+      familyDescription.textContent = event.description;
+      familyImage.src = event.image;
+      overlayCard.style.opacity = '1';
+    }, 200);
+    
+    prevFamilyBtn.disabled = currentFamilySection === 0;
+    // Always enable next button to allow navigation to elementary
+    nextFamilyBtn.disabled = false;
+    
+    updateFamilyProgress();
+  }
+
+  function updateFamilyProgress() {
+    const currentPosition = familyStartPosition + currentFamilySection + 1;
+    const percentage = (currentPosition / totalLifeSections) * 100;
     progressBar.style.width = percentage + '%';
-    prevBtn.disabled = currentSection === 1;
+  }
+
+  nextFamilyBtn.addEventListener('click', () => {
+    if (currentFamilySection < totalFamilySections - 1) {
+      currentFamilySection++;
+      updateFamilyEvent();
+    } else {
+      // Navigate to elementary page when at last family event
+      window.location.href = 'elementary.php';
+    }
+  });
+
+  prevFamilyBtn.addEventListener('click', () => {
+    if (currentFamilySection > 0) {
+      currentFamilySection--;
+      updateFamilyEvent();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateFamilyProgress();
+    // Only update event if coming from another page with a URL parameter
+    if (startEvent) {
+      updateFamilyEvent();
+    }
+  });
 }
 
-nextBtn.addEventListener('click', () => {
-    if (currentSection < totalSections) {
-        currentSection++;
-        updateProgress();
-    }
-});
+const elementaryEvents = [
+  {
+    index: 4, // Event 5
+    title: "ELEMENTARY LIFE AT EGCA",
+    description: "I started school at EGCA (Eastern Gate Christian Academy) for the whole span of my elementary days. I graduated in 2016 as the valedictorian of our class.",
+    image: "images/egca.jpg"
+  },
+  {
+    index: 5, // Event 6 → THIS IS THE ONE WE WANT
+    title: "ACADEMICALLY ACTIVE!",
+    description: "I’ve been consistent competing in quiz bees, art, choral and speech competitions.",
+    image: "images/calligraphy.jpg"
+  }
+];
 
-prevBtn.addEventListener('click', () => {
-    if (currentSection > 1) {
-        currentSection--;
-        updateProgress();
+if (document.getElementById('egca')) {
+  // Read URL parameter (?event=4 or ?event=5) and start at correct slide
+  const urlParams = new URLSearchParams(window.location.search);
+  const startEvent = urlParams.get('event');
+  let currentElementarySection = 0;
+
+  if (startEvent !== null) {
+    const eventIndex = parseInt(startEvent);
+    if (eventIndex === 5) currentElementarySection = 1;  // Event 6 → section 1
+    else if (eventIndex === 4) currentElementarySection = 0; // Event 5 → section 0
+  }
+
+  const totalLifeSections = 19;
+  const elementaryStartPosition = 4;
+
+  const elementaryImage = document.querySelector('#egca img');
+  const elementaryTitle = document.querySelector('#overlay5 h2');
+  const elementaryDescription = document.querySelector('#overlay5 p');
+  const prevElementaryBtn = document.querySelector('#overlay5 .prev-btn');
+  const nextElementaryBtn = document.querySelector('#overlay5 .next-btn');
+  const progressBar = document.getElementById('progressBar');
+
+  function updateElementaryEvent() {
+    const event = elementaryEvents[currentElementarySection];
+
+    const overlayCard = document.getElementById('overlay5');
+    overlayCard.style.opacity = '0.7';
+
+    setTimeout(() => {
+      elementaryTitle.textContent = event.title;
+      elementaryDescription.textContent = event.description;
+      elementaryImage.src = event.image;
+
+      // ONLY CHANGE: Make image wider ONLY on Event 6
+      if (currentElementarySection === 1) {
+        elementaryImage.style.width = '110%';
+        elementaryImage.style.maxWidth = 'none';
+      } else {
+        elementaryImage.style.width = '';
+        elementaryImage.style.maxWidth = '';
+      }
+
+      overlayCard.style.opacity = '1';
+    }, 200);
+
+    // Update progress bar (Event 5 = 5/19, Event 6 = 6/19)
+    const currentGlobalEvent = elementaryStartPosition + currentElementarySection + 1;
+    const percentage = (currentGlobalEvent / totalLifeSections) * 100;
+    progressBar.style.width = percentage + '%';
+
+    // Always enable both buttons (we control flow manually)
+    prevElementaryBtn.disabled = false;
+    nextElementaryBtn.disabled = false;
+  }
+
+  // NEXT BUTTON — Now works perfectly!
+  nextElementaryBtn.addEventListener('click', () => {
+    if (currentElementarySection < elementaryEvents.length - 1) {
+      currentElementarySection++;
+      updateElementaryEvent();
+    } else {
+      // Last elementary event → go to first hobby
+      window.location.href = 'hobbies.php';
     }
-});
+  });
+
+  // PREVIOUS BUTTON
+  prevElementaryBtn.addEventListener('click', () => {
+    if (currentElementarySection > 0) {
+      currentElementarySection--;
+      updateElementaryEvent();
+    } else {
+      // First elementary event → back to last family event
+      window.location.href = 'story.php?event=3';
+    }
+  });
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateElementaryEvent();
+  });
+}
+
+const hobbiesEvents = [
+  {
+    index: 6,
+    title: "MY 7TH BIRTHDAY",
+    description: "Being held at Pinkies restaurant, I turned 7 on October 12, 2012. My eyes were opened to a whole new world of potential.",
+    image: "images/7th_bday.jpg"
+  },
+  {
+    index: 7,
+    title: "SINGING",
+    description: "I have been a member of the Calasiao Children’s Chorus from 2015-2023. I have currently been moved to the Calasiao Chamber Chorus, the youth choir of SPPPC (St. Peter and Paul Parish Church).",
+    image: "images/choir-resized.jpg",
+  },
+  {
+    index: 8,
+    title: "DRAWING",
+    description: "Although I’ve only been enjoying drawing when our school activities require us to, this was my main hobby during my elementary and high school days, when my free time was abundant.",
+    image: "images/drawing.jpg",
+  },
+  {
+    index: 9,
+    title: "UKULELE",
+    description: "Why not pair my gift of voice with instruments? This is my other half, my uke. I also have knowledge on playing the guitar and the organ.",
+    image: "images/ukulele.jpg",
+  },
+  {
+    index: 10,
+    title: "DANCING",
+    description: "This is my favorite hobby. I started dancing during the COVID-19 pandemic, when I became an avid fan of K-Pop.",
+    image: "images/dance.jpg",
+  }
+];
+
+// Check if we're on the hobbies page
+if (document.getElementById('hobbies')) {
+  let currentHobbySection = 0;
+  const totalHobbySections = hobbiesEvents.length;
+  const totalLifeSections = 19;
+  const hobbiesStartPosition = 6; // Events 7-11 → index 6-10
+
+  const hobbyImage = document.querySelector('#hobbies img');
+  const hobbyTitle = document.querySelector('#overlay7 h2');
+  const hobbyDescription = document.querySelector('#overlay7 p');
+  const prevHobbyBtn = document.querySelector('#overlay7 .prev-btn');
+  const nextHobbyBtn = document.querySelector('#overlay7 .next-btn');
+  const progressBar = document.getElementById('progressBar');
+
+  function updateHobbyEvent() {
+    const event = hobbiesEvents[currentHobbySection];
+    
+    const overlayCard = document.getElementById('overlay7');
+    overlayCard.style.opacity = '0.7';
+    
+    setTimeout(() => {
+      hobbyTitle.textContent = event.title;
+      hobbyDescription.textContent = event.description;
+      hobbyImage.src = event.image;
+      overlayCard.style.opacity = '1';
+    }, 200);
+    
+    // Always allow going back — even on first hobby
+    prevHobbyBtn.disabled = false;
+    nextHobbyBtn.disabled = currentHobbySection === totalHobbySections - 1;
+    
+    updateHobbyProgress();
+  }
+
+  function updateHobbyProgress() {
+    const currentPosition = hobbiesStartPosition + currentHobbySection + 1;
+    const percentage = (currentPosition / totalLifeSections) * 100;
+    progressBar.style.width = percentage + '%';
+  }
+
+  nextHobbyBtn.addEventListener('click', () => {
+    if (currentHobbySection < totalHobbySections - 1) {
+      currentHobbySection++;
+      updateHobbyEvent();
+    } else {
+      // Ready for highschool.php when you add it
+      window.location.href = 'highschool.php';
+    }
+  });
+
+  prevHobbyBtn.addEventListener('click', () => {
+    if (currentHobbySection > 0) {
+      currentHobbySection--;
+      updateHobbyEvent();
+    } else {
+      // GO BACK TO ELEMENTARY'S LAST EVENT (Event 6)
+      window.location.href = 'elementary.php?event=5';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateHobbyEvent();
+    updateHobbyProgress();
+  });
+}

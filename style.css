@@ -511,38 +511,6 @@ nav a.active {
     padding: 100px 0 60px 0;
 }
 
-.sidebar-title {
-    display: block;
-    font-family: 'Bebas', sans-serif;
-    font-size: 110px;
-    letter-spacing: 6px;
-    line-height: 0.88;
-    margin-left: 45px;
-    padding: 0 40px;
-    background: url(images/background.png) center/cover no-repeat;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-#new-title {
-    margin-top: 20px;
-}
-
-.title-family {
-    display: block;
-    font-family: 'Bebas', sans-serif;
-    font-size: 60px;
-    letter-spacing: 6px;
-    line-height: 0.88;
-    margin-left: 45px;
-    padding: 0 40px;
-    background: url(images/background.png) center/cover no-repeat;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
 .sidebar-small-title {
     font-family: 'Bebas', sans-serif;
     font-size: 32px;
@@ -563,24 +531,7 @@ nav a.active {
     color: #002244;
 }
 
-.title-elementary {
-    display: block;
-    font-family: 'Bebas', sans-serif;
-    font-size: 60px;
-    letter-spacing: 6px;
-    line-height: 0.88;
-    margin-left: 83px;
-    background: url(images/background.png) center/cover no-repeat;
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-.title-elementary:hover {
-    text-decoration: none;
-}
-
-.title-hobbies, .title-highschool {
+.title {
     font-family: 'Bebas', sans-serif;
     font-size: 60px;
     letter-spacing: 6px;
@@ -591,6 +542,7 @@ nav a.active {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
+    white-space: nowrap;
 }
 
 .sidebar-menu {
@@ -621,6 +573,10 @@ nav a.active {
     padding-left: 12px;
     font-weight: 400;
     color: #002244;
+}
+
+#highschool {
+    font-size: 55px;
 }
 
 main {
@@ -696,6 +652,11 @@ a, button, .add-to-story-btn {
     display: block;
 }
 
+#event-carousel #hero-add {
+    justify-content: center;
+    pointer-events: auto
+}
+
 #egca {
     max-width: 420px;
     margin-left: 335px;
@@ -709,6 +670,11 @@ a, button, .add-to-story-btn {
 #sags {
     max-width: 580px;
     margin-left: 235px;
+}
+
+#debut {
+    max-width: 280px;
+    margin-left: 400px;
 }
 
 #egca img, #seventh img, #sags img {
@@ -735,6 +701,12 @@ a, button, .add-to-story-btn {
     z-index: 10;    
     display: flex;
     flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+#event-carousel .hero-section .hero-container #overlay-add {
+    max-height: none;
+    align-self: flex-start;
 }
 
 .overlay-card h2 {
@@ -792,6 +764,7 @@ a, button, .add-to-story-btn {
 .overlay-card button:disabled {
     background: rgba(255, 255, 255, 0.12) !important;
     color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -812,6 +785,10 @@ a, button, .add-to-story-btn {
 
 #overlay7 {
     margin-left: -20px;
+}
+
+#overlay16 {
+    margin-left: 110px;
 }
 
 .story-bottom-section {
@@ -864,7 +841,7 @@ a, button, .add-to-story-btn {
     width: 5.263%;                 /* or whatever your JS sets */
     background: linear-gradient(to right, #00C6FF, #0077B6);
     border-radius: 4px;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.4s ease;
     position: relative;
 }
 
@@ -1220,8 +1197,7 @@ a, button, .add-to-story-btn {
     transform: scale(1.1);
 }
 
-.close-panel-btn:hover img,
-.close-panel-btn:active img {
+.close-panel-btn:hover img, .close-panel-btn:active img {
     content: url("images/back-white.png");
 }
 
@@ -1238,7 +1214,7 @@ a, button, .add-to-story-btn {
     inset: 0;
     backdrop-filter: blur(6px);
     background: rgba(0, 0, 0, 0.3);
-    display: flex; /* always flex */
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000;
@@ -1359,10 +1335,10 @@ a, button, .add-to-story-btn {
 }
 
 .kite-icon {
-    width: 110px;                  /* circle size */
+    width: 110px;
     height: 110px;
-    border: 3px solid #003366;     /* circle border color */
-    border-radius: 50%;            /* makes it a perfect circle */
+    border: 3px solid #003366;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1395,6 +1371,60 @@ a, button, .add-to-story-btn {
 #main-content p strong {
     font-weight: 600;
     color: #001f3f;
+}
+
+#event-carousel {
+    position: relative;
+    z-index: 20;
+    margin-bottom: -100px;
+    pointer-events: none;
+    margin-top: -180px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: -150px;
+    margin-right: auto;
+}
+
+.event-title {
+    font-family: 'Bebas', sans-serif !important;
+    font-size: 48px !important;
+    text-align: left;
+    letter-spacing: 2.5px;
+    line-height: 1;
+    margin: 0 0 8px 0;
+    color: white !important;
+}
+
+.event-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: white;
+    margin: 14px 0 18px 0;
+    border-radius: 2px;
+    opacity: 0.9;
+}
+
+.event-description {
+    font-size: 14.5px !important;
+    text-align: left;
+    line-height: 1.65;
+    opacity: 0.95;
+    margin: 0 0 20px 0;
+    flex-grow: 0;
+    color: white !important;
+}
+
+.hero-image.big-photo {
+    max-width: 490px !important;     /* Default is ~580px */
+    margin-left: 280px !important;   /* Slightly less offset to center it */
+}
+
+.hero-image.big-photo img {
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    transform: scale(1.02);
 }
 
 .footer-text {

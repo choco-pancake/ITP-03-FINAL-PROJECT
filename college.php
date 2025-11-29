@@ -52,11 +52,11 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-      <a href="story.php" class="sidebar-small-title">FAMILY</a>
-      <a href="elementary.php" class="title-elementary">ELEMENTARY</a>
-      <a href="hobbies.php" class="title-elementary">Hobbies</a>
-      <a href="highschool.php" class="title-elementary">Highschool</a>
-      <a href="college.php" class="title-college">College</a>
+      <a href="story.php" class="sidebar-small-title">Family</a>
+      <a href="elementary.php" class="sidebar-small-title">Elementary</a>
+      <a href="hobbies.php" class="sidebar-small-title">Hobbies</a>
+      <a href="highschool.php" class="sidebar-small-title">Highschool</a>
+      <a href="college.php" class="title">College</a>
       <nav class="sidebar-menu">
           <a href="new-events.php">New Events</a>
       </nav>
@@ -72,7 +72,7 @@
           <img src="images/18th_bday.jpg" alt="My Family">
         </div>
 
-        <div class="overlay-card" id="overlay5">
+        <div class="overlay-card" id="overlay16">
           <h2>MY 18TH BIRTHDAY </h2>
           <p>During my 1st year of college, I finally turned 18. It was a magical experience to be the princess and star of the night at Jmacks Resort Hotel and Events Place.</p>
           <div class="btn-group">

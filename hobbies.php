@@ -54,7 +54,7 @@
     <div class="sidebar-banner">
     <a href="story.php" class="sidebar-small-title">Family</a>
     <a href="elementary.php" class="sidebar-small-title">Elementary</a>
-    <div class="title-hobbies">HOBBIES</div>
+    <div class="title">Hobbies</div>
     <nav class="sidebar-menu">
         <a href="highschool.php">Highschool</a>
         <a href="college.php">College</a>
@@ -68,13 +68,13 @@
       </div>
 
       <section class="hero-section">
-        <div class="hero-image" id="sags">
-          <img src="images/7th_bday.jpg"alt="My Family">
+        <div class="hero-image" id="hobbies">
+          <img src="images/7th_bday.jpg" alt="Hobbies">
         </div>
 
-        <div class="overlay-card" id="overlay12">
+        <div class="overlay-card" id="overlay7">
           <h2>MY 7TH BIRTHDAY</h2>
-          <p>Being held at Pinkies restaurant, I turned 7. My eyes were opened to a whole new world of potential. I grew, but the world grew even bigger!</p>
+          <p>Being held at Pinkies restaurant...</p>
           <div class="btn-group">
             <button class="prev-btn">Previous</button>
             <button class="next-btn">Next</button>

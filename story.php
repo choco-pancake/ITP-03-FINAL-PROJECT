@@ -52,12 +52,12 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-        <a href="story.php" class="title-family" id="dynamic-sidebar-title">FAMILY</a>
+        <a href="story.php" class="title">Family</a>
         <nav class="sidebar-menu">
             <a href="elementary.php">Elementary</a>
             <a href="hobbies.php">Hobbies</a>
             <a href="highschool.php">Highschool</a>
-            <a href="#college.php>College</a>
+            <a href="#college.php">College</a>
             <a href="new-events.php">New Events</a>
         </nav>
     </div>
@@ -68,28 +68,28 @@
       </div>
 
       <section class="hero-section">
-        <div class="hero-image">
-          <img src="images/idos-garcia.jpg" alt="My Family">
-        </div>
+  <div class="hero-image">
+    <img id="familyImage" src="images/idos-garcia.jpg" alt="My Family">
+  </div>
 
-        <div class="overlay-card">
-          <h2>MY FAMILY</h2>
-          <p>I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.</p>
-          <div class="btn-group">
-            <button class="prev-btn" disabled>Previous</button>
-            <button class="next-btn">Next</button>
-          </div>
-        </div>
-      </section>
+  <div class="overlay-card">
+    <h2 id="familyTitle">MY FAMILY</h2>
+    <p id="familyDescription">I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.</p>
+    <div class="btn-group">
+      <button class="prev-btn" id="prevFamilyBtn">Previous</button>
+      <button class="next-btn" id="nextFamilyBtn">Next</button>
+    </div>
+  </div>
+</section>
 
-      <div class="story-bottom-section">
-        <div class="progress-container" id="container-story">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div class="footer-text">
-          © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
-        </div>
-      </div>
+<div class="story-bottom-section">
+  <div class="progress-container" id="container-story">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="footer-text">
+    © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
+  </div>
+</div>
     </main>
   </div>
 
