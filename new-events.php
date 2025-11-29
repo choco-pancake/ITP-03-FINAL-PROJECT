@@ -22,10 +22,10 @@
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu-story')">▴</span>
           <div class="dropdown-menu-story" id="my-story-menu-story">
             <a href="story.php">Family</a>
-            <a href="story.php#elementary">Elementary</a>
-            <a href="story.php#hobbies">Hobbies</a>
-            <a href="story.php#highschool">Highschool</a>
-            <a href="story.php#college">College</a>
+            <a href="elementary.php">Elementary</a>
+            <a href="hobbies.php">Hobbies</a>
+            <a href="highschool.php">Highschool</a>
+            <a href="college.php">College</a>
             <a href="new-events.php">New Events</a>
           </div>
         </div>
@@ -53,11 +53,11 @@
   <div class="page-wrapper">
     <div class="sidebar-banner">
       <nav class="sidebar-menu">
-        <a href="story.php#family">Family</a>
-        <a href="story.php#elementary">Elementary</a>
-        <a href="story.php#hobbies">Hobbies</a>
-        <a href="story.php#highschool">Highschool</a>
-        <a href="story.php#college">College</a>
+        <a href="story.php">Family</a>
+        <a href="elementary.php">Elementary</a>
+        <a href="hobbies.php">Hobbies</a>
+        <a href="highschool.php">Highschool</a>
+        <a href="college.php">College</a>
       </nav>
 
       <a href="new-events.php" class="sidebar-title active" id="new-title">NEW EVENTS</a>
@@ -85,13 +85,13 @@
   
   <div class="add-story-overlay" id="addStoryOverlay"></div>
 
-<div class="add-story-panel" id="addStoryPanel">
-  <div class="panel-header">
-    <button class="close-panel-btn" id="closePanelBtn">
-      <img src="images/back.png" alt="Close">
-    </button>
-    <h2>ADD TO STORY</h2>
-  </div>
+  <div class="add-story-panel" id="addStoryPanel">
+    <div class="panel-header">
+      <button class="close-panel-btn" id="closePanelBtn">
+        <img src="images/back.png" alt="Close">
+      </button>
+      <h2>ADD TO STORY</h2>
+    </div>
 
   <div class="form-group" id="title-group">
     <div class="label-with-counter">
@@ -126,7 +126,6 @@
   </div>
 </div>
 
-<!-- Custom Alert (required for alerts to work) -->
 <div class="custom-alert-overlay" id="customAlertOverlay">
   <div class="custom-alert-box" id="customAlertBox">
     <div class="alert-icon" id="alertIcon"></div>

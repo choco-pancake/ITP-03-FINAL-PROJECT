@@ -1,5 +1,4 @@
 <?php
-/* add-event.php — overlay card height = text length only */
 $eventsFile = __DIR__ . '/uploads/new-events.txt';
 
 if (!file_exists($eventsFile) || filesize($eventsFile) === 0) {
@@ -12,7 +11,6 @@ if (!file_exists($eventsFile) || filesize($eventsFile) === 0) {
     return;
 }
 
-/* ---------- PARSE TEXT FILE ---------- */
 $content = file_get_contents($eventsFile);
 $blocks  = array_filter(explode('==================================================', $content));
 
@@ -46,7 +44,6 @@ foreach ($blocks as $block) {
 $eventsJson = json_encode($events, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
 ?>
 
-<!-- NEW EVENTS CAROUSEL — FLOATS ON TOP -->
 <div id="event-carousel" style="position: relative; z-index: 20; margin-bottom: -100px; pointer-events: none;">
     <section class="hero-section" style="pointer-events: auto;">
         <div class="hero-image">
@@ -104,7 +101,6 @@ updateEvent();
     position: relative;
 }
 
-/* ONLY THIS PART IS MODIFIED — card height = text only */
 .overlay-card {
     position: absolute;
     left: 5px;
@@ -120,15 +116,12 @@ updateEvent();
     z-index: 30;
     display: flex;
     flex-direction: column;
-
-    /* TEXT-ONLY HEIGHT CONTROL */
     height: auto !important;
     min-height: 160px !important;
     max-height: none !important;
-    align-self: flex-start;           /* ← crucial: card hugs content */
+    align-self: flex-start;
 }
 
-/* Rest unchanged */
 .event-title {
     font-family: 'Bebas', sans-serif !important;
     font-size: 48px !important;

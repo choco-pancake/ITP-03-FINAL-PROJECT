@@ -529,6 +529,70 @@ nav a.active {
     margin-top: 20px;
 }
 
+.title-family {
+    display: block;
+    font-family: 'Bebas', sans-serif;
+    font-size: 60px;
+    letter-spacing: 6px;
+    line-height: 0.88;
+    margin-left: 45px;
+    padding: 0 40px;
+    background: url(images/background.png) center/cover no-repeat;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.sidebar-small-title {
+    font-family: 'Bebas', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: #003366;
+    opacity: 0.9;
+    margin-left: 85px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.35s ease;
+}
+
+.sidebar-small-title:hover {
+    opacity: 1;
+    padding-left: 12px;
+    font-weight: 400;
+    color: #002244;
+}
+
+.title-elementary {
+    display: block;
+    font-family: 'Bebas', sans-serif;
+    font-size: 60px;
+    letter-spacing: 6px;
+    line-height: 0.88;
+    margin-left: 83px;
+    background: url(images/background.png) center/cover no-repeat;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.title-elementary:hover {
+    text-decoration: none;
+}
+
+.title-hobbies, .title-highschool {
+    font-family: 'Bebas', sans-serif;
+    font-size: 60px;
+    letter-spacing: 6px;
+    line-height: 0.88;
+    margin-left: 43px;
+    padding: 0 40px;
+    background: url(images/background.png) center/cover no-repeat;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 .sidebar-menu {
     display: flex;
     flex-direction: column;
@@ -632,6 +696,26 @@ a, button, .add-to-story-btn {
     display: block;
 }
 
+#egca {
+    max-width: 420px;
+    margin-left: 335px;
+}
+
+#seventh {
+    max-width: 580px;
+    margin-left: 235px;
+}
+
+#sags {
+    max-width: 580px;
+    margin-left: 235px;
+}
+
+#egca img, #seventh img, #sags img {
+    width: 100%;
+    height: auto;
+}
+
 .overlay-card {
     position: absolute;
     left: 5px;
@@ -722,6 +806,14 @@ a, button, .add-to-story-btn {
     transform: none !important;
 }
 
+#overlay5 {
+    margin-left: 48px;
+}
+
+#overlay7 {
+    margin-left: -20px;
+}
+
 .story-bottom-section {
     position: fixed;
     bottom: 0;
@@ -749,7 +841,6 @@ a, button, .add-to-story-btn {
     box-shadow: 0 6px 25px rgba(0,0,0,0.2);
 }
 
-/* Footer text tiny and centered at very bottom */
 .story-bottom-section .footer-text {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;

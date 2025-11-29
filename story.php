@@ -22,10 +22,10 @@
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
           <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.php">Family</a>
-            <a href="#">Elementary</a>
-            <a href="#">Hobbies</a>
-            <a href="#">Highschool</a>
-            <a href="#">College</a>
+            <a href="elementary.php">Elementary</a>
+            <a href="hobbies.php">Hobbies</a>
+            <a href="highschool.php">Highschool</a>
+            <a href="college.php">College</a>
             <a href="new-events.php">New Events</a>
           </div>
         </div>
@@ -52,12 +52,12 @@
 
   <div class="page-wrapper">
     <div class="sidebar-banner">
-        <a href="story.php" class="sidebar-title" id="dynamic-sidebar-title">FAMILY</a>
+        <a href="story.php" class="title-family" id="dynamic-sidebar-title">FAMILY</a>
         <nav class="sidebar-menu">
-            <a href="#elementary">Elementary</a>
-            <a href="#hobbies">Hobbies</a>
-            <a href="#highschool">Highschool</a>
-            <a href="#college">College</a>
+            <a href="elementary.php">Elementary</a>
+            <a href="hobbies.php">Hobbies</a>
+            <a href="highschool.php">Highschool</a>
+            <a href="#college.php>College</a>
             <a href="new-events.php">New Events</a>
         </nav>
     </div>

@@ -240,16 +240,26 @@ document.querySelector('.panel-btn.submit').addEventListener('click', function (
     })
     .then(res => res.text())
     .then(response => {
+        console.log('Response:', response); // Debug log
+        
+        // Check if the submission was successful
         if (response.includes('SUCCESS')) {
-    showCustomAlert('Story saved successfully!', 'success');
-
-    resetFormAndCounters();
-    closePanel();
-} else {
+            showCustomAlert('Story added successfully!', 'success', function() {
+                // This callback runs when OK button is pressed
+                resetFormAndCounters();
+                closePanel();
+                
+                // Reload the page to show the new event with correct photo
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
+            });
+        } else {
             showCustomAlert('Failed to save story. Please try again.', 'error');
         }
     })
     .catch(err => {
+        console.error('Error:', err);
         showCustomAlert('Connection error. Check your internet and try again.', 'error');
     });
 });
@@ -332,7 +342,7 @@ function resetFormAndCounters() {
     descCounter.classList.remove('warning', 'good');
 }
 
-function showCustomAlert(message, type = 'success') {
+function showCustomAlert(message, type = 'success', callback = null) {
     const overlay     = document.getElementById('customAlertOverlay');
     const box         = document.getElementById('customAlertBox');
     const messageEl   = document.getElementById('alertMessage');
@@ -364,6 +374,11 @@ function showCustomAlert(message, type = 'success') {
         setTimeout(() => {
             overlay.style.visibility = 'hidden';
             document.removeEventListener('keydown', keyHandler);
+            
+            // Execute callback if provided
+            if (callback && typeof callback === 'function') {
+                callback();
+            }
         }, 400);
     };
 
