@@ -639,7 +639,9 @@ a, button, .add-to-story-btn {
 
 .hero-image {
     width: 100%;
+    min-width: 300px;
     max-width: 580px;
+    max-height: 430px;
     margin-left: 225px;
     overflow: hidden;
     box-shadow: 0 10px 60px rgba(0, 0, 0, 0.22);
@@ -673,8 +675,9 @@ a, button, .add-to-story-btn {
 }
 
 #debut {
-    max-width: 280px;
-    margin-left: 400px;
+    max-width: 520px;
+    max-height: 520px;
+    margin-left: 300px;
 }
 
 #egca img, #seventh img, #sags img {
@@ -785,10 +788,6 @@ a, button, .add-to-story-btn {
 
 #overlay7 {
     margin-left: -20px;
-}
-
-#overlay16 {
-    margin-left: 110px;
 }
 
 .story-bottom-section {
@@ -1414,17 +1413,6 @@ a, button, .add-to-story-btn {
     margin: 0 0 20px 0;
     flex-grow: 0;
     color: white !important;
-}
-
-.hero-image.big-photo {
-    max-width: 490px !important;     /* Default is ~580px */
-    margin-left: 280px !important;   /* Slightly less offset to center it */
-}
-
-.hero-image.big-photo img {
-    border-radius: 20px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-    transform: scale(1.02);
 }
 
 .footer-text {

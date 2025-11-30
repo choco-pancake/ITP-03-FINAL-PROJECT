@@ -54,7 +54,7 @@
     <div class="sidebar-banner">
     <a href="story.php" class="sidebar-small-title">Family</a>
     <a href="elementary.php" class="sidebar-small-title">Elementary</a>
-    <div class="title">Hobbies</div>
+    <a href="hobbies.php" class="title">Hobbies</a>
     <nav class="sidebar-menu">
         <a href="highschool.php">Highschool</a>
         <a href="college.php">College</a>

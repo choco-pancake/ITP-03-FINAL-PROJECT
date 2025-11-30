@@ -57,7 +57,7 @@
             <a href="elementary.php">Elementary</a>
             <a href="hobbies.php">Hobbies</a>
             <a href="highschool.php">Highschool</a>
-            <a href="#college.php">College</a>
+            <a href="college.php">College</a>
             <a href="new-events.php">New Events</a>
         </nav>
     </div>

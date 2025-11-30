@@ -69,7 +69,7 @@
 
       <section class="hero-section">
         <div class="hero-image" id="debut">
-          <img src="images/18th_bday.jpg" alt="My Family">
+          <img src="images/18th_bday2.jpg" alt="My Family">
         </div>
 
         <div class="overlay-card" id="overlay16">
