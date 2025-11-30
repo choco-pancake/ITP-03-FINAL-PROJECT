@@ -712,6 +712,10 @@ a, button, .add-to-story-btn {
     align-self: flex-start;
 }
 
+.hero-section#hero-add {
+    margin-top: -40px !important;  /* You can adjust 180px → 150px / 200px as you like */
+}
+
 .overlay-card h2 {
     font-family: 'Bebas', sans-serif;
     font-size: 48px;

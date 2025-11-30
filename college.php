@@ -149,5 +149,13 @@
   </div>
 
   <script src="script.js"></script>
+
+  <script>
+    window.addEventListener('beforeunload', () => {
+      if (window.location.pathname.includes('college.php')) {
+        sessionStorage.setItem('collegeScroll', window.scrollY);
+      }
+    });
+  </script>
 </body>
 </html>

@@ -438,11 +438,16 @@ if (document.getElementById('familyImage')) {
     }, 250);
 
     prevFamilyBtn.disabled = currentFamilySection === 0;
-
     nextFamilyBtn.disabled = false;
 
-    const progress = ((currentFamilySection + 1) / 19) * 100;
-    progressBar.style.width = progress + '%';
+    // SMART PROGRESS BAR — AUTO 100% ON LAST EVENT
+    const TOTAL_FIXED_EVENTS = 19;
+    let totalEvents = TOTAL_FIXED_EVENTS;
+    if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
+
+    const currentEventNumber = currentFamilySection + 1; // 1–4
+    const percentage = (currentEventNumber / totalEvents) * 100;
+    progressBar.style.width = percentage + '%';
   }
 
   nextFamilyBtn.addEventListener('click', () => {
@@ -482,9 +487,6 @@ if (document.getElementById('egca')) {
     else if (eventIndex === 4) currentElementarySection = 0;
   }
 
-  const totalLifeSections = 19;
-  const elementaryStartPosition = 4;
-
   const elementaryImage = document.querySelector('#egca img');
   const elementaryTitle = document.querySelector('#overlay5 h2');
   const elementaryDescription = document.querySelector('#overlay5 p');
@@ -514,8 +516,13 @@ if (document.getElementById('egca')) {
       overlayCard.style.opacity = '1';
     }, 200);
 
-    const currentGlobalEvent = elementaryStartPosition + currentElementarySection + 1;
-    const percentage = (currentGlobalEvent / totalLifeSections) * 100;
+    // SMART PROGRESS BAR
+    const TOTAL_FIXED_EVENTS = 19;
+    let totalEvents = TOTAL_FIXED_EVENTS;
+    if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
+
+    const currentEventNumber = 4 + currentElementarySection + 1; // 5–6
+    const percentage = (currentEventNumber / totalEvents) * 100;
     progressBar.style.width = percentage + '%';
 
     prevElementaryBtn.disabled = false;
@@ -586,7 +593,14 @@ if (document.getElementById('hobbies')) {
     prevBtn.disabled = false;
     nextBtn.disabled = false;
 
-    progress.style.width = ((6 + currentHobbySection + 1) / 19 * 100) + '%';
+    // SMART PROGRESS BAR
+    const TOTAL_FIXED_EVENTS = 19;
+    let totalEvents = TOTAL_FIXED_EVENTS;
+    if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
+
+    const currentEventNumber = 6 + currentHobbySection + 1; // 7–11
+    const percentage = (currentEventNumber / totalEvents) * 100;
+    progress.style.width = percentage + '%';
   }
 
   nextBtn.onclick = () => {
@@ -622,7 +636,6 @@ if (document.getElementById('highschool')) {
   const eventParam = urlParams.get('event');
   
   let current = eventParam ? highschoolEvents.findIndex(e => e.index == eventParam) : 0;
-  
   if (current === -1) current = 0;
 
   const img    = document.querySelector('#sags img');
@@ -645,7 +658,15 @@ if (document.getElementById('highschool')) {
 
     prev.disabled = false;
     next.disabled = false;
-    bar.style.width = ((11 + current) / 19 * 100) + '%';
+
+    // SMART PROGRESS BAR
+    const TOTAL_FIXED_EVENTS = 19;
+    let totalEvents = TOTAL_FIXED_EVENTS;
+    if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
+
+    const currentEventNumber = 11 + current + 1; // 12–15
+    const percentage = (currentEventNumber / totalEvents) * 100;
+    bar.style.width = percentage + '%';
   }
 
   next.onclick = () => {
@@ -670,7 +691,7 @@ if (document.getElementById('highschool')) {
 }
 
 const collegeEvents = [
-  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience to be the princess and star of the night at Jmacks Resort Hotel and Events Place.", image: "images/18th_bday2.jpg" },
+  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience to be the princess and the star of the night at Jmacks Resort Hotel and Events Place.", image: "images/18th_bday2.jpg" },
   { index: 16, title: "A TEMPORARY STE STUDENT", description: "I initially enrolled at UdD (Universidad de Dagupan) under the Education program as an English major for a single semester.", image: "images/ste.jpg" },
   { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - i'll stay here.", image: "images/site.jpg" },
   { index: 18, title: "A COLORFUL SEM WITH CSITS", description: "I entered the CSITS (Computer Science and Information Technology Society) as a Graphic Designer.", image: "images/csits.jpg" }
@@ -697,25 +718,29 @@ if (document.getElementById('debut')) {
       desc.textContent  = e.description;
       img.src = e.image;
 
-      collegeImage.style.width = '';
-      collegeImage.style.height = '';
-      collegeImage.style.maxWidth = '';
-      collegeImage.style.maxHeight = '';
-      collegeImage.style.transform = '';
-      collegeImage.style.objectFit = '';
-      collegeImage.style.marginLeft = '';
-      collegeImage.style.marginRight = '';
-      collegeImage.style.marginTop = '';
+      // reset any custom styling you had before
+      img.style.width = '';
+      img.style.height = '';
+      img.style.maxWidth = '';
+      img.style.maxHeight = '';
+      img.style.transform = '';
+      img.style.objectFit = '';
+      img.style.margin = '';
 
       card.style.opacity = '1';
     }, 280);
 
-    // Button states
     prev.disabled = false;
     next.disabled = false;
 
-    // Progress bar
-    bar.style.width = ((15 + currentEvent) / 19 * 100) + '%';
+    // SMART PROGRESS BAR
+    const TOTAL_FIXED_EVENTS = 19;
+    let totalEvents = TOTAL_FIXED_EVENTS;
+    if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
+
+    const currentEventNumber = 15 + currentEvent + 1; // 16–19
+    const percentage = (currentEventNumber / totalEvents) * 100;
+    bar.style.width = percentage + '%';
   }
 
   next.onclick = () => {
@@ -736,12 +761,31 @@ if (document.getElementById('debut')) {
     }
   };
 
-  // Optional: keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') next.click();
     if (e.key === 'ArrowLeft') prev.click();
   });
 
-  // Start
   update();
+
+  setTimeout(() => {
+    if (window.location.search.includes('back=1')) {
+      const savedScroll = sessionStorage.getItem('collegeScroll');
+      currentEvent = collegeEvents.length - 1;
+      update();
+
+      if (savedScroll) {
+        window.scrollTo(0, parseInt(savedScroll));
+      } else {
+        document.getElementById('overlay16')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+        setTimeout(() => {
+          sessionStorage.setItem('collegeScroll', window.scrollY);
+        }, 800);
+      }
+      history.replaceState(null, null, 'college.php');
+    }
+  }, 100);
 }
