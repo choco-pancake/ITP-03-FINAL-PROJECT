@@ -511,24 +511,70 @@ nav a.active {
     padding: 100px 0 60px 0;
 }
 
-.sidebar-small-title {
+body.portfolio-page .sidebar-banner {
+    margin-left: -60px;           /* ← Pull entire sidebar left */
+    width: 400px;                 /* Slightly wider for breathing room */
+}
+
+.sidebar-link {
+    text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: clip;
+    /* THIS IS THE KEY: all items now share the same left position */
+    margin-left: 85px !important;     /* ← SAME AS SMALL TITLES */
+    padding-left: 0 !important;
+    display: block;
+}
+
+.sidebar-link.title {
+    font-family: 'Bebas', sans-serif;
+    font-size: 60px !important;
+    letter-spacing: 6px;
+    line-height: 0.88;
+    /*margin-left: -50px;
+    padding: 0 40px;*/
+    background: url(images/background.png) center/cover no-repeat;
+    background-attachment: fixed;
+    color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /*white-space: nowrap !important;*/
+    display: inline-block !important;
+    max-width: 100vw;
+}
+
+.sidebar-link.sidebar-small-title {
     font-family: 'Bebas', sans-serif;
     font-size: 32px;
     letter-spacing: 3px;
-    color: #003366;
-    opacity: 0.9;
-    margin-left: 85px;
-    margin-bottom: 8px;
-    text-decoration: none;
+    color: #003366 !important;        /* same color */
+    opacity: 0.9 !important;           /* same opacity */
+    margin-left: 85px !important;
+    white-space: nowrap !important;
     display: block;
-    transition: all 0.35s ease;
 }
 
-.sidebar-small-title:hover {
+.sidebar-link.sidebar-small-title:hover {
     opacity: 1;
-    padding-left: 12px;
-    font-weight: 400;
-    color: #002244;
+    color: #00182f !important;
+}
+
+body.portfolio-page .sidebar-link.sidebar-small-title {
+    margin-left: 20px !important;
+}
+
+body.portfolio-page .sidebar-link.title {
+    margin-left: 20px !important;
+    padding-left: 0 !important;
+}
+
+body.portfolio-page .sidebar-link {
+    margin-left: 20px !important;   /* ← FINAL perfect alignment */
 }
 
 .title {
@@ -573,6 +619,13 @@ nav a.active {
     padding-left: 12px;
     font-weight: 400;
     color: #002244;
+}
+
+body.portfolio-page .sidebar-menu {
+    margin-left: 100px !important;
+    margin-top: 3px;
+    padding-left: 30px;           /* Fine-tune alignment */
+    gap: 20px;
 }
 
 #highschool {
@@ -713,7 +766,7 @@ a, button, .add-to-story-btn {
 }
 
 .hero-section#hero-add {
-    margin-top: -40px !important;  /* You can adjust 180px → 150px / 200px as you like */
+    margin-top: -40px !important;
 }
 
 .overlay-card h2 {
@@ -801,20 +854,19 @@ a, button, .add-to-story-btn {
     width: 100%;
     padding: 0 5% 20px 5%;
     text-align: center;
-    pointer-events: none;            /* so clicks go through to buttons below if any */
+    pointer-events: none;
     z-index: 10;
 }
 
 .story-bottom-section > * {
-    pointer-events: auto;                /* re-enable clicks on actual elements */
+    pointer-events: auto;
 }
 
 #container-new, #container-story {
     height: 6px;
     max-width: 1400px;
-    width: 50vw;                     /* almost full width */
+    width: 50vw;
     margin: 0 auto 20px auto !important;
-    /* centered, good gap to text */
     background: rgba(255, 255, 255, 0.95);
     border-radius: 4px;
     overflow: hidden;
@@ -841,7 +893,7 @@ a, button, .add-to-story-btn {
 
 .progress-bar {
     height: 100%;
-    width: 5.263%;                 /* or whatever your JS sets */
+    width: 5.263%;
     background: linear-gradient(to right, #00C6FF, #0077B6);
     border-radius: 4px;
     transition: width 0.4s ease;
@@ -1417,6 +1469,172 @@ a, button, .add-to-story-btn {
     margin: 0 0 20px 0;
     flex-grow: 0;
     color: white !important;
+}
+
+.overlay-card, .overlay-card-port {
+    position: absolute;
+    left: 5px;
+    top: calc(100% / 6);
+    transform: translateY(0);
+    height: auto !important;
+    min-height: 160px;
+    max-height: calc(100% - (100%/6)*2);    
+    background: linear-gradient(to bottom, #003366 0%, #0077B6 100%);
+    color: white;
+    padding: 34px 32px;
+    width: 340px;
+    max-width: 360px;
+    border-radius: 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    z-index: 10;    
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+#event-carousel .hero-section .hero-container #overlay-add {
+    max-height: none;
+    align-self: flex-start;
+}
+
+.hero-section#hero-add {
+    margin-top: -40px !important;
+}
+
+.overlay-card h2, .overlay-card-port h2 {
+    font-family: 'Bebas', sans-serif;
+    font-size: 48px;
+    margin: 0 0 8px 0;
+    letter-spacing: 2.5px;
+    line-height: 1;
+}
+
+.overlay-card h2::after,.overlay-card-port h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: white;
+    margin: 14px 0 18px 0;
+    border-radius: 2px;
+    opacity: 0.9;
+}
+
+.overlay-card p, .overlay-card-port p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    opacity: 0.95;
+    margin: -10px 0 0 0;
+    flex-grow: 1;
+}
+
+.overlay-card .btn-group, .overlay-card-port .btn-group {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.overlay-card .btn-group button {
+    background: rgba(255, 255, 255, 0.22);
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.overlay-card .btn-group button:hover:not(:disabled), .overlay-card-port .btn-group button:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-3px);
+}
+
+.overlay-card button:disabled, .overlay-card-port button:disabled {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.overlay-card button:disabled, .overlay-card-port button:disabled {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: not-allowed;
+}
+
+.overlay-card button:disabled:hover, .overlay-card-port button:disabled:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    transform: none !important;
+}
+
+.portfolio-duo {
+  padding: 80px 40px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: 0 20px 40px rgba(0,0,0,0.02);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.portfolio-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  max-width: 1600px;
+  margin: 0 auto;
+  margin-left: 40px !important;
+}
+
+.overlay-card-port {   
+    margin-top: 110px;
+    margin-left: 770px; 
+}
+
+.overlay-card-port .btn-group {
+    display: flex;
+    gap: 14px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.overlay-card-port .btn-group button {
+    border: none;
+    cursor: pointer;
+    z-index: 99;
+    margin-top: -5px;
+    padding: 14px 20px;
+    font-family: 'Montserrat';
+    font-size: 1.1rem;
+    font-weight: 400;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    background: linear-gradient(to right, #00C6FF, #0F70DA);
+    color: white;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.project-screenshot {
+  flex: 1;
+  min-width: 300px;
+  max-width: 700px;
+  margin-top: -200px;
+  overflow: hidden;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.22);
+}
+
+.project-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .footer-text {

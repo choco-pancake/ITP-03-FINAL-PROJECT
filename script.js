@@ -440,12 +440,11 @@ if (document.getElementById('familyImage')) {
     prevFamilyBtn.disabled = currentFamilySection === 0;
     nextFamilyBtn.disabled = false;
 
-    // SMART PROGRESS BAR — AUTO 100% ON LAST EVENT
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = currentFamilySection + 1; // 1–4
+    const currentEventNumber = currentFamilySection + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
     progressBar.style.width = percentage + '%';
   }
@@ -473,7 +472,7 @@ if (document.getElementById('familyImage')) {
 
 const elementaryEvents = [
   {index: 4, title: "ELEMENTARY LIFE AT EGCA", description: "I started school at EGCA (Eastern Gate Christian Academy) for the whole span of my elementary days. I graduated in 2016 as the valedictorian of our class.", image: "images/egca.jpg"},
-  {index: 5, title: "ACADEMICALLY ACTIVE!", description: "I’ve been consistent competing in quiz bees, art, choral and speech competitions.", image: "images/calligraphy.jpg"}
+  {index: 5, title: "ACADEMICALLY ACTIVE!", description: "I’ve been consistently competing in quiz bees, art, choral and speech competitions.", image: "images/calligraphy.jpg"}
 ];
 
 if (document.getElementById('egca')) {
@@ -516,12 +515,11 @@ if (document.getElementById('egca')) {
       overlayCard.style.opacity = '1';
     }, 200);
 
-    // SMART PROGRESS BAR
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = 4 + currentElementarySection + 1; // 5–6
+    const currentEventNumber = 4 + currentElementarySection + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
     progressBar.style.width = percentage + '%';
 
@@ -628,7 +626,7 @@ const highschoolEvents = [
   {index: 11, title: "7TH GRADE AT SAGS", description: "I initially started high school off at SAGS (St. Albert the Great School). Although I’ve only stayed for a year, I’ve formed wholesome friendships that lasted.", image: "images/palaris.jpg"},
   {index: 12, title: "3 YEARS AT STA", description: "I continued my Junior High School journey at STA (Señor Tesoro Academy). My sister followed my footsteps and is currently a student here, too.", image: "images/sta.jpg"},
   {index: 13, title: "SHS AT UPANG",description: "I could say that my time at PHINMA-Upang (University of Pangasinan) as a TVL-ICT student was where I really grew. I formed my identity, and was new to seeing life independently.", image: "images/upang.jpg"},
-  {index: 14, title: "LOML", description: "At the same university, I’ve also met a guy who’s still by my side up to this day, Justin.", image: "images/justin.jpg"}
+  {index: 14, title: "LOML", description: "At the same university, I’ve also met the guy who my heart beats for, my partner in everything, who stays by my side up until this day, Justin.", image: "images/justin.jpg"}
 ];
 
 if (document.getElementById('highschool')) {
@@ -659,12 +657,11 @@ if (document.getElementById('highschool')) {
     prev.disabled = false;
     next.disabled = false;
 
-    // SMART PROGRESS BAR
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = 11 + current + 1; // 12–15
+    const currentEventNumber = 11 + current + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
     bar.style.width = percentage + '%';
   }
@@ -691,9 +688,9 @@ if (document.getElementById('highschool')) {
 }
 
 const collegeEvents = [
-  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience to be the princess and the star of the night at Jmacks Resort Hotel and Events Place.", image: "images/18th_bday2.jpg" },
+  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience celebrated at Jmacks Resort Hotel and Events Place on October 12, 2023.", image: "images/18th_bday2.jpg" },
   { index: 16, title: "A TEMPORARY STE STUDENT", description: "I initially enrolled at UdD (Universidad de Dagupan) under the Education program as an English major for a single semester.", image: "images/ste.jpg" },
-  { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - i'll stay here.", image: "images/site.jpg" },
+  { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - where I'll be staying until I graduate on 2027.", image: "images/site.jpg" },
   { index: 18, title: "A COLORFUL SEM WITH CSITS", description: "I entered the CSITS (Computer Science and Information Technology Society) as a Graphic Designer.", image: "images/csits.jpg" }
 ];
 
@@ -718,7 +715,6 @@ if (document.getElementById('debut')) {
       desc.textContent  = e.description;
       img.src = e.image;
 
-      // reset any custom styling you had before
       img.style.width = '';
       img.style.height = '';
       img.style.maxWidth = '';
@@ -733,12 +729,11 @@ if (document.getElementById('debut')) {
     prev.disabled = false;
     next.disabled = false;
 
-    // SMART PROGRESS BAR
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = 15 + currentEvent + 1; // 16–19
+    const currentEventNumber = 15 + currentEvent + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
     bar.style.width = percentage + '%';
   }
@@ -788,4 +783,86 @@ if (document.getElementById('debut')) {
       history.replaceState(null, null, 'college.php');
     }
   }, 100);
+}
+
+const portfolioItems = [
+  { title: "BE MY Æ", description: "Be My Æ is an informational website displaying profiles, a gallery, and updates on the K-Pop group æspa.", image: "images/bemyae.png" },
+  { title: "MEMORY GAME", description: "Made with the programming language Dart, Memory Game by YYBKDev is a simple game which goal is to match 2 cards of the same animal.", image: "images/memorygame.gif" },
+  { title: "Æ AND AI", description: "An experimental project combining æspa-themed visuals with AI-generated art and interactive elements.", image: "images/ae&ai.gif" },
+  { title: "CAT BREEDS", description: "An educational website showcasing different cat breeds with facts, images, and care tips.", image: "images/catbreeds.png" },
+  { title: "SUPER SNAKES", description: "A modern remake of the classic Snake game with power-ups, levels, and sleek design.", image: "images/supersnakes.png" },
+  { title: "MY PORTFOLIO", description: "This very website! A personal timeline and showcase of my journey, skills, and projects.", image: "images/my-portfolio.png" },
+  { title: "STYLECART", description: "A stylish e-commerce fashion store concept with cart functionality and responsive design.", image: "images/stylecart.png" }
+];
+
+const overlayPort = document.getElementById('projectOverlay');
+if (overlayPort) {
+  let currentProject = 0;
+
+  const img   = document.getElementById('projectImage');
+  const title = document.getElementById('projectTitle');
+  const desc  = document.getElementById('projectDescription');
+  const prev  = document.getElementById('prevProjectBtn');
+  const next  = document.getElementById('nextProjectBtn');
+
+  function updateProject() {
+  const p = portfolioItems[currentProject];
+  const card = document.getElementById('projectOverlay');
+
+  card.style.opacity = '0.3';
+
+  setTimeout(() => {
+    img.src = p.image;
+    title.textContent = p.title;
+    desc.textContent = p.description;
+
+    const counterEl = document.getElementById('currentIndex');
+    if (counterEl) counterEl.textContent = currentProject + 1;
+
+    card.style.opacity = '1';
+
+    document.querySelectorAll('.sidebar-link').forEach((link, index) => {
+      link.textContent = portfolioItems[index].title;
+
+      if (index === currentProject) {
+        link.classList.remove('sidebar-small-title');
+        link.classList.add('title');
+        link.href = "portfolio.php";
+      } else {
+        link.classList.remove('title');
+        link.classList.add('sidebar-small-title');
+        link.href = "#";
+      }
+    });
+
+  }, 280);
+}
+
+  next.addEventListener('click', () => {
+    currentProject = (currentProject + 1) % portfolioItems.length;
+    updateProject();
+  });
+
+  prev.addEventListener('click', () => {
+    currentProject = (currentProject - 1 + portfolioItems.length) % portfolioItems.length;
+    updateProject();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
+  });
+
+  document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const index = parseInt(link.dataset.index);
+      if (!isNaN(index) && index >= 0 && index < portfolioItems.length) {
+        currentProject = index;
+        updateProject();
+      }
+    });
+  });
+
+  updateProject();
 }

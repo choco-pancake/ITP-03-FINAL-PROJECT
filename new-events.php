@@ -31,7 +31,7 @@
         </div>
 
         <div class="menu-item-story">
-          <a href="#" class="menu-link">PORTFOLIO</a>
+          <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="#">Be my Æ</a>
@@ -66,20 +66,21 @@
       </div>
 
       <div id="main-content" style="min-height: 80vh; display: flex; align-items: flex-start; justify-content: center; padding-top: 80px;">
-  <?php 
-  $eventsFile = __DIR__ . '/uploads/new-events.txt';
-  if (!file_exists($eventsFile) || filesize($eventsFile) === 0) {
-      echo '
-      <div style="text-align: center;">
-          <div style="border: 3px solid #003366; border-radius: 50px; width: 100px; height: 100px; margin:0 auto;"><img src="images/kite.png" style="height: 100px; width: 100px; padding:20px;"></div>
-          <div style="margin-left:40px;"><h1>No new events added yet.</h1></div>
-          <div style="margin-left:40px;"><p>Click <b>Add to Story</b> to add a new event.</p></div>
-      </div>';
-  } else {
-      include 'add-event.php';
-  }
-  ?>
-</div>
+        <?php 
+          $eventsFile = __DIR__ . '/uploads/new-events.txt';
+
+          if (!file_exists($eventsFile) || filesize($eventsFile) === 0) {
+              echo '
+              <div style="text-align: center; margin-top:-50px;">
+                  <div style="border: 3px solid #003366; border-radius: 50px; width: 100px; height: 100px; margin:0 auto;"><img src="images/kite.png" style="height: 100px; width: 100px; padding:20px;"></div>
+                  <div style="margin-left:40px;"><h1>No new events added yet.</h1></div>
+                  <div style="margin-left:40px;"><p>Click <b>Add to Story</b> to add a new event.</p></div>
+              </div>';
+          } else {
+              include 'add-event.php';
+          }
+        ?>
+      </div>
 
       <div class="story-bottom-section">
         <div class="progress-container" id="container-new">
@@ -143,36 +144,32 @@
   </div>
 </div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 <script>
-// FINAL & PERFECT: PROGRESS BAR = 100% ON LAST EVENT (NO MATTER WHAT)
-const TOTAL_FIXED_EVENTS = 19;
-const totalEvents = TOTAL_FIXED_EVENTS + events.length;
+  const TOTAL_FIXED_EVENTS = 19;
+  const totalEvents = TOTAL_FIXED_EVENTS + events.length;
 
-function updateNewProgress() {
-  const currentEventNumber = TOTAL_FIXED_EVENTS + current + 1;
-  let percentage = (currentEventNumber / totalEvents) * 100;
+  function updateNewProgress() {
+    const currentEventNumber = TOTAL_FIXED_EVENTS + current + 1;
+    let percentage = (currentEventNumber / totalEvents) * 100;
 
-  // FORCE 100% ON THE VERY LAST EVENT (makes you feel complete)
-  if (current === events.length - 1) {
-    percentage = 100;
+    if (current === events.length - 1) {
+      percentage = 100;
+    }
+
+    const bar = document.getElementById('progressBar');
+
+    if (bar) {
+      bar.style.width = percentage + '%';
+      bar.style.transition = 'width 0.6s ease';
+    }
   }
 
-  const bar = document.getElementById('progressBar');
-  if (bar) {
-    bar.style.width = percentage + '%';
-    bar.style.transition = 'width 0.6s ease'; // smooth & beautiful
-  }
-}
-
-// Initialize progress bar on page load
-document.addEventListener('DOMContentLoaded', function() {
-  updateNewProgress();
-  
-  // Update on navigation
-  document.getElementById('prev-btn')?.addEventListener('click', updateNewProgress);
-  document.getElementById('next-btn')?.addEventListener('click', updateNewProgress);
-});
+  document.addEventListener('DOMContentLoaded', function() {
+    updateNewProgress();
+    document.getElementById('prev-btn')?.addEventListener('click', updateNewProgress);
+    document.getElementById('next-btn')?.addEventListener('click', updateNewProgress);
+  });
 </script>
 </body>
 </html>

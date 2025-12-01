@@ -31,7 +31,7 @@
         </div>
 
         <div class="menu-item-story">
-          <a href="#" class="menu-link">PORTFOLIO</a>
+          <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="#">Be my Æ</a>
