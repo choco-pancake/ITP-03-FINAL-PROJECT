@@ -512,10 +512,67 @@ nav a.active {
 }
 
 body.portfolio-page .sidebar-banner {
-    margin-left: -60px;           /* ← Pull entire sidebar left */
-    width: 400px;                 /* Slightly wider for breathing room */
+    margin-top: -10px;
+    margin-left: -95px;
+    width: 400px;
 }
 
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+    width: fit-content;
+}
+
+.sidebar-link {
+    text-decoration: none;
+    transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* FORCE the background-clip to work on ALL .title links */
+.sidebar-link.title {
+    font-family: 'Bebas', sans-serif;
+    font-size: 60px !important;
+    letter-spacing: 6px;
+    line-height: 0.88;
+    margin-left: 43px !important;
+    margin-bottom: 0;
+    padding: 0 40px;
+    background: url(images/background.png) center/cover no-repeat;
+    color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    display: block;
+}
+
+/* Small items */
+.sidebar-small-title {
+    font-family: 'Bebas', sans-serif;
+    font-size: 32px;
+    letter-spacing: 3px;
+    color: #003366;
+    opacity: 0.9;
+    margin-left: 55px !important;
+    display: block;
+    transition: all 0.35s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sidebar-small-title:hover {
+    opacity: 1;
+    padding-left: 12px;
+    color: #002244;
+}
+
+/*
 .sidebar-link {
     text-decoration: none;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -524,44 +581,87 @@ body.portfolio-page .sidebar-banner {
     white-space: nowrap !important;
     overflow: hidden;
     text-overflow: clip;
-    /* THIS IS THE KEY: all items now share the same left position */
-    margin-left: 85px !important;     /* ← SAME AS SMALL TITLES */
+    margin-left: 85px !important;
     padding-left: 0 !important;
     display: block;
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
 }
 
 .sidebar-link.title {
-    font-family: 'Bebas', sans-serif;
+    font-family: 'Bebas', sans-serif !important;
     font-size: 60px !important;
-    letter-spacing: 6px;
-    line-height: 0.88;
-    /*margin-left: -50px;
-    padding: 0 40px;*/
-    background: url(images/background.png) center/cover no-repeat;
-    background-attachment: fixed;
+    letter-spacing: 6px !important;
+    line-height: 0.88 !important;
+    background: url(images/background.png) center/cover no-repeat !important;
     color: transparent !important;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /*white-space: nowrap !important;*/
-    display: inline-block !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: block !important;
     max-width: 100vw;
+    white-space: nowrap;
+    margin-left: 20px !important;
+    padding: 0 40px !important;
+    opacity: 1 !important;
 }
 
 .sidebar-link.sidebar-small-title {
+    font-size: 32px !important;
+    letter-spacing: 3px !important;
+    color: #003366 !important;
+    opacity: 0.9 !important;
+    margin-top: 10px !important;
+    padding-left: 0 !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    -webkit-text-fill-color: initial !important;
+}
+
+.sidebar-small-title, .sidebar-link.sidebar-small-title {
     font-family: 'Bebas', sans-serif;
     font-size: 32px;
     letter-spacing: 3px;
-    color: #003366 !important;        /* same color */
-    opacity: 0.9 !important;           /* same opacity */
+    color: #003366 !important;
+    opacity: 0.9 !important;
     margin-left: 85px !important;
+    margin-top: 10px;
     white-space: nowrap !important;
     display: block;
+    text-decoration: none;
+    transition: all 0.35s ease;
 }
 
 .sidebar-link.sidebar-small-title:hover {
     opacity: 1;
     color: #00182f !important;
+    padding-left: 12px !important;
+}
+
+.sidebar-link {
+    text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                padding-left 0.4s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: clip;
+    margin-left: 85px !important;
+    padding-left: 0 !important;
+    display: block;
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar-small-title:hover, .sidebar-link.sidebar-small-title:hover {
+    opacity: 1;
+    color: #00182f !important;
+    padding-left: 12px;
+    font-weight: 400;
 }
 
 body.portfolio-page .sidebar-link.sidebar-small-title {
@@ -570,19 +670,22 @@ body.portfolio-page .sidebar-link.sidebar-small-title {
 
 body.portfolio-page .sidebar-link.title {
     margin-left: 20px !important;
+    margin-bottom: -5px;
     padding-left: 0 !important;
 }
 
 body.portfolio-page .sidebar-link {
-    margin-left: 20px !important;   /* ← FINAL perfect alignment */
+    margin-left: 20px !important;
 }
-
+*/
 .title {
     font-family: 'Bebas', sans-serif;
     font-size: 60px;
     letter-spacing: 6px;
     line-height: 0.88;
     margin-left: 43px;
+    margin-top: 10px;
+    margin-bottom: -15px;
     padding: 0 40px;
     background: url(images/background.png) center/cover no-repeat;
     color: transparent;
@@ -598,6 +701,8 @@ body.portfolio-page .sidebar-link {
     gap: 24px;
     margin-top: 15px;
     margin-left: 85px;
+    padding: 20px 0;
+    width: fit-content;
 }
 
 .sidebar-menu a {
@@ -612,6 +717,7 @@ body.portfolio-page .sidebar-link {
     transition: all 0.35s ease;
     padding-left: 0;
     line-height: 1;
+    cursor: pointer;
 }
 
 .sidebar-menu a:hover, .sidebar-menu a.active {
@@ -883,21 +989,23 @@ a, button, .add-to-story-btn {
 }
 
 .progress-container {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.97);
-    border-radius: 4px;
+    width: 320px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-    margin-bottom: 18px;
+    margin: 20px auto;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .progress-bar {
     height: 100%;
-    width: 5.263%;
-    background: linear-gradient(to right, #00C6FF, #0077B6);
-    border-radius: 4px;
-    transition: width 0.4s ease;
-    position: relative;
+    width: 0%;
+    background: linear-gradient(90deg, #ff6bc4, #9d68fe, #6b6bff);
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(255, 107, 196, 0.6);
 }
 
 .progress-bar::after {
@@ -906,6 +1014,10 @@ a, button, .add-to-story-btn {
     inset: 0;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
     animation: shimmer 2.2s infinite;
+}
+
+.progress-bar.full {
+    box-shadow: 0 0 25px rgba(255, 107, 196, 0.9);
 }
 
 .add-story-overlay {

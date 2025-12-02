@@ -4,6 +4,10 @@ window.addEventListener('load', () => {
 
 document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
+    
+    // Skip sidebar links in portfolio page
+    if (link.classList.contains('sidebar-link')) return;
+    
     const isInternalPage = href && (
         href.endsWith('.html') ||
         href.includes('index.html') ||
@@ -97,43 +101,54 @@ const overlay = document.getElementById('addStoryOverlay');
 const panel   = document.getElementById('addStoryPanel');
 const buttons = document.querySelectorAll('.add-to-story-btn');
 
-buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        overlay.classList.add('active');
-        panel.classList.add('active');
+if (overlay && panel) {
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            overlay.classList.add('active');
+            panel.classList.add('active');
+        });
     });
-});
 
-overlay.addEventListener('click', () => {
-    overlay.classList.remove('active');
-    panel.classList.remove('active');
-});
+    overlay.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        panel.classList.remove('active');
+    });
 
-document.getElementById('closePanelBtn').addEventListener('click', () => {
-    overlay.classList.remove('active');
-    panel.classList.remove('active');
-});
+    const closePanelBtn = document.getElementById('closePanelBtn');
+    if (closePanelBtn) {
+        closePanelBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+            panel.classList.remove('active');
+        });
+    }
 
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && panel.classList.contains('active')) {
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && panel.classList.contains('active')) {
+            overlay.classList.remove('active');
+            panel.classList.remove('active');
+        }
+    });
+}
+
+window.closePanel = function () {
+    const overlay = document.getElementById('addStoryOverlay');
+    const panel   = document.getElementById('addStoryPanel');
+    if (overlay && panel) {
         overlay.classList.remove('active');
         panel.classList.remove('active');
     }
-});
-
-window.closePanel = function () {
-    overlay.classList.remove('active');
-    panel.classList.remove('active');
 };
 
 const photoInput   = document.getElementById('photoInput');
 const uploadArea   = document.querySelector('.upload-area');
-const uploadIcon   = uploadArea.querySelector('.upload-icon');
-const uploadText   = uploadArea.querySelector('p');
-let currentPhotoFile = null;
 
-photoInput.addEventListener('change', function (e) {
-    const file = e.target.files[0];
+if (photoInput && uploadArea) {
+    const uploadIcon   = uploadArea.querySelector('.upload-icon');
+    const uploadText   = uploadArea.querySelector('p');
+    let currentPhotoFile = null;
+
+    photoInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
 
     if (!file) {
         removePreview();
@@ -173,93 +188,125 @@ photoInput.addEventListener('change', function (e) {
     reader.readAsDataURL(file);
 });
 
-uploadArea.addEventListener('click', function (e) {
-    if (e.target.closest('.change-photo')) {
-        e.stopPropagation();
-        photoInput.click();
-        return;
-    }
-    if (e.target.closest('.remove-photo-btn')) {
-        return;
-    }
-    if (!uploadArea.querySelector('.photo-preview')) {
-        photoInput.click();
-    }
-});
-
-function removePreview() {
-    const preview = uploadArea.querySelector('.photo-preview');
-    if (preview) preview.remove();
-    
-    uploadIcon.style.display = 'grid';
-    uploadText.style.display = 'block';
-    currentPhotoFile = null;
-}
-
-document.querySelector('.panel-btn.redo').addEventListener('click', function () {
-    const title       = titleInput.value.trim();
-    const description = descInput.value.trim();
-    const hasPhoto    = !!currentPhotoFile || !!document.querySelector('.photo-preview');
-
-    if (!title && !description && !hasPhoto) {
-        showCustomAlert('There are no contents to redo.', 'error');
-        return;
-    }
-
-    resetFormAndCounters();
-});
-
-document.querySelector('.panel-btn.submit').addEventListener('click', function () {
-    const title       = document.querySelector('#title-group input').value.trim();
-    const description = document.querySelector('#desc-group textarea').value.trim();
-
-    if (!title || !description) {
-        showCustomAlert('Please fill in both Title and Description!', 'error');
-        return;
-    }
-
-    if (!title || title.length > TITLE_LIMIT) {
-        showCustomAlert('Title must be 1–27 characters!', 'error');
-        return;
-    }
-    if (!description || description.length > DESC_LIMIT) {
-        showCustomAlert('Description must be 1–191 characters!', 'error');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    if (currentPhotoFile) {
-        formData.append('photo', currentPhotoFile);
-    }
-
-    fetch('add-to-story.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.text())
-    .then(response => {
-        console.log('Response:', response);
-        
-        if (response.includes('SUCCESS')) {
-            showCustomAlert('Story added successfully!', 'success', function() {
-                resetFormAndCounters();
-                closePanel();
-                
-                setTimeout(() => {
-                    location.reload();
-                }, 300);
-            });
-        } else {
-            showCustomAlert('Failed to save story. Please try again.', 'error');
+    uploadArea.addEventListener('click', function (e) {
+        if (e.target.closest('.change-photo')) {
+            e.stopPropagation();
+            photoInput.click();
+            return;
         }
-    })
-    .catch(err => {
-        console.error('Error:', err);
-        showCustomAlert('Connection error. Check your internet and try again.', 'error');
+        if (e.target.closest('.remove-photo-btn')) {
+            return;
+        }
+        if (!uploadArea.querySelector('.photo-preview')) {
+            photoInput.click();
+        }
     });
-});
+
+    function removePreview() {
+        const preview = uploadArea.querySelector('.photo-preview');
+        if (preview) preview.remove();
+        
+        uploadIcon.style.display = 'grid';
+        uploadText.style.display = 'block';
+        currentPhotoFile = null;
+    }
+
+    const redoBtn = document.querySelector('.panel-btn.redo');
+    if (redoBtn) {
+        redoBtn.addEventListener('click', function () {
+            const titleInput = document.getElementById('titleInput');
+            const descInput = document.getElementById('descInput');
+            const title       = titleInput.value.trim();
+            const description = descInput.value.trim();
+            const hasPhoto    = !!currentPhotoFile || !!document.querySelector('.photo-preview');
+
+            if (!title && !description && !hasPhoto) {
+                showCustomAlert('There are no contents to redo.', 'error');
+                return;
+            }
+
+            resetFormAndCounters();
+        });
+    }
+
+    const submitBtn = document.querySelector('.panel-btn.submit');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', function () {
+            const title       = document.querySelector('#title-group input').value.trim();
+            const description = document.querySelector('#desc-group textarea').value.trim();
+
+            if (!title || !description) {
+                showCustomAlert('Please fill in both Title and Description!', 'error');
+                return;
+            }
+
+            const TITLE_LIMIT = 27;
+            const DESC_LIMIT = 191;
+
+            if (!title || title.length > TITLE_LIMIT) {
+                showCustomAlert('Title must be 1–27 characters!', 'error');
+                return;
+            }
+            if (!description || description.length > DESC_LIMIT) {
+                showCustomAlert('Description must be 1–191 characters!', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('description', description);
+            if (currentPhotoFile) {
+                formData.append('photo', currentPhotoFile);
+            }
+
+            fetch('add-to-story.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(response => {
+                console.log('Response:', response);
+                
+                if (response.includes('SUCCESS')) {
+                    showCustomAlert('Story added successfully!', 'success', function() {
+                        resetFormAndCounters();
+                        closePanel();
+                        
+                        setTimeout(() => {
+                            location.reload();
+                        }, 300);
+                    });
+                } else {
+                    showCustomAlert('Failed to save story. Please try again.', 'error');
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                showCustomAlert('Connection error. Check your internet and try again.', 'error');
+            });
+        });
+    }
+
+    function resetFormAndCounters() {
+        const titleInput = document.getElementById('titleInput');
+        const descInput = document.getElementById('descInput');
+        const titleCounter = document.getElementById('titleCounter');
+        const descCounter = document.getElementById('descCounter');
+        const TITLE_LIMIT = 27;
+        const DESC_LIMIT = 191;
+
+        if (titleInput) titleInput.value = '';
+        if (descInput) descInput.value = '';
+        photoInput.value = '';
+        removePreview();
+
+        if (titleCounter) titleCounter.textContent = `0 / ${TITLE_LIMIT}`;
+        if (descCounter) descCounter.textContent = `0 / ${DESC_LIMIT}`;
+        
+        if (titleCounter) titleCounter.classList.remove('warning', 'good');
+        if (descCounter) descCounter.classList.remove('warning', 'good');
+    }
+}
 
 document.querySelectorAll('a[href="#new-events"]').forEach(link => {
     link.addEventListener('click', e => {
@@ -290,25 +337,30 @@ const descCounter  = document.getElementById('descCounter');
 const TITLE_LIMIT = 27;
 const DESC_LIMIT  = 191;
 
-titleInput.addEventListener('input', function () {
-    const length = this.value.length;
-    titleCounter.textContent = `${length} / ${TITLE_LIMIT}`;
+if (titleInput && titleCounter) {
+    titleInput.addEventListener('input', function () {
+        const length = this.value.length;
+        titleCounter.textContent = `${length} / ${TITLE_LIMIT}`;
 
-    if (length > TITLE_LIMIT * 0.8) {
-        titleCounter.classList.add('warning');
-    } else {
-        titleCounter.classList.remove('warning');
-    }
-    if (length === TITLE_LIMIT) {
-        titleCounter.classList.add('good');
-    } else {
-        titleCounter.classList.remove('good');
-    }
-});
+        if (length > TITLE_LIMIT * 0.8) {
+            titleCounter.classList.add('warning');
+        } else {
+            titleCounter.classList.remove('warning');
+        }
+        if (length === TITLE_LIMIT) {
+            titleCounter.classList.add('good');
+        } else {
+            titleCounter.classList.remove('good');
+        }
+    });
+    
+    titleCounter.textContent = `0 / ${TITLE_LIMIT}`;
+}
 
-descInput.addEventListener('input', function () {
-    const length = this.value.length;
-    descCounter.textContent = `${length} / ${DESC_LIMIT}`;
+if (descInput && descCounter) {
+    descInput.addEventListener('input', function () {
+        const length = this.value.length;
+        descCounter.textContent = `${length} / ${DESC_LIMIT}`;
 
     if (length > DESC_LIMIT * 0.8) {
         descCounter.classList.add('warning');
@@ -321,21 +373,8 @@ descInput.addEventListener('input', function () {
         descCounter.classList.remove('good');
     }
 });
-
-titleCounter.textContent = `0 / ${TITLE_LIMIT}`;
-descCounter.textContent  = `0 / ${DESC_LIMIT}`;
-
-function resetFormAndCounters() {
-    titleInput.value = '';
-    descInput.value = '';
-    photoInput.value = '';
-    removePreview();
-
-    titleCounter.textContent = `0 / ${TITLE_LIMIT}`;
-    descCounter.textContent = `0 / ${DESC_LIMIT}`;
     
-    titleCounter.classList.remove('warning', 'good');
-    descCounter.classList.remove('warning', 'good');
+    descCounter.textContent  = `0 / ${DESC_LIMIT}`;
 }
 
 function showCustomAlert(message, type = 'success', callback = null) {
@@ -821,21 +860,28 @@ if (overlayPort) {
 
     card.style.opacity = '1';
 
+    // Update sidebar links - only change classes, NOT textContent
     document.querySelectorAll('.sidebar-link').forEach((link, index) => {
-      link.textContent = portfolioItems[index].title;
-
       if (index === currentProject) {
         link.classList.remove('sidebar-small-title');
-        link.classList.add('title');
-        link.href = "portfolio.php";
+        link.classList.add('title', 'active');
       } else {
-        link.classList.remove('title');
+        link.classList.remove('title', 'active');
         link.classList.add('sidebar-small-title');
-        link.href = "#";
       }
     });
 
+    // Update progress bar
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+      const percentage = ((currentProject + 1) / portfolioItems.length) * 100;
+      progressBar.style.width = percentage + '%';
+    }
+
   }, 280);
+
+    prev.disabled = currentProject === 0;
+    next.disabled = currentProject === portfolioItems.length - 1;
 }
 
   next.addEventListener('click', () => {
@@ -853,13 +899,26 @@ if (overlayPort) {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
   });
 
-  document.querySelectorAll('.sidebar-link').forEach(link => {
-    link.addEventListener('click', (e) => {
+  // Sidebar link click handlers
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+  console.log('Found sidebar links:', sidebarLinks.length);
+  
+  sidebarLinks.forEach((link, linkIndex) => {
+    console.log(`Attaching click to link ${linkIndex}:`, link.getAttribute('data-index'));
+    
+    link.addEventListener('click', function(e) {
       e.preventDefault();
-      const index = parseInt(link.dataset.index);
+      e.stopPropagation();
+      
+      const index = parseInt(this.getAttribute('data-index'));
+      console.log('Clicked sidebar link, index:', index);
+      
       if (!isNaN(index) && index >= 0 && index < portfolioItems.length) {
         currentProject = index;
+        console.log('Updating to project:', currentProject);
         updateProject();
+      } else {
+        console.log('Invalid index:', index);
       }
     });
   });
