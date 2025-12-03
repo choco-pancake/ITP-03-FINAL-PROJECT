@@ -45,6 +45,13 @@ body {
     min-height: 100vh;
 }
 
+#port-body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #ffffff 0%, #ffe6f0 60%, #ffccff 100%);
+    color: #003366;
+    min-height: 100vh;
+}
+
 body.loaded {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -55,10 +62,10 @@ body.loaded {
     transform: translateY(-20px);
 }
 
-#story-body.fade-out {
+#story-body.fade-out, #port-body.fade-out {
     opacity: 0;
     transform: translateY(-20px) scale(0.98);
-}
+} 
 
 .hero {
     flex: 1;
@@ -512,8 +519,7 @@ nav a.active {
 }
 
 body.portfolio-page .sidebar-banner {
-    margin-top: -10px;
-    margin-left: -95px;
+    margin-left: -120px;
     width: 400px;
 }
 
@@ -533,15 +539,15 @@ body.portfolio-page .sidebar-banner {
     z-index: 1;
     cursor: pointer;
 }
-
 /* FORCE the background-clip to work on ALL .title links */
 .sidebar-link.title {
     font-family: 'Bebas', sans-serif;
     font-size: 60px !important;
     letter-spacing: 6px;
     line-height: 0.88;
-    margin-left: 43px !important;
+    margin-left: 73px !important;
     margin-bottom: 0;
+    margin-top: -10px;
     padding: 0 40px;
     background: url(images/background.png) center/cover no-repeat;
     color: transparent !important;
@@ -559,7 +565,8 @@ body.portfolio-page .sidebar-banner {
     letter-spacing: 3px;
     color: #003366;
     opacity: 0.9;
-    margin-left: 55px !important;
+    margin-left: 85px !important;
+    margin-bottom: 10px;
     display: block;
     transition: all 0.35s ease;
     cursor: pointer;
@@ -684,7 +691,7 @@ body.portfolio-page .sidebar-link {
     letter-spacing: 6px;
     line-height: 0.88;
     margin-left: 43px;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: -15px;
     padding: 0 40px;
     background: url(images/background.png) center/cover no-repeat;
@@ -729,7 +736,7 @@ body.portfolio-page .sidebar-link {
 
 body.portfolio-page .sidebar-menu {
     margin-left: 100px !important;
-    margin-top: 3px;
+    margin-top: 10px;
     padding-left: 30px;           /* Fine-tune alignment */
     gap: 20px;
 }
@@ -1002,7 +1009,7 @@ a, button, .add-to-story-btn {
 .progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #ff6bc4, #9d68fe, #6b6bff);
+    background: linear-gradient(90deg, #00C6FF, #0077B6);
     border-radius: 2px;
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 0 15px rgba(255, 107, 196, 0.6);
@@ -1692,6 +1699,7 @@ a, button, .add-to-story-btn {
   background: 0 20px 40px rgba(0,0,0,0.02);
   max-width: 1400px;
   margin: 0 auto;
+  margin-left: 50px;
 }
 
 .portfolio-container {

@@ -9,7 +9,7 @@
 <body id="home-body">
   <header id="home-header">
     <nav class="text">
-      <a href="index.html" class="active">HOME</a>
+      <a href="index.php" class="active">HOME</a>
       
       <div class="menu-item-home">
         <a href="story.php" class="menu-link">MY STORY</a>
@@ -28,13 +28,13 @@
         <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
         <span class="dropdown-toggle-home" onclick="toggleDropdown('portfolio-menu')">▴</span>
         <div class="dropdown-menu-home" id="portfolio-menu">
-          <a href="#">Be my Æ</a>
-          <a href="#">Memory Game</a>
-          <a href="#">Æ and AI</a>
-          <a href="#">Cat Breeds</a>
-          <a href="#">Super Snakes</a>
-          <a href="#">My Portfolio</a>
-          <a href="#">StyleCart</a>
+          <a href="portfolio.php?project=0">Be my Æ</a>
+          <a href="portfolio.php?project=1">Memory Game</a>
+          <a href="portfolio.php?project=2">Æ and AI</a>
+          <a href="portfolio.php?project=3">Cat Breeds</a>
+          <a href="portfolio.php?project=4">Super Snakes</a>
+          <a href="portfolio.php?project=5">My Portfolio</a>
+          <a href="portfolio.php?project=6">StyleCart</a>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ document.querySelectorAll('a[href]').forEach(link => {
     
     const isInternalPage = href && (
         href.endsWith('.html') ||
-        href.includes('index.html') ||
+        href.includes('index.php') ||
         href.includes('story.html') ||
         href.startsWith('/') ||
         !href.startsWith('#')
@@ -729,7 +729,7 @@ if (document.getElementById('highschool')) {
 const collegeEvents = [
   { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience celebrated at Jmacks Resort Hotel and Events Place on October 12, 2023.", image: "images/18th_bday2.jpg" },
   { index: 16, title: "A TEMPORARY STE STUDENT", description: "I initially enrolled at UdD (Universidad de Dagupan) under the Education program as an English major for a single semester.", image: "images/ste.jpg" },
-  { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - where I'll be staying until I graduate on 2027.", image: "images/site.jpg" },
+  { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - where I'll be staying until I graduate in 2027.", image: "images/site.jpg" },
   { index: 18, title: "A COLORFUL SEM WITH CSITS", description: "I entered the CSITS (Computer Science and Information Technology Society) as a Graphic Designer.", image: "images/csits.jpg" }
 ];
 
@@ -827,16 +827,26 @@ if (document.getElementById('debut')) {
 const portfolioItems = [
   { title: "BE MY Æ", description: "Be My Æ is an informational website displaying profiles, a gallery, and updates on the K-Pop group æspa.", image: "images/bemyae.png" },
   { title: "MEMORY GAME", description: "Made with the programming language Dart, Memory Game by YYBKDev is a simple game which goal is to match 2 cards of the same animal.", image: "images/memorygame.gif" },
-  { title: "Æ AND AI", description: "An experimental project combining æspa-themed visuals with AI-generated art and interactive elements.", image: "images/ae&ai.gif" },
-  { title: "CAT BREEDS", description: "An educational website showcasing different cat breeds with facts, images, and care tips.", image: "images/catbreeds.png" },
-  { title: "SUPER SNAKES", description: "A modern remake of the classic Snake game with power-ups, levels, and sleek design.", image: "images/supersnakes.png" },
-  { title: "MY PORTFOLIO", description: "This very website! A personal timeline and showcase of my journey, skills, and projects.", image: "images/my-portfolio.png" },
-  { title: "STYLECART", description: "A stylish e-commerce fashion store concept with cart functionality and responsive design.", image: "images/stylecart.png" }
+  { title: "Æ AND AI", description: "Æ & AI is a personal application project which uses the members of æspa (Æ) as the characters on the board to win against snakes (AI).", image: "images/ae&ai.gif" },
+  { title: "CAT BREEDS", description: "As absolute cat enthusiasts, TechYVer produced an informational website showcasing 40 different cat breeds and how to take care of them.", image: "images/catbreeds.png" },
+  { title: "SUPER SNAKES", description: "Super Snakes (and Ladders!) is a terminal-based Java game developed by AANATech, where the characters use superpowers to fight the snakes instead of plainly rolling the dice.", image: "images/supersnakes.png" },
+  { title: "MY PORTFOLIO", description: "This website is basically a showcase of my foundational programming skills and projects from 2021 until the present.", image: "images/my-portfolio.png" },
+  { title: "STYLECART", description: "StyleCart Fashion Store is a static clothing shopping platform created by the Syntax Squad to provide users with a stylish and efficient shopping experience.", image: "images/stylecart.png" }
 ];
 
 const overlayPort = document.getElementById('projectOverlay');
 if (overlayPort) {
+  // THIS IS THE ONLY PART THAT MATTERS — READ FROM URL CORRECTLY
+  const urlParams = new URLSearchParams(window.location.search);
+  const projectParam = urlParams.get('project');
   let currentProject = 0;
+
+  if (projectParam !== null && projectParam !== '') {
+    const idx = parseInt(projectParam);
+    if (!isNaN(idx) && idx >= 0 && idx <= 6) {
+      currentProject = idx;
+    }
+  }
 
   const img   = document.getElementById('projectImage');
   const title = document.getElementById('projectTitle');
@@ -845,45 +855,39 @@ if (overlayPort) {
   const next  = document.getElementById('nextProjectBtn');
 
   function updateProject() {
-  const p = portfolioItems[currentProject];
-  const card = document.getElementById('projectOverlay');
+    const p = portfolioItems[currentProject];
+    const card = document.getElementById('projectOverlay');
 
-  card.style.opacity = '0.3';
+    card.style.opacity = '0.3';
+    setTimeout(() => {
+      img.src = p.image;
+      title.textContent = p.title;
+      desc.textContent = p.description;
 
-  setTimeout(() => {
-    img.src = p.image;
-    title.textContent = p.title;
-    desc.textContent = p.description;
+      const counterEl = document.getElementById('currentIndex');
+      if (counterEl) counterEl.textContent = currentProject + 1;
 
-    const counterEl = document.getElementById('currentIndex');
-    if (counterEl) counterEl.textContent = currentProject + 1;
+      card.style.opacity = '1';
 
-    card.style.opacity = '1';
+      // Update sidebar
+      document.querySelectorAll('.sidebar-link').forEach((link, i) => {
+        link.classList.toggle('active', i === currentProject);
+        link.classList.toggle('title', i === currentProject);
+        link.classList.toggle('sidebar-small-title', i !== currentProject);
+      });
 
-    // Update sidebar links - only change classes, NOT textContent
-    document.querySelectorAll('.sidebar-link').forEach((link, index) => {
-      if (index === currentProject) {
-        link.classList.remove('sidebar-small-title');
-        link.classList.add('title', 'active');
-      } else {
-        link.classList.remove('title', 'active');
-        link.classList.add('sidebar-small-title');
+      // Update progress bar
+      const progressBar = document.getElementById('progressBar');
+      if (progressBar) {
+        progressBar.style.width = ((currentProject + 1) / portfolioItems.length) * 100 + '%';
       }
-    });
-
-    // Update progress bar
-    const progressBar = document.getElementById('progressBar');
-    if (progressBar) {
-      const percentage = ((currentProject + 1) / portfolioItems.length) * 100;
-      progressBar.style.width = percentage + '%';
-    }
-
-  }, 280);
+    }, 280);
 
     prev.disabled = currentProject === 0;
     next.disabled = currentProject === portfolioItems.length - 1;
-}
+  }
 
+  // Buttons
   next.addEventListener('click', () => {
     currentProject = (currentProject + 1) % portfolioItems.length;
     updateProject();
@@ -894,34 +898,21 @@ if (overlayPort) {
     updateProject();
   });
 
-  document.addEventListener('keydown', (e) => {
+  // Keyboard
+  document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
   });
 
-  // Sidebar link click handlers
-  const sidebarLinks = document.querySelectorAll('.sidebar-link');
-  console.log('Found sidebar links:', sidebarLinks.length);
-  
-  sidebarLinks.forEach((link, linkIndex) => {
-    console.log(`Attaching click to link ${linkIndex}:`, link.getAttribute('data-index'));
-    
-    link.addEventListener('click', function(e) {
+  // Sidebar clicks
+  document.querySelectorAll('.sidebar-link').forEach((link, i) => {
+    link.addEventListener('click', e => {
       e.preventDefault();
-      e.stopPropagation();
-      
-      const index = parseInt(this.getAttribute('data-index'));
-      console.log('Clicked sidebar link, index:', index);
-      
-      if (!isNaN(index) && index >= 0 && index < portfolioItems.length) {
-        currentProject = index;
-        console.log('Updating to project:', currentProject);
-        updateProject();
-      } else {
-        console.log('Invalid index:', index);
-      }
+      currentProject = i;
+      updateProject();
     });
   });
 
+  // FIRST LOAD — SHOW CORRECT PROJECT
   updateProject();
 }
