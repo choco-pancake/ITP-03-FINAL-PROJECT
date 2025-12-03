@@ -5,7 +5,6 @@ window.addEventListener('load', () => {
 document.querySelectorAll('a[href]').forEach(link => {
     const href = link.getAttribute('href');
     
-    // Skip sidebar links in portfolio page
     if (link.classList.contains('sidebar-link')) return;
     
     const isInternalPage = href && (
@@ -467,13 +466,15 @@ if (document.getElementById('familyImage')) {
 
   function updateFamilyEvent() {
     const event = familyEvents[currentFamilySection];
-
+    familyImage.classList.add('fade');
     overlayCard.style.opacity = '0.7';
+
     setTimeout(() => {
       familyTitle.textContent = event.title;
       familyDescription.textContent = event.description;
       familyImage.src = event.image;
       overlayCard.style.opacity = '1';
+      familyImage.classList.remove('fade');
     }, 250);
 
     prevFamilyBtn.disabled = currentFamilySection === 0;
@@ -534,7 +535,7 @@ if (document.getElementById('egca')) {
 
   function updateElementaryEvent() {
     const event = elementaryEvents[currentElementarySection];
-
+    elementaryImage.classList.add('fade');
     const overlayCard = document.getElementById('overlay5');
     overlayCard.style.opacity = '0.7';
 
@@ -552,6 +553,7 @@ if (document.getElementById('egca')) {
       }
 
       overlayCard.style.opacity = '1';
+      elementaryImage.classList.remove('fade');
     }, 200);
 
     const TOTAL_FIXED_EVENTS = 19;
@@ -619,18 +621,19 @@ if (document.getElementById('hobbies')) {
 
   function update() {
     const e = hobbiesEvents[currentHobbySection];
+    img.classList.add('fade');
     overlay.style.opacity = '0.7';
     setTimeout(() => {
       title.textContent = e.title;
       desc.textContent  = e.description;
       img.src = e.image;
       overlay.style.opacity = '1';
+      img.classList.remove('fade');
     }, 250);
 
     prevBtn.disabled = false;
     nextBtn.disabled = false;
 
-    // SMART PROGRESS BAR
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
@@ -685,12 +688,14 @@ if (document.getElementById('highschool')) {
 
   function update() {
     const e = highschoolEvents[current];
+    img.classList.add('fade');
     card.style.opacity = '0.7';
     setTimeout(() => {
       title.textContent = e.title;
       desc.textContent  = e.description;
       img.src = e.image;
       card.style.opacity = '1';
+      img.classList.remove('fade');
     }, 250);
 
     prev.disabled = false;
@@ -746,7 +751,7 @@ if (document.getElementById('debut')) {
 
   function update() {
     const e = collegeEvents[currentEvent];
-
+    img.classList.add('fade');
     card.style.opacity = '0.7';
 
     setTimeout(() => {
@@ -763,6 +768,7 @@ if (document.getElementById('debut')) {
       img.style.margin = '';
 
       card.style.opacity = '1';
+      img.classList.remove('fade');
     }, 280);
 
     prev.disabled = false;
@@ -836,7 +842,6 @@ const portfolioItems = [
 
 const overlayPort = document.getElementById('projectOverlay');
 if (overlayPort) {
-  // THIS IS THE ONLY PART THAT MATTERS — READ FROM URL CORRECTLY
   const urlParams = new URLSearchParams(window.location.search);
   const projectParam = urlParams.get('project');
   let currentProject = 0;
@@ -856,38 +861,39 @@ if (overlayPort) {
 
   function updateProject() {
     const p = portfolioItems[currentProject];
-    const card = document.getElementById('projectOverlay');
 
-    card.style.opacity = '0.3';
+    // Trigger fade-out
+    img.classList.add('fade');
+
     setTimeout(() => {
+      // Update content when image is invisible
       img.src = p.image;
+      img.alt = p.title + " Project";
       title.textContent = p.title;
       desc.textContent = p.description;
 
+      // Update counter and progress
       const counterEl = document.getElementById('currentIndex');
       if (counterEl) counterEl.textContent = currentProject + 1;
 
-      card.style.opacity = '1';
+      const progressBar = document.getElementById('progressBar');
+      if (progressBar) {
+        progressBar.style.width = ((currentProject + 1) / portfolioItems.length) * 100 + '%';
+      }
 
-      // Update sidebar
+      // Update sidebar active state
       document.querySelectorAll('.sidebar-link').forEach((link, i) => {
         link.classList.toggle('active', i === currentProject);
         link.classList.toggle('title', i === currentProject);
         link.classList.toggle('sidebar-small-title', i !== currentProject);
       });
 
-      // Update progress bar
-      const progressBar = document.getElementById('progressBar');
-      if (progressBar) {
-        progressBar.style.width = ((currentProject + 1) / portfolioItems.length) * 100 + '%';
-      }
-    }, 280);
-
-    prev.disabled = currentProject === 0;
-    next.disabled = currentProject === portfolioItems.length - 1;
+      // Trigger fade-in
+      img.classList.remove('fade');
+    }, 400); // Matches CSS transition duration
   }
 
-  // Buttons
+  // Navigation
   next.addEventListener('click', () => {
     currentProject = (currentProject + 1) % portfolioItems.length;
     updateProject();
@@ -898,13 +904,12 @@ if (overlayPort) {
     updateProject();
   });
 
-  // Keyboard
+  // Keyboard & Sidebar Navigation
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
   });
 
-  // Sidebar clicks
   document.querySelectorAll('.sidebar-link').forEach((link, i) => {
     link.addEventListener('click', e => {
       e.preventDefault();
@@ -913,6 +918,6 @@ if (overlayPort) {
     });
   });
 
-  // FIRST LOAD — SHOW CORRECT PROJECT
+  // Initial load
   updateProject();
 }

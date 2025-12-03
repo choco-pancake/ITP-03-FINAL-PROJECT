@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <a href="#">CONTACT</a>
+        <a href="contact.php">CONTACT</a>
       </nav>
     </div>
     <div class="nav-underline"></div>
@@ -86,7 +86,7 @@
           <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="footer-text">
-          © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
+          © 2025 Noerly Idos · <a href="contact.php" class="contact-link">Get in touch</a>
         </div>
       </div>
     </main>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="style.css">
-  <title>Noerly Idos - Portfolio</title>
+  <title>WELCOME</title>
 </head>
 <body id="home-body">
   <header id="home-header">
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <a href="#">CONTACT</a>
+      <a href="contact.php">CONTACT</a>
     </nav>
   </header>
 
@@ -62,13 +62,13 @@
         <h2>WANT TO SEE</h2>
         <h2 class="underline" id="cut-part">MORE?</h2>
         <p class="text"></p>
-        <a href="#" class="btn" id="right-btn">View Portfolio</a>
+        <a href="portfolio.php" class="btn" id="right-btn">View Portfolio</a>
       </div>
     </div>
   </section>
 
   <footer id="footer-home">
-    © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
+    © 2025 Noerly Idos · <a href="contact.php" class="contact-link">Get in touch</a>
 </footer>
 
   <script src="script.js"></script>

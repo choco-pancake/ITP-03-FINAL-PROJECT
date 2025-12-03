@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
-<body id="story-body">
+<body id="contact-body">
   <header id="story-header">
     <div class="logo-box">
-      <span class="logo-my">MY STORY</span>
+      <span class="logo-my">MY CONTACTS</span>
     </div>
 
     <div class="navbar-container">
@@ -18,7 +19,7 @@
         <a href="index.php">HOME</a>
 
         <div class="menu-item-story">
-          <a href="story.php" class="menu-link active">MY STORY</a>
+          <a href="story.php">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
           <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.php">Family</a>
@@ -44,109 +45,62 @@
             </div>
         </div>
 
-        <a href="#">CONTACT</a>
+        <a href="contact.php" class="menu-link active">CONTACT</a>
       </nav>
     </div>
     <div class="nav-underline"></div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="sidebar-banner">
-        <a href="story.php" class="title">Family</a>
-        <nav class="sidebar-menu">
-            <a href="elementary.php">Elementary</a>
-            <a href="hobbies.php">Hobbies</a>
-            <a href="highschool.php">Highschool</a>
-            <a href="college.php">College</a>
-            <a href="new-events.php">New Events</a>
-        </nav>
-    </div>
-
-    <main>
-      <div class="top-right-cta">
-        <button class="add-to-story-btn">Add to Story</button>
-      </div>
-
-      <section class="hero-section">
-        <div class="hero-image">
-          <img id="familyImage" src="images/idos-garcia.jpg" alt="My Family">
+  <main>
+  <section class="contact-section">
+    <div class="contact-container">
+      <div class="contact-left">
+        <div class="profile-photo">
+          <img src="images/contact-photo.png" alt="Noerly Yvonne Mae">
         </div>
 
-        <div class="overlay-card">
-          <h2 id="familyTitle">MY FAMILY</h2>
-          <p id="familyDescription">I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.</p>
-          <div class="btn-group">
-            <button class="prev-btn" id="prevFamilyBtn">Previous</button>
-            <button class="next-btn" id="nextFamilyBtn">Next</button>
+        <div class="follow-me">
+          <h2>FOLLOW ME</h2>
+          <p>Stay updated by following me on social media!</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/noerlyyvonne.idos/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/noerly_cal/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@choisanhongjoongseonghwa?_r=1&_t=ZS-91ugFAJP58R" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="https://x.com/sanoerlyyy?t=KKRVYnuqiCCW3ur6IP63hw&s=09" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://github.com/choco-pancake" target="_blank"><i class="fab fa-github"></i></a>
           </div>
         </div>
-      </section>
-
-      <div class="story-bottom-section">
-        <div class="progress-container" id="container-story">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div class="footer-text">
-          © 2025 Noerly Idos · <span class="contact-link">Get in touch</span>
-        </div>
       </div>
-    </main>
-  </div>
 
-  <div class="add-story-overlay" id="addStoryOverlay"></div>
+      <div class="contact-card">
+        <h1>CONTACT</h1>
+        <p class="subtitle">Want to get in touch? Drop a message down below!</p>
 
-  <div class="add-story-panel" id="addStoryPanel">
-    <div class="panel-header">
-      <button class="close-panel-btn" id="closePanelBtn">
-        <img src="images/back.png" alt="Close">
-      </button>
-      <h2>ADD TO STORY</h2>
-    </div>
+        <form id="contactForm" action="send-message.php" method="POST">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" required placeholder="Your name">
+          </div>
 
-    <div class="form-group" id="title-group">
-      <div class="label-with-counter">
-        <label>Title</label>
-        <span class="char-counter" id="titleCounter">0 / 27</span>
-      </div>
-      <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
-    </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required placeholder="your@email.com">
+          </div>
 
-    <div class="form-group" id="desc-group">
-      <div class="label-with-counter">
-        <label>Description</label>
-        <span class="char-counter" id="descCounter">0 / 191</span>
-      </div>
-      <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
-    </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea name="message" rows="5" required placeholder="Write your message here..."></textarea>
+          </div>
 
-    <div class="form-group upload-area-wrapper">
-      <label>Photo (Optional)</label>
-      <div class="upload-area">  
-        <div class="upload-icon">
-          <img src="images/upload.png" alt="Upload Photo">
-        </div>
-        <p>Click here to upload your photo.</p>
-        <input type="file" id="photoInput" accept="image/*" style="display:none;">
+          <div class="form-buttons">
+            <button type="button" class="btn-redo" onclick="document.getElementById('contactForm').reset()">Redo</button>
+            <button type="submit" class="btn-submit">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
-
-    <div class="panel-btn-group">
-      <button class="panel-btn redo">Redo</button>
-      <button class="panel-btn submit">Submit</button>
-    </div>
-  </div>
-
-  <div class="custom-alert-overlay" id="customAlertOverlay">
-    <div class="custom-alert-box" id="customAlertBox">
-      <div class="alert-icon" id="alertIcon">
-        <svg viewBox="0 0 24 24">
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-      </div>
-      <div class="alert-message" id="alertMessage">Message goes here</div>
-      <button class="alert-btn" id="alertBtn">OK</button>
-    </div>
-  </div>
+  </section>
+</main>
 
   <script src="script.js"></script>
 </body>

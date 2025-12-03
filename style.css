@@ -38,7 +38,7 @@ body {
     min-height: 100vh;
 }
 
-#story-body {
+#story-body, #port-body, #contact-body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom, #ffffff, #a0d8ef);
     color: #003366;
@@ -46,10 +46,11 @@ body {
 }
 
 #port-body {
-    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom, #ffffff 0%, #ffe6f0 60%, #ffccff 100%);
-    color: #003366;
-    min-height: 100vh;
+}
+
+#contact-body {
+    background: linear-gradient(to bottom, #ffffff 15%, #e0f7fa 40%, #00acc1 95%, #00838f 100%);
 }
 
 body.loaded {
@@ -579,112 +580,6 @@ body.portfolio-page .sidebar-banner {
     color: #002244;
 }
 
-/*
-.sidebar-link {
-    text-decoration: none;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: clip;
-    margin-left: 85px !important;
-    padding-left: 0 !important;
-    display: block;
-    align-self: flex-start;
-    position: relative;
-    z-index: 1;
-}
-
-.sidebar-link.title {
-    font-family: 'Bebas', sans-serif !important;
-    font-size: 60px !important;
-    letter-spacing: 6px !important;
-    line-height: 0.88 !important;
-    background: url(images/background.png) center/cover no-repeat !important;
-    color: transparent !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    display: block !important;
-    max-width: 100vw;
-    white-space: nowrap;
-    margin-left: 20px !important;
-    padding: 0 40px !important;
-    opacity: 1 !important;
-}
-
-.sidebar-link.sidebar-small-title {
-    font-size: 32px !important;
-    letter-spacing: 3px !important;
-    color: #003366 !important;
-    opacity: 0.9 !important;
-    margin-top: 10px !important;
-    padding-left: 0 !important;
-    background: none !important;
-    -webkit-background-clip: initial !important;
-    -webkit-text-fill-color: initial !important;
-}
-
-.sidebar-small-title, .sidebar-link.sidebar-small-title {
-    font-family: 'Bebas', sans-serif;
-    font-size: 32px;
-    letter-spacing: 3px;
-    color: #003366 !important;
-    opacity: 0.9 !important;
-    margin-left: 85px !important;
-    margin-top: 10px;
-    white-space: nowrap !important;
-    display: block;
-    text-decoration: none;
-    transition: all 0.35s ease;
-}
-
-.sidebar-link.sidebar-small-title:hover {
-    opacity: 1;
-    color: #00182f !important;
-    padding-left: 12px !important;
-}
-
-.sidebar-link {
-    text-decoration: none;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                padding-left 0.4s ease;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    white-space: nowrap !important;
-    overflow: hidden;
-    text-overflow: clip;
-    margin-left: 85px !important;
-    padding-left: 0 !important;
-    display: block;
-    align-self: flex-start;
-    position: relative;
-    z-index: 1;
-}
-
-.sidebar-small-title:hover, .sidebar-link.sidebar-small-title:hover {
-    opacity: 1;
-    color: #00182f !important;
-    padding-left: 12px;
-    font-weight: 400;
-}
-
-body.portfolio-page .sidebar-link.sidebar-small-title {
-    margin-left: 20px !important;
-}
-
-body.portfolio-page .sidebar-link.title {
-    margin-left: 20px !important;
-    margin-bottom: -5px;
-    padding-left: 0 !important;
-}
-
-body.portfolio-page .sidebar-link {
-    margin-left: 20px !important;
-}
-*/
 .title {
     font-family: 'Bebas', sans-serif;
     font-size: 60px;
@@ -1743,6 +1638,7 @@ a, button, .add-to-story-btn {
 }
 
 .project-screenshot {
+  position: relative;
   flex: 1;
   min-width: 300px;
   max-width: 700px;
@@ -1755,6 +1651,96 @@ a, button, .add-to-story-btn {
   width: 100%;
   height: auto;
   display: block;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.hero-image img, #familyImage, #egca img, #hobbies img, #sags img, #debut img {
+  transition: opacity 0.4s ease-in-out;
+}
+
+.hero-image img.fade, #familyImage.fade, #egca img.fade, #hobbies img.fade, #sags img.fade, #debut img.fade .project-screenshot img.fade {
+  opacity: 0;
+}
+
+.project-screenshot img.fade {
+  opacity: 0;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 200px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: -20px;
+  margin-left: -100px;
+  padding: 20px 0;
+}
+
+.contact-left {
+  flex: 1;
+  max-width: 350px;
+  margin-right: 40px;
+}
+
+.contact-card {
+  flex: 2;
+  max-width: 700px;
+}
+
+.profile-photo img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+}
+
+.follow-me h2 {
+    position: relative;
+    display: inline-block;
+    font-family: 'Bebas';
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
+    margin-left: 30px;
+    color: #ffffff;
+}
+
+.follow-me h2::after {
+  content: "";
+  position: absolute;
+  left: 20%;
+  bottom: -4px;
+  width: 140px;
+  height: 5px;
+  background: white;
+}
+
+.follow-me p {
+    font-family: 'Montserrat';
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.social-icons a i {
+  font-size: 25px;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover i {
+  color: #cccccc;
 }
 
 .footer-text {
@@ -1766,14 +1752,17 @@ a, button, .add-to-story-btn {
     letter-spacing: 0.7px;
 }
 
-.footer-text span {
+.footer-text a {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    text-decoration: none;
+    color: #003366;
+    font-weight: 800;
 }
 
-.footer-text span:hover {
-    font-weight: 700;
+.footer-text a:hover {
+    font-weight: 800;
     color: #001f3f;
 }
 
@@ -1793,7 +1782,9 @@ a, button, .add-to-story-btn {
 
 #footer-home .contact-link {
     pointer-events: auto;
-    font-weight: 600;
+    font-weight: 800;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 #footer-home .contact-link:hover {
