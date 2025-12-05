@@ -179,8 +179,7 @@ nav a {
     transition: color 0.3s;
 }
 
-nav a:hover,
-nav a.active {
+nav a:hover, nav a.active {
     font-weight: 700;
     color: #003366;
 }
@@ -457,12 +456,13 @@ nav a.active {
     align-self: start;
 }
 
-.btn {
+.btn, .contact-card .btn-redo, .contact-card .btn-submit {
     margin-top: 15px;
     padding: 14px 20px;
     font-family: 'Montserrat';
     font-size: 1.1rem;
     font-weight: 400;
+    border: none;
     border-radius: 10px;
     text-decoration: none;
     display: inline-block;
@@ -472,9 +472,29 @@ nav a.active {
     box-shadow: 0 8px 25px rgba(59,130,246,0.4);
 }
 
+.contact-card .btn-redo, .contact-card .btn-submit {
+    width: 80px;
+    height: 40px;
+    padding: 10px 10px;
+    background: linear-gradient(to right, #ffd8b7, #ffca99);
+    color: black;
+    margin-top: -5px;
+    margin-left: 5px;
+}
+
+.contact-card .btn-submit {
+    width: 100px;
+}
+
 .btn:hover {
-    background: #0077cc;
     transform: translateY(-3px);
+    cursor: pointer;
+}
+
+.contact-card .btn-redo:hover, .contact-card .btn-submit:hover {
+    background: #ffb067;
+    transform: translateY(-3px);
+    cursor: pointer;
 }
 
 #right-btn {
@@ -540,7 +560,7 @@ body.portfolio-page .sidebar-banner {
     z-index: 1;
     cursor: pointer;
 }
-/* FORCE the background-clip to work on ALL .title links */
+
 .sidebar-link.title {
     font-family: 'Bebas', sans-serif;
     font-size: 60px !important;
@@ -559,7 +579,6 @@ body.portfolio-page .sidebar-banner {
     display: block;
 }
 
-/* Small items */
 .sidebar-small-title {
     font-family: 'Bebas', sans-serif;
     font-size: 32px;
@@ -1006,8 +1025,7 @@ a, button, .add-to-story-btn {
     margin-top: -30px;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input, .form-group textarea {
     width: 100%;
     padding: 14px 16px;
     border: none;
@@ -1018,8 +1036,7 @@ a, button, .add-to-story-btn {
     font-size: 16px;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.form-group input::placeholder, .form-group textarea::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
@@ -1688,6 +1705,52 @@ a, button, .add-to-story-btn {
 .contact-card {
   flex: 2;
   max-width: 700px;
+  height: 550px;
+  background: linear-gradient(to right, rgba(255, 218, 185, 0.8), rgba(254, 198, 147, 0.8)) !important;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card h1 {
+    font-family: 'Bebas';
+    font-size: 70px;
+    font-weight: 400;
+    color: #4C3122;
+    display: inline-block;
+}
+
+.contact-card .subtitle {
+    color: #4C3122;
+    font-weight: 600;
+}
+
+.contact-card label {
+    color: #4C3122;
+    margin-top: -20px;
+}
+
+.contact-card textarea {
+    height: 70px;
+}
+
+.contact-card #contactForm input, .contact-card #contactForm textArea {
+    color: #4C3122;
+}
+
+.contact-card input::placeholder, .contact-card textarea::placeholder {
+    color: #4C3122;
+    opacity: 0.7;
+}
+
+ .success-message {
+  display: none;   
+  color: #00C40D;
+  font-weight: bold;
+  font-size: 16px;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  margin-top: 10px;
 }
 
 .profile-photo img {

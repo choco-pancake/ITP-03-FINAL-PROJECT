@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,30 +75,35 @@
       </div>
 
       <div class="contact-card">
-        <h1>CONTACT</h1>
-        <p class="subtitle">Want to get in touch? Drop a message down below!</p>
+  <h1>CONTACT</h1>
+  <p class="subtitle">Want to get in touch? Drop a message down below!</p>
 
-        <form id="contactForm" action="send-message.php" method="POST">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" required placeholder="Your name">
-          </div>
+  <div id="redo-message" style="display:none; color:#FF1100; margin-top:10px; font-weight:600;">
+  There are no contents to redo.
+</div>
 
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" required placeholder="your@email.com">
-          </div>
+<div id="thank-you-message" class="success-message" style="display:none;">
+  Thank you! Your message has been received.
+</div>
 
-          <div class="form-group">
-            <label>Message</label>
-            <textarea name="message" rows="5" required placeholder="Write your message here..."></textarea>
-          </div>
-
-          <div class="form-buttons">
-            <button type="button" class="btn-redo" onclick="document.getElementById('contactForm').reset()">Redo</button>
-            <button type="submit" class="btn-submit">Submit</button>
-          </div>
-        </form>
+<form id="contactForm" method="POST">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" required placeholder="Your name">
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" required placeholder="your@email.com">
+  </div>
+  <div class="form-group">
+    <label>Message</label>
+    <textarea name="message" rows="5" required placeholder="Write your message here..."></textarea>
+  </div>
+  <div class="form-buttons">
+    <button type="button" class="btn-redo" onclick="handleRedo()">Redo</button>
+    <button type="submit" class="btn-submit">Submit</button>
+  </div>
+</form>
       </div>
     </div>
   </section>

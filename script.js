@@ -440,7 +440,7 @@ window.alert = function (msg) {
 const familyEvents = [
   {index: 0, title: "MY FAMILY", description: "I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.", image: "images/idos-garcia.jpg"},
   {index: 1, title: "IDOS FAMILY", description: "This is my father's side's family. We all live in the same neighborhood, at Mancup, Calasiao, our current address.", image: "images/idos-family.jpg" },
-  {index: 2,title: "GARCIA FAMILY", description: "This is my mother's side's family. They live in a single neighborhood at Lasip, Calasiao – where we will be moving soon.",image: "images/garcia-family.jpg"},
+  {index: 2,title: "GARCIA FAMILY", description: "This is my mother's side's family. They live in a single neighborhood at Lasip, Calasiao – where we will be moving to soon.",image: "images/garcia-family.jpg"},
   {index: 3,title: "SISTERS 4 LAYFERS!", description: "4 years apart, but we've always stuck together. This is me and my sister with the same first name as me – Yvette.", image: "images/yvette.jpg"}
 ];
 
@@ -593,9 +593,9 @@ if (document.getElementById('egca')) {
 
 const hobbiesEvents = [
   {index: 6, title: "MY 7TH BIRTHDAY", description: "Being held at Pinkies restaurant, I turned 7 on October 12, 2012. My eyes were opened to a whole new world of potential.", image: "images/7th_bday.jpg"},
-  {index: 7, title: "SINGING", description: "I have been a member of the Calasiao Children’s Chorus from 2015-2023. I have currently been moved to the Calasiao Chamber Chorus, the youth choir of our church.", image: "images/choir.png"},
+  {index: 7, title: "SINGING", description: "That's when I started being a member of the Calasiao Children’s Chorus from 2015-2023. I have currently been moved to the Calasiao Chamber Chorus, the youth choir of our church.", image: "images/choir.png"},
   {index: 8, title: "DRAWING", description: "Although I’ve only been enjoying drawing when our school activities require us to, this was my main hobby during my elementary and high school days.", image: "images/drawing.jpg"},
-  {index: 9, title: "UKULELE", description: "Why not pair my gift of voice with instruments? This is my other half, my uke.", image: "images/ukulele.jpg"},
+  {index: 9, title: "UKULELE", description: "Why not pair my gift of voice with instruments? This is my other half, my uke. I also have knowledge in playing the guitar and piano.", image: "images/ukulele.jpg"},
   {index: 10,title: "DANCING", description: "This is my favorite hobby. I started dancing during the COVID-19 pandemic, when I became an avid fan of K-Pop.", image: "images/dance.jpg"}
 ];
 
@@ -920,4 +920,111 @@ if (overlayPort) {
 
   // Initial load
   updateProject();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const contactForm = document.getElementById('contactForm');
+  const thankYouMsg = document.getElementById('thank-you-message');
+
+  // Only run on contact.php (prevents errors on other pages)
+  if (!contactForm) return;
+
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault(); // Stop page refresh
+
+    const submitBtn = contactForm.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+
+    // Disable button + show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const formData = new FormData(contactForm);
+
+      const response = await fetch('send-message.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        // Show thank you message with smooth fade-in
+        thankYouMsg.style.display = 'block';
+        thankYouMsg.style.opacity = '0';
+        thankYouMsg.style.transition = 'opacity 0.8s ease';
+
+        // Force reflow then fade in
+        thankYouMsg.offsetHeight;
+        thankYouMsg.style.opacity = '1';
+
+        // Clear the form
+        contactForm.reset();
+
+        // Auto fade out after 6 seconds
+        setTimeout(() => {
+          thankYouMsg.style.opacity = '0';
+          setTimeout(() => {
+            thankYouMsg.style.display = 'none';
+          }, 800);
+        }, 6000);
+
+      } else {
+        showCustomAlert(result.message || 'Something went wrong. Please try again.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showCustomAlert('No internet connection or server error. Try again later.', 'error');
+    } finally {
+      // Re-enable button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+  // Your existing thank-you fade-out (kept for safety, but now controlled by AJAX)
+  if (thankYouMsg && thankYouMsg.style.display !== 'block') {
+    thankYouMsg.style.display = 'none'; // hide by default
+  }
+});
+
+// ————————————————————————————————————————
+// YOUR EXISTING FUNCTIONS (unchanged)
+// ————————————————————————————————————————
+
+function showTempMessage(elementId, duration = 3000) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+
+  el.style.display = 'block';
+  el.style.opacity = '1';
+
+  setTimeout(() => {
+    el.style.transition = 'opacity 0.6s ease';
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.style.display = 'none';
+      el.style.opacity = '1';
+      el.style.transition = '';
+    }, 600);
+  }, duration);
+}
+
+function handleRedo() {
+  const form = document.getElementById('contactForm');
+  const redoMessage = document.getElementById('redo-message');
+
+  if (!form) return;
+
+  const hasContent = Array.from(form.elements).some(el =>
+    (el.type === 'text' || el.type === 'email' || el.type === 'textarea') && el.value.trim() !== ''
+  );
+
+  if (!hasContent) {
+    showTempMessage('redo-message', 3000);
+  } else {
+    form.reset();
+    if (redoMessage) redoMessage.style.display = 'none';
+  }
 }
