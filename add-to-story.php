@@ -20,7 +20,6 @@
     $storyFilename = "new-events.txt";
 
     $storyContent = "=== NEW STORY ===\n";
-    $storyContent .= "Date Added: $prettyDate (Philippine Time)\n";
     $storyContent .= "Title: $title\n";
     $storyContent .= "Description:\n$description\n\n";
 
@@ -55,12 +54,12 @@
         $photoPath = $uploadDir . $photoName;
 
         if (move_uploaded_file($_FILES["photo"]["tmp_name"], $photoPath)) {
-            $storyContent .= "Photo: Yes (saved as $photoName)\n";
+            $storyContent .= "Photo: Yes (saved as $photoName)\n\n";
         } else {
-            $storyContent .= "Photo: Failed to upload\n";
+            $storyContent .= "Photo: Failed to upload\n\n";
         }
     } else {
-        $storyContent .= "Photo: No\n";
+        $storyContent .= "Photo: No\n\n";
     }
 
     $storyContent .= str_repeat("=", 50) . "\n\n";

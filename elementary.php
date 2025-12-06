@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
+
 <body id="story-body">
   <header id="story-header">
     <div class="logo-box">
@@ -47,6 +48,7 @@
         <a href="contact.php">CONTACT</a>
       </nav>
     </div>
+
     <div class="nav-underline"></div>
   </header>
 
@@ -108,6 +110,7 @@
         <label>Title</label>
         <span class="char-counter" id="titleCounter">0 / 27</span>
       </div>
+
       <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
     </div>
 
@@ -116,6 +119,7 @@
         <label>Description</label>
         <span class="char-counter" id="descCounter">0 / 191</span>
       </div>
+
       <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
     </div>
 
@@ -125,6 +129,7 @@
         <div class="upload-icon">
           <img src="images/upload.png" alt="Upload Photo">
         </div>
+        
         <p>Click here to upload your photo.</p>
         <input type="file" id="photoInput" accept="image/*" style="display:none;">
       </div>

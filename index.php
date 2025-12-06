@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <title>WELCOME</title>
 </head>
+
 <body id="home-body">
   <header id="home-header">
     <nav class="text">
@@ -14,6 +15,7 @@
       <div class="menu-item-home">
         <a href="story.php" class="menu-link">MY STORY</a>
         <span class="dropdown-toggle-home" onclick="toggleDropdown('my-story-menu')">▴</span>
+
         <div class="dropdown-menu-home" id="my-story-menu">
           <a href="story.php">Family</a>
           <a href="elementary.php">Elementary</a>
@@ -27,6 +29,7 @@
       <div class="menu-item-home">
         <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
         <span class="dropdown-toggle-home" onclick="toggleDropdown('portfolio-menu')">▴</span>
+        
         <div class="dropdown-menu-home" id="portfolio-menu">
           <a href="portfolio.php?project=0">Be my Æ</a>
           <a href="portfolio.php?project=1">Memory Game</a>
@@ -69,7 +72,7 @@
 
   <footer id="footer-home">
     © 2025 Noerly Idos · <a href="contact.php" class="contact-link">Get in touch</a>
-</footer>
+  </footer>
 
   <script src="script.js"></script>
 </body>

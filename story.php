@@ -20,6 +20,7 @@
         <div class="menu-item-story">
           <a href="story.php" class="menu-link active">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.php">Family</a>
             <a href="elementary.php">Elementary</a>
@@ -33,6 +34,7 @@
         <div class="menu-item-story">
           <a href="portfolio.php">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="portfolio.php?project=0">Be my Æ</a>
             <a href="portfolio.php?project=1">Memory Game</a>
@@ -53,6 +55,7 @@
   <div class="page-wrapper">
     <div class="sidebar-banner">
         <a href="story.php" class="title">Family</a>
+
         <nav class="sidebar-menu">
             <a href="elementary.php">Elementary</a>
             <a href="hobbies.php">Hobbies</a>
@@ -73,8 +76,8 @@
         </div>
 
         <div class="overlay-card">
-          <h2 id="familyTitle">MY FAMILY</h2>
-          <p id="familyDescription">I am Noerly Yvonne Mae G. Idos, born on October 12, 2005 at San Carlos City, Pangasinan into a family of four by Noel and Merly G. Idos.</p>
+          <h2 id="familyTitle"></h2>
+          <p id="familyDescription"></p>
           <div class="btn-group">
             <button class="prev-btn" id="prevFamilyBtn">Previous</button>
             <button class="next-btn" id="nextFamilyBtn">Next</button>
@@ -108,6 +111,7 @@
         <label>Title</label>
         <span class="char-counter" id="titleCounter">0 / 27</span>
       </div>
+
       <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
     </div>
 
@@ -116,6 +120,7 @@
         <label>Description</label>
         <span class="char-counter" id="descCounter">0 / 191</span>
       </div>
+
       <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
     </div>
 
@@ -125,6 +130,7 @@
         <div class="upload-icon">
           <img src="images/upload.png" alt="Upload Photo">
         </div>
+        
         <p>Click here to upload your photo.</p>
         <input type="file" id="photoInput" accept="image/*" style="display:none;">
       </div>

@@ -38,7 +38,7 @@ body {
     min-height: 100vh;
 }
 
-#story-body, #port-body, #contact-body {
+#story-body, #port-body, #contact-body, #new-body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(to bottom, #ffffff, #a0d8ef);
     color: #003366;
@@ -63,7 +63,7 @@ body.loaded {
     transform: translateY(-20px);
 }
 
-#story-body.fade-out, #port-body.fade-out {
+#story-body.fade-out, #port-body.fade-out, #new-body.fade-out, #contact-body.fade-out {
     opacity: 0;
     transform: translateY(-20px) scale(0.98);
 } 
@@ -466,10 +466,12 @@ nav a:hover, nav a.active {
     border-radius: 10px;
     text-decoration: none;
     display: inline-block;
-    transition: background 0.3s, transform 0.3s;
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
     background: linear-gradient(to right, #00C6FF, #0F70DA);
     color: white;
-    box-shadow: 0 8px 25px rgba(59,130,246,0.4);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    cursor: pointer;
+    z-index: 99;
 }
 
 .contact-card .btn-redo, .contact-card .btn-submit {
@@ -487,8 +489,10 @@ nav a:hover, nav a.active {
 }
 
 .btn:hover {
+    background: linear-gradient(to right, #0087dd, #005bb5);
     transform: translateY(-3px);
     cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 153, 255, 0.45);
 }
 
 .contact-card .btn-redo:hover, .contact-card .btn-submit:hover {
@@ -542,14 +546,6 @@ nav a:hover, nav a.active {
 body.portfolio-page .sidebar-banner {
     margin-left: -120px;
     width: 400px;
-}
-
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px 0;
-    width: fit-content;
 }
 
 .sidebar-link {
@@ -651,7 +647,7 @@ body.portfolio-page .sidebar-banner {
 body.portfolio-page .sidebar-menu {
     margin-left: 100px !important;
     margin-top: 10px;
-    padding-left: 30px;           /* Fine-tune alignment */
+    padding-left: 30px;
     gap: 20px;
 }
 
@@ -765,34 +761,13 @@ a, button, .add-to-story-btn {
     height: auto;
 }
 
-.overlay-card {
-    position: absolute;
-    left: 5px;
-    top: calc(100% / 6);
-    transform: translateY(0);
-    height: auto !important;
-    min-height: 160px;
-    max-height: calc(100% - (100%/6)*2);    
-    background: linear-gradient(to bottom, #003366 0%, #0077B6 100%);
-    color: white;
-    padding: 34px 32px;
-    width: 340px;
-    max-width: 360px;
-    border-radius: 28px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(10px);
-    z-index: 10;    
-    display: flex;
-    flex-direction: column;
-    transition: opacity 0.3s ease;
-}
-
 #event-carousel .hero-section .hero-container #overlay-add {
     max-height: none;
     align-self: flex-start;
+    margin-top: -40px !important;
 }
 
-.hero-section#hero-add {
+.hero-section #hero-add {
     margin-top: -40px !important;
 }
 
@@ -831,7 +806,7 @@ a, button, .add-to-story-btn {
 }
 
 .overlay-card .btn-group button {
-    background: rgba(255, 255, 255, 0.22);
+    background: linear-gradient(to right, #0087dd, #005bb5);
     color: white;
     border: none;
     padding: 11px 22px;
@@ -841,23 +816,21 @@ a, button, .add-to-story-btn {
     cursor: pointer;
     transition: all 0.3s ease;
     backdrop-filter: blur(4px);
+    font-family: 'Montserrat';
+    font-size: 1rem;
+    padding: 10px 16px;
 }
 
 .overlay-card .btn-group button:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.35);
+    background: linear-gradient(to right, #0087dd, #005bb5);
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .overlay-card button:disabled {
     background: rgba(255, 255, 255, 0.12) !important;
     color: rgba(255, 255, 255, 0.5) !important;
     opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.overlay-card button:disabled {
-    background: rgba(255, 255, 255, 0.12) !important;
-    color: rgba(255, 255, 255, 0.5) !important;
     cursor: not-allowed;
 }
 
@@ -1405,7 +1378,7 @@ a, button, .add-to-story-btn {
     border-color: #ffffff;
 }
 
-#main-content {
+#main-content, #new-body main #main-content {
     flex: 1;
     display: flex;
     align-items: center;
@@ -1414,6 +1387,14 @@ a, button, .add-to-story-btn {
     text-align: center;
     margin-top: 150px;
     margin-left: 170px;
+}
+
+#new-body main #main-content {
+    min-height: 80vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
 }
 
 .empty-state {
@@ -1524,15 +1505,6 @@ a, button, .add-to-story-btn {
     transition: opacity 0.3s ease;
 }
 
-#event-carousel .hero-section .hero-container #overlay-add {
-    max-height: none;
-    align-self: flex-start;
-}
-
-.hero-section#hero-add {
-    margin-top: -40px !important;
-}
-
 .overlay-card h2, .overlay-card-port h2 {
     font-family: 'Bebas', sans-serif;
     font-size: 48px;
@@ -1589,12 +1561,6 @@ a, button, .add-to-story-btn {
     background: rgba(255, 255, 255, 0.12) !important;
     color: rgba(255, 255, 255, 0.5) !important;
     opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.overlay-card button:disabled, .overlay-card-port button:disabled {
-    background: rgba(255, 255, 255, 0.12) !important;
-    color: rgba(255, 255, 255, 0.5) !important;
     cursor: not-allowed;
 }
 
@@ -1660,6 +1626,7 @@ a, button, .add-to-story-btn {
   min-width: 300px;
   max-width: 700px;
   margin-top: -200px;
+  margin-left: -30px;
   overflow: hidden;
   box-shadow: 0 10px 60px rgba(0, 0, 0, 0.22);
 }
@@ -1705,7 +1672,7 @@ a, button, .add-to-story-btn {
 .contact-card {
   flex: 2;
   max-width: 700px;
-  height: 550px;
+  height: 530px;
   background: linear-gradient(to right, rgba(255, 218, 185, 0.8), rgba(254, 198, 147, 0.8)) !important;
   padding: 20px 30px;
   border-radius: 16px;
@@ -1723,6 +1690,12 @@ a, button, .add-to-story-btn {
 .contact-card .subtitle {
     color: #4C3122;
     font-weight: 600;
+    margin-top: -10px;
+}
+
+.contact-card #thank-you-message {
+    display: none;
+    margin-top: 0;
 }
 
 .contact-card label {
@@ -1802,6 +1775,12 @@ a, button, .add-to-story-btn {
   transition: color 0.3s ease;
 }
 
+.contact-card #redo-message {
+    display:none;
+    color:#FF1100;
+    font-weight:600;
+}
+
 .social-icons a:hover i {
   color: #cccccc;
 }
@@ -1862,15 +1841,6 @@ a, button, .add-to-story-btn {
     }
     100% {
         transform: translateX(100%);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
     }
 }
 

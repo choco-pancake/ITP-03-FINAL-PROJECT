@@ -7,9 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+      integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
+
 <body id="contact-body">
   <header id="story-header">
     <div class="logo-box">
@@ -50,64 +52,82 @@
         <a href="contact.php" class="menu-link active">CONTACT</a>
       </nav>
     </div>
+
     <div class="nav-underline"></div>
   </header>
 
   <main>
-  <section class="contact-section">
-    <div class="contact-container">
-      <div class="contact-left">
-        <div class="profile-photo">
-          <img src="images/contact-photo.png" alt="Noerly Yvonne Mae">
-        </div>
-
-        <div class="follow-me">
-          <h2>FOLLOW ME</h2>
-          <p>Stay updated by following me on social media!</p>
-          <div class="social-icons">
-            <a href="https://www.facebook.com/noerlyyvonne.idos/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/noerly_cal/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@choisanhongjoongseonghwa?_r=1&_t=ZS-91ugFAJP58R" target="_blank"><i class="fab fa-tiktok"></i></a>
-            <a href="https://x.com/sanoerlyyy?t=KKRVYnuqiCCW3ur6IP63hw&s=09" target="_blank"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://github.com/choco-pancake" target="_blank"><i class="fab fa-github"></i></a>
+    <section class="contact-section">
+      <div class="contact-container">
+        <div class="contact-left">
+          <div class="profile-photo">
+            <img src="images/contact-photo.png" alt="Noerly Yvonne Mae">
           </div>
+
+          <div class="follow-me">
+  <h2>FOLLOW ME</h2>
+  <p>Stay updated by following me on social media!</p>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/noerlyyvonne.idos/" target="_blank" aria-label="Facebook">
+      <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="https://www.instagram.com/noerly_cal/" target="_blank" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <a href="https://www.tiktok.com/@choisanhongjoongseonghwa" target="_blank" aria-label="TikTok">
+      <i class="fa-brands fa-tiktok"></i>
+    </a>
+    <a href="https://x.com/sanoerlyyy" target="_blank" aria-label="X (Twitter)">
+      <i class="fa-brands fa-x-twitter"></i>        <!-- or fa-x-twitter -->
+    </a>
+    <a href="https://github.com/choco-pancake" target="_blank" aria-label="GitHub">
+      <i class="fa-brands fa-github"></i>
+    </a>
+  </div>
+</div>
+        </div>
+
+        <div class="contact-card">
+          <h1>CONTACT</h1>
+          <p class="subtitle">Want to get in touch? Drop a message down below!</p>
+
+          <div id="redo-message">
+            There are no contents to redo.
+          </div>
+
+          <div id="thank-you-message" class="success-message">
+            Thank you! Your message has been received.
+          </div>
+
+          <form id="contactForm" method="POST">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" required placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" rows="5" required placeholder="Write your message here..."></textarea>
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" class="btn-redo" onclick="handleRedo()">Redo</button>
+              <button type="submit" class="btn-submit">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div class="contact-card">
-  <h1>CONTACT</h1>
-  <p class="subtitle">Want to get in touch? Drop a message down below!</p>
-
-  <div id="redo-message" style="display:none; color:#FF1100; margin-top:10px; font-weight:600;">
-  There are no contents to redo.
-</div>
-
-<div id="thank-you-message" class="success-message" style="display:none;">
-  Thank you! Your message has been received.
-</div>
-
-<form id="contactForm" method="POST">
-  <div class="form-group">
-    <label>Name</label>
-    <input type="text" name="name" required placeholder="Your name">
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" required placeholder="your@email.com">
-  </div>
-  <div class="form-group">
-    <label>Message</label>
-    <textarea name="message" rows="5" required placeholder="Write your message here..."></textarea>
-  </div>
-  <div class="form-buttons">
-    <button type="button" class="btn-redo" onclick="handleRedo()">Redo</button>
-    <button type="submit" class="btn-submit">Submit</button>
-  </div>
-</form>
-      </div>
-    </div>
-  </section>
-</main>
+  <footer id="footer-home">
+    © 2025 Noerly Idos · <a href="contact.php" class="contact-link">Get in touch</a>
+  </footer>
 
   <script src="script.js"></script>
 </body>

@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
-<body id="story-body">
+
+<body id="new-body">
   <header id="story-header">
     <div class="logo-box">
       <span class="logo-my">MY STORY</span>
@@ -20,6 +21,7 @@
         <div class="menu-item-story">
           <a href="story.php" class="menu-link active">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu-story')">▴</span>
+
           <div class="dropdown-menu-story" id="my-story-menu-story">
             <a href="story.php">Family</a>
             <a href="elementary.php">Elementary</a>
@@ -33,6 +35,7 @@
         <div class="menu-item-story">
           <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="portfolio.php?project=0">Be my Æ</a>
             <a href="portfolio.php?project=1">Memory Game</a>
@@ -47,6 +50,7 @@
         <a href="contact.php">CONTACT</a>
       </nav>
     </div>
+
     <div class="nav-underline"></div>
   </header>
 
@@ -65,7 +69,7 @@
         <button class="add-to-story-btn">Add to Story</button>
       </div>
 
-      <div id="main-content" style="min-height: 80vh; display: flex; align-items: flex-start; justify-content: center; padding-top: 80px;">
+      <div id="main-content">
         <?php 
           $eventsFile = __DIR__ . '/uploads/new-events.txt';
 
@@ -108,6 +112,7 @@
       <label>Title</label>
       <span class="char-counter" id="titleCounter">0 / 27</span>
     </div>
+
     <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
   </div>
 
@@ -116,6 +121,7 @@
       <label>Description</label>
       <span class="char-counter" id="descCounter">0 / 191</span>
     </div>
+
     <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
   </div>
 
@@ -125,6 +131,7 @@
       <div class="upload-icon">
         <img src="images/upload.png" alt="Upload Photo">
       </div>
+
       <p>Click here to upload your photo.</p>
       <input type="file" id="photoInput" accept="image/*" style="display:none;">
     </div>
@@ -145,6 +152,7 @@
 </div>
 
 <script src="script.js"></script>
+
 <script>
   const TOTAL_FIXED_EVENTS = 19;
   const totalEvents = TOTAL_FIXED_EVENTS + events.length;

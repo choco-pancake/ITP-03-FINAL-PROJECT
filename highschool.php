@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
+
 <body id="story-body">
   <header id="story-header">
     <div class="logo-box">
@@ -20,6 +21,7 @@
         <div class="menu-item-story">
           <a href="story.php" class="menu-link active">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.php">Family</a>
             <a href="elementary.php">Elementary</a>
@@ -33,6 +35,7 @@
         <div class="menu-item-story">
           <a href="portfolio.php" class="menu-link">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="portfolio.php?project=0">Be my Æ</a>
             <a href="portfolio.php?project=1">Memory Game</a>
@@ -47,6 +50,7 @@
         <a href="contact.php">CONTACT</a>
       </nav>
     </div>
+
     <div class="nav-underline"></div>
   </header>
 
@@ -56,6 +60,7 @@
       <a href="elementary.php" class="sidebar-small-title">Elementary</a>
       <a href="hobbies.php" class="sidebar-small-title">Hobbies</a>
       <a href="highschool.php" class="title" id="highschool">Highschool</a>
+
       <nav class="sidebar-menu">   
           <a href="college.php">College</a>
           <a href="new-events.php">New Events</a>
@@ -73,8 +78,8 @@
         </div>
 
         <div class="overlay-card" id="overlay12">
-          <h2>7TH GRADE AT SAGS</h2>
-          <p>I initially started high school off at SAGS (St. Albert the Great School). Although I’ve only stayed for a year, I’ve formed wholesome friendships that lasted.</p>
+          <h2></h2>
+          <p></p>
           <div class="btn-group">
             <button class="prev-btn">Previous</button>
             <button class="next-btn">Next</button>
@@ -100,6 +105,7 @@
       <button class="close-panel-btn" id="closePanelBtn">
         <img src="images/back.png" alt="Close">
       </button>
+
       <h2>ADD TO STORY</h2>
     </div>
 
@@ -108,6 +114,7 @@
         <label>Title</label>
         <span class="char-counter" id="titleCounter">0 / 27</span>
       </div>
+
       <input type="text" id="titleInput" maxlength="27" placeholder="Enter title">
     </div>
 
@@ -116,11 +123,13 @@
         <label>Description</label>
         <span class="char-counter" id="descCounter">0 / 191</span>
       </div>
+
       <textarea id="descInput" maxlength="191" placeholder="Write your story..."></textarea>
     </div>
 
     <div class="form-group upload-area-wrapper">
       <label>Photo (Optional)</label>
+
       <div class="upload-area">  
         <div class="upload-icon">
           <img src="images/upload.png" alt="Upload Photo">
@@ -143,6 +152,7 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
+      
       <div class="alert-message" id="alertMessage">Message goes here</div>
       <button class="alert-btn" id="alertBtn">OK</button>
     </div>

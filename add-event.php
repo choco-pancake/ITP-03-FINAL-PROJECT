@@ -21,8 +21,8 @@
 
             foreach ($lines as $line) {
                 if (strpos($line, '=== NEW STORY ===') === 0) continue;
-                if (strpos($line, 'Date Added:') === 0) $ev['date'] = substr($line, 11);
                 elseif (strpos($line, 'Title:') === 0) $ev['title'] = substr($line, 6);
+
                 elseif (strpos($line, 'Description:') === 0) {
                     $inDesc = true;
                     $ev['description'] = trim(substr($line, 12));
@@ -41,6 +41,7 @@
                 $events[] = $ev;
             }
         }
+        
         return $events;
     }
 

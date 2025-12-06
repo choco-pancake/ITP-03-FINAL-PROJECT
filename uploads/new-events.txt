@@ -1,54 +1,18 @@
 === NEW STORY ===
-Date Added: December 5, 2025 at 8:40 PM (Philippine Time)
 Title: Moving...
 Description:
 We've moved to a new home near ours, but by the street. It would be easier to come to and from school here.
 
-Photo: No
+Photo: Yes (saved as house.png)
+
 ==================================================
 
 === NEW STORY ===
-Date Added: December 5, 2025 at 8:44 PM (Philippine Time)
 Title: My SIster's Graduation
 Description:
 My sister has finally graduated from Senior High School and will be enrolling at the Kingfisher School of Business and Finance as an Accountancy student!
 
 Photo: Yes (saved as kingfisher.jpg)
-==================================================
 
-=== NEW STORY ===
-Date Added: December 5, 2025 at 8:44 PM (Philippine Time)
-Title: Finally Graduated!
-Description:
-Although I was an irregular student and extended my stay at UdD (Universidad de Dagupan) for one more year, I have finally graduated with a degree in Information Technology!
-
-Photo: Yes (saved as udd.jpg)
-==================================================
-
-=== NEW STORY ===
-Date Added: December 5, 2025 at 8:45 PM (Philippine Time)
-Title: First Day at the New Job
-Description:
-Me and my boyfriend have been planning to continue running his uncle's start-up company, and he recruited me as a UI designer.
-
-Photo: Yes (saved as ui.jpg)
-==================================================
-
-=== NEW STORY ===
-Date Added: December 5, 2025 at 8:47 PM (Philippine Time)
-Title: Sis Takes the Board
-Description:
-It's been 4 months since my sister has been reviewing for the CPALE. Today is D-day!
-
-Photo: Yes (saved as cpale.jpg)
-==================================================
-
-=== NEW STORY ===
-Date Added: December 5, 2025 at 8:48 PM (Philippine Time)
-Title: A Large Opportunity
-Description:
-A very large project for a government-based company in the US got us to create and maintain an Accounting system for them!
-
-Photo: Yes (saved as project.png)
 ==================================================
 

@@ -20,6 +20,7 @@
         <div class="menu-item-story">
           <a href="story.php">MY STORY</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('my-story-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="my-story-menu">
             <a href="story.php">Family</a>
             <a href="elementary.php">Elementary</a>
@@ -33,6 +34,7 @@
         <div class="menu-item-story">
           <a href="portfolio.php" class="menu-link active">PORTFOLIO</a>
           <span class="dropdown-toggle-story" onclick="toggleDropdown('portfolio-menu')">▴</span>
+
           <div class="dropdown-menu-story" id="portfolio-menu">
             <a href="portfolio.php?project=0">Be my Æ</a>
             <a href="portfolio.php?project=1">Memory Game</a>
@@ -73,6 +75,7 @@
           <div class="overlay-card-port" id="projectOverlay">
             <h2 id="projectTitle">BE MY Æ</h2>
             <p id="projectDescription">Be My Æ is an informational website displaying profiles, a gallery, and updates on the K-Pop group æspa.</p>      
+            
             <div class="btn-group">
               <button class="prev-btn" id="prevProjectBtn">Previous</button>
               <button class="next-btn" id="nextProjectBtn">Next</button>
@@ -85,6 +88,7 @@
         <div class="progress-container" id="container-story">
           <div class="progress-bar" id="progressBar"></div>
         </div>
+        
         <div class="footer-text">
           © 2025 Noerly Idos · <a href="contact.php" class="contact-link">Get in touch</a>
         </div>

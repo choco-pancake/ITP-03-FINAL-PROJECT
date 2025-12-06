@@ -39,7 +39,6 @@ function toggleDropdown(menuId) {
     const menu      = document.getElementById(menuId);
     const toggle    = event.currentTarget;
     const menuItem  = toggle.closest('.menu-item-story');
-
     const isOpening = !menu.classList.contains('show');
 
     menu.classList.toggle('show', isOpening);
@@ -87,9 +86,11 @@ document.addEventListener('click', e => {
         document.querySelectorAll('.dropdown-menu-story').forEach(menu => {
             menu.classList.remove('show');
         });
+
         document.querySelectorAll('.dropdown-toggle-story').forEach(toggle => {
             toggle.classList.remove('open');
         });
+
         document.querySelectorAll('.menu-item-story').forEach(item => {
             item.classList.remove('dropdown-open');
         });
@@ -149,18 +150,18 @@ if (photoInput && uploadArea) {
     photoInput.addEventListener('change', function (e) {
         const file = e.target.files[0];
 
-    if (!file) {
-        removePreview();
-        return;
-    }
+        if (!file) {
+            removePreview();
+            return;
+        }
 
-    currentPhotoFile = file;
-    const reader = new FileReader();
-    reader.onload = function (event) {
+        currentPhotoFile = file;
+        const reader = new FileReader();
+        reader.onload = function (event) {
         uploadIcon.style.display = 'none';
         uploadText.style.display = 'none';
-
         let preview = uploadArea.querySelector('.photo-preview');
+
         if (!preview) {
             preview = document.createElement('div');
             preview.className = 'photo-preview';
@@ -175,6 +176,7 @@ if (photoInput && uploadArea) {
                     <line x1="6" y1="6" x2="18" y2="18" stroke="white" stroke-width="3" stroke-linecap="round"/>
                 </svg>
             </button>
+
             <div class="change-photo">Change Photo</div>
         `;
 
@@ -184,6 +186,7 @@ if (photoInput && uploadArea) {
             photoInput.value = '';
         });
     };
+
     reader.readAsDataURL(file);
 });
 
@@ -193,9 +196,11 @@ if (photoInput && uploadArea) {
             photoInput.click();
             return;
         }
+
         if (e.target.closest('.remove-photo-btn')) {
             return;
         }
+
         if (!uploadArea.querySelector('.photo-preview')) {
             photoInput.click();
         }
@@ -211,6 +216,7 @@ if (photoInput && uploadArea) {
     }
 
     const redoBtn = document.querySelector('.panel-btn.redo');
+
     if (redoBtn) {
         redoBtn.addEventListener('click', function () {
             const titleInput = document.getElementById('titleInput');
@@ -229,6 +235,7 @@ if (photoInput && uploadArea) {
     }
 
     const submitBtn = document.querySelector('.panel-btn.submit');
+
     if (submitBtn) {
         submitBtn.addEventListener('click', function () {
             const title       = document.querySelector('#title-group input').value.trim();
@@ -246,6 +253,7 @@ if (photoInput && uploadArea) {
                 showCustomAlert('Title must be 1–27 characters!', 'error');
                 return;
             }
+
             if (!description || description.length > DESC_LIMIT) {
                 showCustomAlert('Description must be 1–191 characters!', 'error');
                 return;
@@ -254,6 +262,7 @@ if (photoInput && uploadArea) {
             const formData = new FormData();
             formData.append('title', title);
             formData.append('description', description);
+
             if (currentPhotoFile) {
                 formData.append('photo', currentPhotoFile);
             }
@@ -261,8 +270,7 @@ if (photoInput && uploadArea) {
             fetch('add-to-story.php', {
                 method: 'POST',
                 body: formData
-            })
-            .then(res => res.text())
+            }).then(res => res.text())
             .then(response => {
                 console.log('Response:', response);
                 
@@ -301,7 +309,6 @@ if (photoInput && uploadArea) {
 
         if (titleCounter) titleCounter.textContent = `0 / ${TITLE_LIMIT}`;
         if (descCounter) descCounter.textContent = `0 / ${DESC_LIMIT}`;
-        
         if (titleCounter) titleCounter.classList.remove('warning', 'good');
         if (descCounter) descCounter.classList.remove('warning', 'good');
     }
@@ -313,7 +320,9 @@ document.querySelectorAll('a[href="#new-events"]').forEach(link => {
         document.querySelectorAll('main > section').forEach(sec => {
             sec.style.display = 'none';
         });
+
         const newEvents = document.getElementById('new-events');
+
         if (newEvents) {
             newEvents.style.display = 'flex';
         }
@@ -323,6 +332,7 @@ document.querySelectorAll('a[href="#new-events"]').forEach(link => {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
         const activeAlert = document.getElementById('customAlertOverlay');
+
         if (activeAlert && activeAlert.classList.contains('show')) {
             e.preventDefault();
         }
@@ -346,6 +356,7 @@ if (titleInput && titleCounter) {
         } else {
             titleCounter.classList.remove('warning');
         }
+
         if (length === TITLE_LIMIT) {
             titleCounter.classList.add('good');
         } else {
@@ -430,6 +441,7 @@ function showCustomAlert(message, type = 'success', callback = null) {
             closeAlert();
         }
     };
+
     document.addEventListener('keydown', keyHandler);
 }
 
@@ -445,216 +457,199 @@ const familyEvents = [
 ];
 
 if (document.getElementById('familyImage')) {
-  let currentFamilySection = 0;
-
   const urlParams = new URLSearchParams(window.location.search);
-  const startEvent = urlParams.get('event');
-  if (startEvent !== null) {
-    const idx = parseInt(startEvent);
-    if (idx >= 0 && idx < familyEvents.length) {
-      currentFamilySection = idx;
-    }
-  }
+  const eventParam = urlParams.get('event');
+  
+  let current = eventParam ? familyEvents.findIndex(e => e.index == eventParam) : 0;
+  if (current === -1) current = 0;
 
-  const familyImage       = document.getElementById('familyImage');
-  const familyTitle       = document.getElementById('familyTitle');
-  const familyDescription = document.getElementById('familyDescription');
-  const prevFamilyBtn     = document.getElementById('prevFamilyBtn');
-  const nextFamilyBtn     = document.getElementById('nextFamilyBtn');
-  const overlayCard       = document.querySelector('.overlay-card');
-  const progressBar       = document.getElementById('progressBar');
+  const img    = document.querySelector('#familyImage');
+  const title  = document.querySelector('.overlay-card h2');
+  const desc   = document.querySelector('.overlay-card p');
+  const prev   = document.getElementById('prevFamilyBtn');
+  const next   = document.getElementById('nextFamilyBtn');
+  const card   = document.querySelector('.overlay-card');
+  const bar    = document.getElementById('progressBar');
 
-  function updateFamilyEvent() {
-    const event = familyEvents[currentFamilySection];
-    familyImage.classList.add('fade');
-    overlayCard.style.opacity = '0.7';
-
+  function update() {
+    const e = familyEvents[current];
+    img.classList.add('fade');
+    card.style.opacity = '0.7';
+    
     setTimeout(() => {
-      familyTitle.textContent = event.title;
-      familyDescription.textContent = event.description;
-      familyImage.src = event.image;
-      overlayCard.style.opacity = '1';
-      familyImage.classList.remove('fade');
+      title.textContent = e.title;
+      desc.textContent  = e.description;
+      img.src = e.image;
+      card.style.opacity = '1';
+      img.classList.remove('fade');
     }, 250);
 
-    prevFamilyBtn.disabled = currentFamilySection === 0;
-    nextFamilyBtn.disabled = false;
+    prev.disabled = current === 0;
+    next.disabled = false;
 
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = currentFamilySection + 1;
+    const currentEventNumber = current + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
-    progressBar.style.width = percentage + '%';
+    bar.style.width = percentage + '%';
   }
 
-  nextFamilyBtn.addEventListener('click', () => {
-    if (currentFamilySection < familyEvents.length - 1) {
-      currentFamilySection++;
-      updateFamilyEvent();
+  next.onclick = () => {
+    if (current < familyEvents.length - 1) {
+      current++;
+      update();
     } else {
       window.location.href = 'elementary.php';
     }
-  });
+  };
 
-  prevFamilyBtn.addEventListener('click', () => {
-    if (currentFamilySection > 0) {
-      currentFamilySection--;
-      updateFamilyEvent();
+  prev.onclick = () => {
+    if (current > 0) {
+      current--;
+      update();
     }
-  });
+  };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    updateFamilyEvent();
-  });
+  update();
 }
 
 const elementaryEvents = [
   {index: 4, title: "ELEMENTARY LIFE AT EGCA", description: "I started school at EGCA (Eastern Gate Christian Academy) for the whole span of my elementary days. I graduated in 2016 as the valedictorian of our class.", image: "images/egca.jpg"},
-  {index: 5, title: "ACADEMICALLY ACTIVE!", description: "I’ve been consistently competing in quiz bees, art, choral and speech competitions.", image: "images/calligraphy.jpg"}
+  {index: 5, title: "ACADEMICALLY ACTIVE!", description: "I've been consistently competing in quiz bees, art, choral and speech competitions.", image: "images/calligraphy.jpg"}
 ];
 
 if (document.getElementById('egca')) {
   const urlParams = new URLSearchParams(window.location.search);
-  const startEvent = urlParams.get('event');
-  let currentElementarySection = 0;
+  const eventParam = urlParams.get('event');
+  
+  let current = eventParam ? elementaryEvents.findIndex(e => e.index == eventParam) : 0;
+  if (current === -1) current = 0;
 
-  if (startEvent !== null) {
-    const eventIndex = parseInt(startEvent);
-    if (eventIndex === 5) currentElementarySection = 1;
-    else if (eventIndex === 4) currentElementarySection = 0;
-  }
+  const img    = document.querySelector('#egca img');
+  const title  = document.querySelector('#overlay5 h2');
+  const desc   = document.querySelector('#overlay5 p');
+  const prev   = document.querySelector('#overlay5 .prev-btn');
+  const next   = document.querySelector('#overlay5 .next-btn');
+  const card   = document.getElementById('overlay5');
+  const bar    = document.getElementById('progressBar');
 
-  const elementaryImage = document.querySelector('#egca img');
-  const elementaryTitle = document.querySelector('#overlay5 h2');
-  const elementaryDescription = document.querySelector('#overlay5 p');
-  const prevElementaryBtn = document.querySelector('#overlay5 .prev-btn');
-  const nextElementaryBtn = document.querySelector('#overlay5 .next-btn');
-  const progressBar = document.getElementById('progressBar');
-
-  function updateElementaryEvent() {
-    const event = elementaryEvents[currentElementarySection];
-    elementaryImage.classList.add('fade');
-    const overlayCard = document.getElementById('overlay5');
-    overlayCard.style.opacity = '0.7';
+  function update() {
+    const e = elementaryEvents[current];
+    img.classList.add('fade');
+    card.style.opacity = '0.7';
 
     setTimeout(() => {
-      elementaryTitle.textContent = event.title;
-      elementaryDescription.textContent = event.description;
-      elementaryImage.src = event.image;
-
-      if (currentElementarySection === 1) {
-        elementaryImage.style.width = '130%';
-        elementaryImage.style.maxWidth = '200';
+      title.textContent = e.title;
+      desc.textContent  = e.description;
+      img.src = e.image;
+      
+      if (current === 1) {
+        img.style.width = '130%';
+        img.style.maxWidth = '200';
       } else {
-        elementaryImage.style.width = '';
-        elementaryImage.style.maxWidth = '';
+        img.style.width = '';
+        img.style.maxWidth = '';
       }
 
-      overlayCard.style.opacity = '1';
-      elementaryImage.classList.remove('fade');
+      card.style.opacity = '1';
+      img.classList.remove('fade');
     }, 200);
+
+    prev.disabled = false;
+    next.disabled = false;
 
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = 4 + currentElementarySection + 1;
+    const currentEventNumber = 4 + current + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
-    progressBar.style.width = percentage + '%';
-
-    prevElementaryBtn.disabled = false;
-    nextElementaryBtn.disabled = false;
+    bar.style.width = percentage + '%';
   }
 
-  nextElementaryBtn.addEventListener('click', () => {
-    if (currentElementarySection < elementaryEvents.length - 1) {
-      currentElementarySection++;
-      updateElementaryEvent();
+  next.onclick = () => {
+    if (current < elementaryEvents.length - 1) {
+      current++;
+      update();
     } else {
       window.location.href = 'hobbies.php';
     }
-  });
+  };
 
-  prevElementaryBtn.addEventListener('click', () => {
-    if (currentElementarySection > 0) {
-      currentElementarySection--;
-      updateElementaryEvent();
+  prev.onclick = () => {
+    if (current > 0) {
+      current--;
+      update();
     } else {
       window.location.href = 'story.php?event=3';
     }
-  });
+  };
 
-  document.addEventListener('DOMContentLoaded', () => {
-    updateElementaryEvent();
-  });
+  update();
 }
 
 const hobbiesEvents = [
   {index: 6, title: "MY 7TH BIRTHDAY", description: "Being held at Pinkies restaurant, I turned 7 on October 12, 2012. My eyes were opened to a whole new world of potential.", image: "images/7th_bday.jpg"},
-  {index: 7, title: "SINGING", description: "That's when I started being a member of the Calasiao Children’s Chorus from 2015-2023. I have currently been moved to the Calasiao Chamber Chorus, the youth choir of our church.", image: "images/choir.png"},
-  {index: 8, title: "DRAWING", description: "Although I’ve only been enjoying drawing when our school activities require us to, this was my main hobby during my elementary and high school days.", image: "images/drawing.jpg"},
+  {index: 7, title: "SINGING", description: "That's when I started being a member of the Calasiao Children's Chorus from 2015-2023. I have currently been moved to the Calasiao Chamber Chorus, the youth choir of our church.", image: "images/choir.png"},
+  {index: 8, title: "DRAWING", description: "Although I've only been enjoying drawing when our school activities require us to, this was my main hobby during my elementary and high school days.", image: "images/drawing.jpg"},
   {index: 9, title: "UKULELE", description: "Why not pair my gift of voice with instruments? This is my other half, my uke. I also have knowledge in playing the guitar and piano.", image: "images/ukulele.jpg"},
   {index: 10,title: "DANCING", description: "This is my favorite hobby. I started dancing during the COVID-19 pandemic, when I became an avid fan of K-Pop.", image: "images/dance.jpg"}
 ];
 
 if (document.getElementById('hobbies')) {
-  let currentHobbySection = 0;
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventParam = urlParams.get('event');
+  
+  let current = eventParam ? hobbiesEvents.findIndex(e => e.index == eventParam) : 0;
+  if (current === -1) current = 0;
 
-  const params = new URLSearchParams(window.location.search);
-  const eventParam = params.get('event');
-  if (eventParam) {
-    const idx = parseInt(eventParam) - 6;
-    if (idx >= 0 && idx < hobbiesEvents.length) {
-      currentHobbySection = idx;
-    }
-  }
-
-  const img = document.querySelector('#hobbies img');
-  const title = document.querySelector('#overlay7 h2');
-  const desc = document.querySelector('#overlay7 p');
-  const prevBtn = document.querySelector('#overlay7 .prev-btn');
-  const nextBtn = document.querySelector('#overlay7 .next-btn');
-  const overlay = document.getElementById('overlay7');
-  const progress = document.getElementById('progressBar');
+  const img    = document.querySelector('#hobbies img');
+  const title  = document.querySelector('#overlay7 h2');
+  const desc   = document.querySelector('#overlay7 p');
+  const prev   = document.querySelector('#overlay7 .prev-btn');
+  const next   = document.querySelector('#overlay7 .next-btn');
+  const card   = document.getElementById('overlay7');
+  const bar    = document.getElementById('progressBar');
 
   function update() {
-    const e = hobbiesEvents[currentHobbySection];
+    const e = hobbiesEvents[current];
     img.classList.add('fade');
-    overlay.style.opacity = '0.7';
+    card.style.opacity = '0.7';
+
     setTimeout(() => {
       title.textContent = e.title;
       desc.textContent  = e.description;
       img.src = e.image;
-      overlay.style.opacity = '1';
+      card.style.opacity = '1';
       img.classList.remove('fade');
     }, 250);
 
-    prevBtn.disabled = false;
-    nextBtn.disabled = false;
+    prev.disabled = false;
+    next.disabled = false;
 
     const TOTAL_FIXED_EVENTS = 19;
     let totalEvents = TOTAL_FIXED_EVENTS;
     if (typeof events !== 'undefined' && events.length > 0) totalEvents += events.length;
 
-    const currentEventNumber = 6 + currentHobbySection + 1; // 7–11
+    const currentEventNumber = 6 + current + 1;
     const percentage = (currentEventNumber / totalEvents) * 100;
-    progress.style.width = percentage + '%';
+    bar.style.width = percentage + '%';
   }
 
-  nextBtn.onclick = () => {
-    if (currentHobbySection < hobbiesEvents.length - 1) {
-      currentHobbySection++;
+  next.onclick = () => {
+    if (current < hobbiesEvents.length - 1) {
+      current++;
       update();
     } else {
       window.location.href = 'highschool.php';
     }
   };
 
-  prevBtn.onclick = () => {
-    if (currentHobbySection > 0) {
-      currentHobbySection--;
+  prev.onclick = () => {
+    if (current > 0) {
+      current--;
       update();
     } else {
       window.location.href = 'elementary.php?event=5';
@@ -732,7 +727,7 @@ if (document.getElementById('highschool')) {
 }
 
 const collegeEvents = [
-  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience celebrated at Jmacks Resort Hotel and Events Place on October 12, 2023.", image: "images/18th_bday2.jpg" },
+  { index: 15, title: "MY 18TH BIRTHDAY", description: "During my 1st year of college, I finally turned 18. It was a magical experience celebrated at Jmacks Resort Hotel and Events Place on October 12, 2023.", image: "images/18th_bday.jpg" },
   { index: 16, title: "A TEMPORARY STE STUDENT", description: "I initially enrolled at UdD (Universidad de Dagupan) under the Education program as an English major for a single semester.", image: "images/ste.jpg" },
   { index: 17, title: "PERMANENTLY, AT SITE", description: "Then, I shifted to SITE to be an Information Technology student - where I'll be staying until I graduate in 2027.", image: "images/site.jpg" },
   { index: 18, title: "A COLORFUL SEM WITH CSITS", description: "I entered the CSITS (Computer Science and Information Technology Society) as a Graphic Designer.", image: "images/csits.jpg" }
@@ -841,6 +836,7 @@ const portfolioItems = [
 ];
 
 const overlayPort = document.getElementById('projectOverlay');
+
 if (overlayPort) {
   const urlParams = new URLSearchParams(window.location.search);
   const projectParam = urlParams.get('project');
@@ -861,39 +857,34 @@ if (overlayPort) {
 
   function updateProject() {
     const p = portfolioItems[currentProject];
-
-    // Trigger fade-out
     img.classList.add('fade');
 
     setTimeout(() => {
-      // Update content when image is invisible
       img.src = p.image;
       img.alt = p.title + " Project";
       title.textContent = p.title;
       desc.textContent = p.description;
 
-      // Update counter and progress
       const counterEl = document.getElementById('currentIndex');
       if (counterEl) counterEl.textContent = currentProject + 1;
-
       const progressBar = document.getElementById('progressBar');
+
       if (progressBar) {
         progressBar.style.width = ((currentProject + 1) / portfolioItems.length) * 100 + '%';
       }
 
-      // Update sidebar active state
       document.querySelectorAll('.sidebar-link').forEach((link, i) => {
         link.classList.toggle('active', i === currentProject);
         link.classList.toggle('title', i === currentProject);
         link.classList.toggle('sidebar-small-title', i !== currentProject);
       });
 
-      // Trigger fade-in
+      prev.disabled = currentProject === 0;
+      next.disabled = currentProject === portfolioItems.length - 1;
       img.classList.remove('fade');
-    }, 400); // Matches CSS transition duration
+    }, 400);
   }
 
-  // Navigation
   next.addEventListener('click', () => {
     currentProject = (currentProject + 1) % portfolioItems.length;
     updateProject();
@@ -904,7 +895,6 @@ if (overlayPort) {
     updateProject();
   });
 
-  // Keyboard & Sidebar Navigation
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
@@ -918,24 +908,18 @@ if (overlayPort) {
     });
   });
 
-  // Initial load
   updateProject();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   const contactForm = document.getElementById('contactForm');
   const thankYouMsg = document.getElementById('thank-you-message');
-
-  // Only run on contact.php (prevents errors on other pages)
   if (!contactForm) return;
 
   contactForm.addEventListener('submit', async function (e) {
-    e.preventDefault(); // Stop page refresh
-
+    e.preventDefault();
     const submitBtn = contactForm.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
-
-    // Disable button + show loading state
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
@@ -950,25 +934,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const result = await response.json();
 
       if (result.status === 'success') {
-        // Show thank you message with smooth fade-in
         thankYouMsg.style.display = 'block';
         thankYouMsg.style.opacity = '0';
         thankYouMsg.style.transition = 'opacity 0.8s ease';
 
-        // Force reflow then fade in
         thankYouMsg.offsetHeight;
         thankYouMsg.style.opacity = '1';
 
-        // Clear the form
         contactForm.reset();
 
-        // Auto fade out after 6 seconds
         setTimeout(() => {
           thankYouMsg.style.opacity = '0';
           setTimeout(() => {
             thankYouMsg.style.display = 'none';
           }, 800);
-        }, 6000);
+        }, 3000);
 
       } else {
         showCustomAlert(result.message || 'Something went wrong. Please try again.', 'error');
@@ -977,21 +957,15 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error(err);
       showCustomAlert('No internet connection or server error. Try again later.', 'error');
     } finally {
-      // Re-enable button
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
     }
   });
 
-  // Your existing thank-you fade-out (kept for safety, but now controlled by AJAX)
   if (thankYouMsg && thankYouMsg.style.display !== 'block') {
-    thankYouMsg.style.display = 'none'; // hide by default
+    thankYouMsg.style.display = 'none';
   }
 });
-
-// ————————————————————————————————————————
-// YOUR EXISTING FUNCTIONS (unchanged)
-// ————————————————————————————————————————
 
 function showTempMessage(elementId, duration = 3000) {
   const el = document.getElementById(elementId);
