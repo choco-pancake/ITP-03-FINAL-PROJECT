@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    $uploadDir = __DIR__ . '/uploads';
+    $uploadDir = dirname(__FILE__) . '/uploads';
     $filePath  = $uploadDir . '/contacts.txt';
 
     if (!is_dir($uploadDir)) {
@@ -11,38 +11,44 @@
     }
 
     if (!file_exists($filePath)) {
-        if (file_put_contents($filePath, "====== CONTACT FORM SUBMISSIONS ======\n\n") === false) {
+        $fp = fopen($filePath, "w");
+        if ($fp) {
+            fwrite($fp, "====== CONTACT FORM SUBMISSIONS ======\n\n");
+            fclose($fp);
+            chmod($filePath, 0644);
+        } else {
             die("Error: Could not create contacts.txt file.");
         }
-
-        chmod($filePath, 0644);
     }
 
-    $name    = trim($_POST['name'] ?? '');
-    $email   = trim($_POST['email'] ?? '');
-    $message = trim($_POST['message'] ?? '');
+    $name    = isset($_POST['name'])    ? trim($_POST['name'])    : '';
+    $email   = isset($_POST['email'])   ? trim($_POST['email'])   : '';
+    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
 
-    if (empty($name) || empty($email) || empty($message)) {
+        if (empty($name) || empty($email) || empty($message)) {
         die("Please fill in all fields.");
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $email)) {
         die("Please enter a valid email address.");
     }
 
-    $date  = date('Y-m-d H:i:s');
+    $date  = date("Y-m-d H:i:s");
     $entry = str_repeat("=", 40) . "\n";
     $entry .= "\nSubmitted: $date\n";
     $entry .= "Name:      $name\n";
     $entry .= "Email:     $email\n";
     $entry .= "Message: $message\n\n";
+    $fp = fopen($filePath, "a");
 
-    $result = file_put_contents($filePath, $entry, FILE_APPEND | LOCK_EX);
-
-    if ($result !== false) {
-        echo json_encode(['status' => 'success']);
+    if ($fp && flock($fp, LOCK_EX)) {
+        fwrite($fp, $entry);
+        flock($fp, LOCK_UN);
+        fclose($fp);
+    
+        echo '{"status":"success"}';
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to save message.']);
+        echo '{"status":"error","message":"Failed to save message."}';
     }
 
     exit();

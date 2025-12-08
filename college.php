@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>College | My Story</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body id="story-body">
   <header id="story-header">
@@ -70,12 +69,12 @@
 
       <section class="hero-section">
         <div class="hero-image" id="debut">
-          <img src="images/18th_bday.jpg" alt="My Family">
+          <img src="images/18th_bday.jpg" alt="College">
         </div>
 
         <div class="overlay-card" id="overlay16">
-          <h2>MY 18TH BIRTHDAY </h2>
-          <p>During my 1st year of college, I finally turned 18. It was a magical experience to be the princess and star of the night at Jmacks Resort Hotel and Events Place.</p>
+          <h2></h2>
+          <p></p>
           <div class="btn-group">
             <button class="prev-btn">Previous</button>
             <button class="next-btn">Next</button>
@@ -150,13 +149,5 @@
   </div>
 
   <script src="script.js"></script>
-
-  <script>
-    window.addEventListener('beforeunload', () => {
-      if (window.location.pathname.includes('college.php')) {
-        sessionStorage.setItem('collegeScroll', window.scrollY);
-      }
-    });
-  </script>
 </body>
 </html>

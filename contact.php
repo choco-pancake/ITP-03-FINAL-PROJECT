@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
       integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 
 <body id="contact-body">
@@ -65,26 +64,30 @@
           </div>
 
           <div class="follow-me">
-  <h2>FOLLOW ME</h2>
-  <p>Stay updated by following me on social media!</p>
-  <div class="social-icons">
-    <a href="https://www.facebook.com/noerlyyvonne.idos/" target="_blank" aria-label="Facebook">
-      <i class="fa-brands fa-facebook-f"></i>
-    </a>
-    <a href="https://www.instagram.com/noerly_cal/" target="_blank" aria-label="Instagram">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-    <a href="https://www.tiktok.com/@choisanhongjoongseonghwa" target="_blank" aria-label="TikTok">
-      <i class="fa-brands fa-tiktok"></i>
-    </a>
-    <a href="https://x.com/sanoerlyyy" target="_blank" aria-label="X (Twitter)">
-      <i class="fa-brands fa-x-twitter"></i>        <!-- or fa-x-twitter -->
-    </a>
-    <a href="https://github.com/choco-pancake" target="_blank" aria-label="GitHub">
-      <i class="fa-brands fa-github"></i>
-    </a>
-  </div>
-</div>
+            <h2>FOLLOW ME</h2>
+            <p>Stay updated by following me on social media!</p>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/noerlyyvonne.idos/" target="_blank" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+
+              <a href="https://www.instagram.com/noerly_cal/" target="_blank" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="https://www.tiktok.com/@choisanhongjoongseonghwa" target="_blank" aria-label="TikTok">
+                <i class="fa-brands fa-tiktok"></i>
+              </a>
+
+              <a href="https://x.com/sanoerlyyy" target="_blank" aria-label="X (Twitter)">
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+
+              <a href="https://github.com/choco-pancake" target="_blank" aria-label="GitHub">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="contact-card">

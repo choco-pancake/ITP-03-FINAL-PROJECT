@@ -1,38 +1,47 @@
 <?php
-    $eventsFile = __DIR__ . '/uploads/new-events.txt';
+    $eventsFile = dirname(__FILE__) . '/uploads/new-events.txt';
 
     function loadNewEvents() {
         global $eventsFile;
 
-        if (!file_exists($eventsFile) || filesize($eventsFile) === 0) return [];
+        if (!file_exists($eventsFile) || filesize($eventsFile) === 0) {
+            return array();
+        }
 
         $content = file_get_contents($eventsFile);
         $blocks = preg_split("/\n={50}\n/", $content);
-        $events = [];
+        $events = array();
 
         foreach ($blocks as $block) {
             $block = trim($block);
 
-            if ($block === '' || strpos($block, '=== NEW STORY ===') === false) continue;
+            if ($block === '' || strpos($block, '=== NEW STORY ===') === false) {
+                continue;
+            }
 
-            $ev = ['title' => '', 'description' => '', 'photo' => null, 'date' => ''];
+            $ev = array('title' => '', 'description' => '', 'photo' => null, 'date' => '');
             $lines = array_filter(array_map('trim', explode("\n", $block)));
             $inDesc = false;
 
             foreach ($lines as $line) {
-                if (strpos($line, '=== NEW STORY ===') === 0) continue;
-                elseif (strpos($line, 'Title:') === 0) $ev['title'] = substr($line, 6);
-
+                if (strpos($line, '=== NEW STORY ===') === 0) {
+                    continue;
+                }
+                elseif (strpos($line, 'Title:') === 0) {
+                    $ev['title'] = substr($line, 6);
+                }
                 elseif (strpos($line, 'Description:') === 0) {
                     $inDesc = true;
                     $ev['description'] = trim(substr($line, 12));
-                } elseif (strpos($line, 'Photo:') === 0) {
+                } 
+                elseif (strpos($line, 'Photo:') === 0) {
                     $inDesc = false;
 
                     if (preg_match('/saved as (.+)\)/', $line, $m)) {
                         $ev['photo'] = 'uploads/' . trim($m[1]);
                     }
-                } elseif ($inDesc && $line !== '') {
+                } 
+                elseif ($inDesc && $line !== '') {
                     $ev['description'] .= "\n" . $line;
                 }
             }

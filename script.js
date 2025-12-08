@@ -895,11 +895,6 @@ if (overlayPort) {
     updateProject();
   });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next.click();
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prev.click();
-  });
-
   document.querySelectorAll('.sidebar-link').forEach((link, i) => {
     link.addEventListener('click', e => {
       e.preventDefault();

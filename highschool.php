@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Highschool | My Story</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 
 <body id="story-body">
@@ -74,7 +73,7 @@
 
       <section class="hero-section">
         <div class="hero-image" id="sags">
-          <img src="images/palaris.jpg"alt="My Family">
+          <img src="images/palaris.jpg"alt="Highschool">
         </div>
 
         <div class="overlay-card" id="overlay12">

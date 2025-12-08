@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Elementary | My Story</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 
 <body id="story-body">
@@ -71,12 +70,12 @@
 
       <section class="hero-section">
         <div class="hero-image" id="egca">
-          <img src="images/egca.jpg"alt="My Family">
+          <img src="images/egca.jpg"alt="Elementary">
         </div>
 
         <div class="overlay-card" id="overlay5">
-          <h2>ELEMENTARY LIFE AT EGCA</h2>
-          <p>I started school at EGCA (Eastern Gate Christian Academy) for the whole span of my elementary days. I graduated in 2016 as the valedictorian of our class.</p>
+          <h2></h2>
+          <p></p>
           <div class="btn-group">
             <button class="prev-btn">Previous</button>
             <button class="next-btn">Next</button>
